@@ -6,6 +6,10 @@ import { environment } from 'src/environments/environment';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user/user';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+
+const userToken = 'userToken';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +17,15 @@ import { User } from '../models/user/user';
 export class AuthentificationService {
   token: Token;
 
-  constructor(private http: HttpClient) {
-    const tokenString = localStorage.getItem('userToken');
+  constructor(private http: HttpClient, private toast: ToastrService, private router: Router) {
+    const tokenString = localStorage.getItem(userToken);
     if (tokenString) {
       this.token = JSON.parse(tokenString);
+      console.log(this.token);
+      if (this.isTokenExpired()) {
+        this.token = null;
+        localStorage.removeItem(userToken);
+      }
     }
   }
 
@@ -25,7 +34,7 @@ export class AuthentificationService {
   }
 
   setToken(token: Token): void {
-    localStorage.setItem('userToken', JSON.stringify(token));
+    localStorage.setItem(userToken, JSON.stringify(token));
     this.token = token;
   }
 
@@ -33,8 +42,7 @@ export class AuthentificationService {
     if (!this.token) {
       return true;
     }
-
-    const date = this.getTokenExpirationDate();
+    const date = this.getTokenExpirationDate(this.token.accessToken);
     return !date || date.valueOf() <= new Date().valueOf();
   }
 
@@ -45,15 +53,20 @@ export class AuthentificationService {
         password
       })
       .pipe(
-        tap(this.handleSuccess),
+        tap(token => this.handleSuccess(token)),
         map(token => token.user),
-        catchError(this.handleError)
+        catchError(error => this.handleError(error))
       );
   }
 
-  private getTokenExpirationDate(): Date {
+  logout() {
+    this.removeToken();
+    this.router.navigate(['login']);
+  }
+
+  private getTokenExpirationDate(token: string): Date {
     try {
-      const decoded: any = jwt_decode(this.token.accessToken);
+      const decoded: any = jwt_decode(token);
       if (decoded.exp == null) {
         return null;
       }
@@ -64,17 +77,28 @@ export class AuthentificationService {
     }
   }
 
+  private removeToken(): void {
+    localStorage.removeItem(userToken);
+    this.token = null;
+  }
+
   private handleSuccess(token: Token): void {
     console.log('Fetched token: ', token);
+    this.toast.success('Successfully signed in', 'Sign In');
     this.setToken(token);
+    this.router.navigate(['']);
   }
 
   private handleError(httpResponse: HttpErrorResponse): Observable<any> {
     console.error('Error on login:', httpResponse);
-    const { errors } = httpResponse.error;
+    const { errors, message } = httpResponse.error;
+    if (message) {
+      this.toast.error(message, 'Sign in');
+    }
     for (const field in errors) {
       if (field in errors) {
         for (const error of errors[field]) {
+          this.toast.error(error, field);
           console.error(field, error);
         }
       }

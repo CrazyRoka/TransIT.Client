@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthentificationService } from '../../services/authentification.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   collapsed = true;
 
+  constructor(private authService: AuthentificationService) {}
+
   get isLoggedIn() {
-    return false;
+    return !this.authService.isTokenExpired();
   }
 
   get isLoggedOut() {
-    return true;
+    return this.authService.isTokenExpired();
   }
 
   get isCollapsed() {
@@ -24,7 +27,7 @@ export class NavbarComponent implements OnInit {
     this.collapsed = !this.collapsed;
   }
 
-  constructor() {}
-
-  ngOnInit() {}
+  logout() {
+    this.authService.logout();
+  }
 }
