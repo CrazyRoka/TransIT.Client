@@ -1,4 +1,4 @@
-export class Role {
+export class MulfunctionGroup {
   id: number;
   name: string;
 }

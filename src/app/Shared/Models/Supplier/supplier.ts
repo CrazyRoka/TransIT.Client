@@ -1,4 +1,4 @@
-export class Role {
+export class Supplier {
   id: number;
   name: string;
 }

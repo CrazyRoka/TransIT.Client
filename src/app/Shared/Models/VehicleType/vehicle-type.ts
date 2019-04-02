@@ -1,4 +1,4 @@
-export class Role {
+export class VehicleType {
   id: number;
   name: string;
 }
