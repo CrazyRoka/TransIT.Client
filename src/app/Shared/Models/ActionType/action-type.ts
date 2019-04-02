@@ -1,4 +1,4 @@
-export class ActionType {
+export class actionType {
   id: number;
   name: string;
 }
