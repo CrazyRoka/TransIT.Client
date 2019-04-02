@@ -6,18 +6,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  collapsed = true;
 
-  public get IsLoggedIn() {
+  get isLoggedIn() {
     return false;
   }
 
-  public get IsLoggedOut() {
+  get isLoggedOut() {
     return true;
   }
 
-  constructor() { }
-
-  ngOnInit() {
+  get isCollapsed() {
+    return this.collapsed;
   }
 
+  toggleCollapsed() {
+    this.collapsed = !this.collapsed;
+  }
+
+  constructor() {}
+
+  ngOnInit() {}
 }
