@@ -3,8 +3,8 @@ import * as jwt_decode from 'jwt-decode';
 import { Token } from '../models/token/token';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { map, tap, catchError, finalize } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { map, tap, catchError, finalize, switchMap } from 'rxjs/operators';
+import { Observable, throwError, empty } from 'rxjs';
 import { User } from '../models/user/user';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ const userToken = 'userToken';
   providedIn: 'root'
 })
 export class AuthentificationService {
-  token: Token;
+  private token: Token;
 
   constructor(private http: HttpClient, private toast: ToastrService, private router: Router, private spinner: NgxSpinnerService) {
     const tokenString = localStorage.getItem(userToken);
@@ -32,11 +32,6 @@ export class AuthentificationService {
 
   getToken(): Token {
     return this.token;
-  }
-
-  setToken(token: Token): void {
-    localStorage.setItem(userToken, JSON.stringify(token));
-    this.token = token;
   }
 
   isTokenExpired(): boolean {
@@ -62,13 +57,38 @@ export class AuthentificationService {
       );
   }
 
-  logout() {
+  logout(): void {
     this.removeToken();
     this.toast.success('Successfully logged out', 'Logout');
     this.router.navigate(['login']);
   }
 
-  private hideSpinner(timer: NodeJS.Timer) {
+  refreshAccessToken(): Observable<User> {
+    const { refreshToken, accessToken } = this.getToken();
+    return this.http
+      .post<Token>(`${environment.apiUrl}/refreshToken`, {
+        accessToken,
+        refreshToken
+      })
+      .pipe(
+        tap(token => {
+          console.log('Fetched refresh token', token);
+          this.setToken(token);
+        }),
+        map(token => token.user),
+        catchError((error: HttpErrorResponse) => {
+          this.setToken(null);
+          return throwError(error);
+        })
+      );
+  }
+
+  private setToken(token: Token): void {
+    localStorage.setItem(userToken, JSON.stringify(token));
+    this.token = token;
+  }
+
+  private hideSpinner(timer) {
     this.spinner.hide();
     clearTimeout(timer);
   }
