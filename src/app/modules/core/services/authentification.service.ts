@@ -3,11 +3,12 @@ import * as jwt_decode from 'jwt-decode';
 import { Token } from '../models/token/token';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { map, tap, catchError } from 'rxjs/operators';
+import { map, tap, catchError, finalize } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user/user';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 const userToken = 'userToken';
 
@@ -17,7 +18,7 @@ const userToken = 'userToken';
 export class AuthentificationService {
   token: Token;
 
-  constructor(private http: HttpClient, private toast: ToastrService, private router: Router) {
+  constructor(private http: HttpClient, private toast: ToastrService, private router: Router, private spinner: NgxSpinnerService) {
     const tokenString = localStorage.getItem(userToken);
     if (tokenString) {
       this.token = JSON.parse(tokenString);
@@ -47,6 +48,7 @@ export class AuthentificationService {
   }
 
   login(login: string, password: string): Observable<User> {
+    const timer = setTimeout(() => this.spinner.show(), 50);
     return this.http
       .post<Token>(`${environment.apiUrl}/login`, {
         login,
@@ -55,13 +57,20 @@ export class AuthentificationService {
       .pipe(
         tap(token => this.handleSuccess(token)),
         map(token => token.user),
-        catchError(error => this.handleError(error))
+        catchError(error => this.handleError(error)),
+        finalize(() => this.hideSpinner(timer))
       );
   }
 
   logout() {
     this.removeToken();
+    this.toast.success('Successfully logged out', 'Logout');
     this.router.navigate(['login']);
+  }
+
+  private hideSpinner(timer: NodeJS.Timer) {
+    this.spinner.hide();
+    clearTimeout(timer);
   }
 
   private getTokenExpirationDate(token: string): Date {

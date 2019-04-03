@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +17,8 @@ import { CoreModule } from './modules/core/core.module';
     CoreModule,
     BrowserAnimationsModule,
     NgBootstrapFormValidationModule.forRoot(),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
