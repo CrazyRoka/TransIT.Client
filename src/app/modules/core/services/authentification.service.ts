@@ -59,7 +59,6 @@ export class AuthentificationService {
 
   logout(): void {
     this.removeToken();
-    this.toast.success('Successfully logged out', 'Logout');
     this.router.navigate(['login']);
   }
 
@@ -113,7 +112,6 @@ export class AuthentificationService {
 
   private handleSuccess(token: Token): void {
     console.log('Fetched token: ', token);
-    this.toast.success('Successfully signed in', 'Sign In');
     this.setToken(token);
     this.router.navigate(['']);
   }

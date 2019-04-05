@@ -18,10 +18,10 @@
     </div>
     <div class="navbar-nav">
       <ng-container *ngIf="isLoggedOut">
-        <a class="nav-item nav-link" routerLink="login">Login</a>
+        <a class="nav-item nav-link" routerLink="login">Вхід</a>
       </ng-container>
       <ng-container *ngIf="isLoggedIn">
-        <a class="nav-item nav-link" routerLink="logout" (click)="logout()">Logout</a>
+        <a class="nav-item nav-link" routerLink="logout" (click)="logout()">Вихід</a>
       </ng-container>
     </div>
   </div>
