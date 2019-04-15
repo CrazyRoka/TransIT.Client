@@ -4,6 +4,8 @@ import { UserService } from '../../services/user.service';
 import { RoleService } from '../../services/role.service';
 import { Role } from '../../models/role/role';
 
+declare var $;
+
 const DEFAULT_USER: User = Object.freeze(
   {
     id: 0,
@@ -14,7 +16,7 @@ const DEFAULT_USER: User = Object.freeze(
     email: '',
     role: ''
   }
-)
+);
 
 @Component({
   selector: 'app-users',

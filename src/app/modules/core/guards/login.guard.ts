@@ -17,5 +17,10 @@ export class LoginGuard implements CanActivate {
       this.router.navigate(['admin']);
       return false;
     }
+
+    if (this.service.getRole() === 'ENGINEER') {
+      this.router.navigate(['engineer']);
+      return false;
+    }
   }
 }

@@ -8,4 +8,4 @@ import { IssuesComponent } from './components/issues/issues.component';
     CommonModule
   ]
 })
-export class ServiceManagerModule { }
+export class EngineerModule { }
