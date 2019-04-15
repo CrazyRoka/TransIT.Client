@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ErrorMessage } from 'ng-bootstrap-form-validation';
+import { VehicleService } from '../../services/vehicle.service';
+import { Vehicle } from '../../models/vehicle';
 
 @Component({
   selector: 'app-create-issue',
@@ -10,9 +12,9 @@ import { ErrorMessage } from 'ng-bootstrap-form-validation';
 export class CreateIssueComponent implements OnInit {
   private issueForm: FormGroup;
 
-  vehicles: string[] = ['Nissan', 'Audi'];
+  vehicles: Vehicle[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private vehicleService: VehicleService) {}
 
   ngOnInit() {
     this.issueForm = this.fb.group({
@@ -22,6 +24,8 @@ export class CreateIssueComponent implements OnInit {
       malfunction: ['', Validators.required],
       summary: ['', Validators.required]
     });
+
+    this.vehicleService.getEntities().subscribe(data => (this.vehicles = data));
   }
 
   onSubmit() {
@@ -32,5 +36,11 @@ export class CreateIssueComponent implements OnInit {
 
   clickSubmit(button: HTMLButtonElement) {
     button.click();
+  }
+
+  get vehiclesNames(): string[] {
+    return this.vehicles.map(
+      vehicle => `${vehicle.brand} ${vehicle.model} ${vehicle.vincode || ''} ${vehicle.inventoryId || ''} ${vehicle.regNum || ''}`
+    );
   }
 }
