@@ -17,6 +17,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {EngineerRoutingModule} from './engineer-routing.module';
 import { EngineerComponent } from './components/engineer/engineer.component';
 import { EngineerNavbarComponent } from './components/engineer-navbar/engineer-navbar.component';
+import {StateService} from './services/state.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { EngineerNavbarComponent } from './components/engineer-navbar/engineer-n
     MatTabsModule
   ],
   providers: [
-    IssueService
+    IssueService,
+    StateService
   ]
 })
 export class EngineerModule { }
