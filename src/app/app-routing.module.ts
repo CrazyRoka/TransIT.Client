@@ -13,7 +13,11 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: './modules/admin/admin.module#AdminModule'
-   // canActivate: [AdminGuard]
+    // canActivate: [AdminGuard]
+  },
+  {
+    path: 'customer',
+    loadChildren: './modules/register/register.module#RegisterModule'
   },
   {
     path: '**',
