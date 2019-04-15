@@ -16,9 +16,14 @@ import {
 import {HttpClientModule} from '@angular/common/http';
 import {EngineerRoutingModule} from './engineer-routing.module';
 import { EngineerComponent } from './components/engineer/engineer.component';
+import { EngineerNavbarComponent } from './components/engineer-navbar/engineer-navbar.component';
 
 @NgModule({
-  declarations: [IssuesComponent, EngineerComponent],
+  declarations: [
+    EngineerComponent,
+    IssuesComponent,
+    EngineerNavbarComponent
+  ],
   imports: [
     CommonModule,
     CoreModule,
