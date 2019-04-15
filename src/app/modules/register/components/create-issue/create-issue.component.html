@@ -26,23 +26,21 @@
             <label>Група несправності</label>
             <select class="form-control" formControlName="malfunctionGroup">
               <option value="" selected>-</option>
-              <option *ngFor="let malfunctionGroup of malfunctionGroups" [value]="malfunctionGroup">{{ malfunctionGroup }}</option>
+              <option *ngFor="let malfunctionGroup of groupsNames" [value]="malfunctionGroup">{{ malfunctionGroup }}</option>
             </select>
           </div>
           <div class="form-group">
             <label>Підгрупа несправності</label>
             <select class="form-control" formControlName="malfunctionSubgroup">
               <option value="" selected>-</option>
-              <option *ngFor="let malfunctionSubgroup of malfunctionSubgroups" [value]="malfunctionSubgroup">{{
-                malfunctionSubgroup
-              }}</option>
+              <option *ngFor="let malfunctionSubgroup of subgroupsNames" [value]="malfunctionSubgroup">{{ malfunctionSubgroup }}</option>
             </select>
           </div>
           <div class="form-group">
             <label>Несправність</label>
             <select class="form-control" formControlName="malfunction">
               <option hidden value="" disabled selected>-</option>
-              <option *ngFor="let malfunction of malfunctions" [value]="malfunction">{{ malfunction }}</option>
+              <option *ngFor="let malfunction of malfunctionsNames" [value]="malfunction">{{ malfunction }}</option>
             </select>
           </div>
           <div class="form-group">
