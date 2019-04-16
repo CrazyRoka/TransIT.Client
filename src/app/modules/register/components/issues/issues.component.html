@@ -14,34 +14,37 @@
         <div class="form-group">
           <label>Транспорт</label>
           <select class="form-control" disabled>
-            <option hidden disabled selected>-</option>
+            <option hidden disabled selected>{{ selectedVehicle }}</option>
           </select>
         </div>
         <div class="form-group">
           <label>Група несправності</label>
           <select class="form-control" disabled>
-            <option hidden disabled selected>-</option>
+            <option hidden disabled selected>{{ selectedGroup }}</option>
           </select>
         </div>
         <div class="form-group">
           <label>Підгрупа несправності</label>
           <select class="form-control" disabled>
-            <option hidden disabled selected>-</option>
+            <option hidden disabled selected>{{ selectedSubgroup }}</option>
           </select>
         </div>
         <div class="form-group">
           <label>Несправність</label>
           <select class="form-control" disabled>
-            <option hidden disabled selected>-</option>
+            <option hidden disabled selected>{{ selectedMalfunction }}</option>
           </select>
         </div>
         <div class="form-group">
           <label>Опис несправності</label>
-          <textarea class="form-control" disabled></textarea>
+          <textarea class="form-control" disabled>{{ selectedSummary }}</textarea>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+        <button type="button" class="btn btn-danger" (click)="deleteIssue()" [disabled]="!canDeleteIssue">
+          Видалити
+        </button>
       </div>
     </div>
   </div>

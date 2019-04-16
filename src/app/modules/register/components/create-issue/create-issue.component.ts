@@ -57,13 +57,17 @@ export class CreateIssueComponent implements OnInit {
     }
 
     const form = this.issueForm.value;
+    const malfunction = this.malfunctions.find(m => m.name === form.malfunction);
+    const vehicle = this.vehicles.find(v => this.vehicleName(v) === form.vehicle);
+    const summary = form.summary as string;
+
     const issue: Issue = {
-      summary: form.summary as string,
-      malfunction: { id: this.malfunctions.find(m => m.name === form.malfunction).id },
-      vehicle: { id: this.vehicles[this.vehiclesNames.findIndex(v => v === form.vehicle)].id }
+      summary,
+      malfunction: { id: malfunction.id },
+      vehicle: { id: vehicle.id }
     };
 
-    this.issueService.addEntity(issue).subscribe(data => this.createdIssue.next(data));
+    this.issueService.addEntity(issue).subscribe(data => this.createdIssue.next({ ...data, summary, vehicle, malfunction }));
 
     this.issueForm.reset();
     const modalWindow: any = $('#createIssue');
@@ -74,10 +78,12 @@ export class CreateIssueComponent implements OnInit {
     button.click();
   }
 
+  vehicleName(vehicle: Vehicle): string {
+    return `${vehicle.brand} ${vehicle.model} ${vehicle.vincode || ''} ${vehicle.inventoryId || ''} ${vehicle.regNum || ''}`;
+  }
+
   get vehiclesNames(): string[] {
-    return this.vehicles.map(
-      vehicle => `${vehicle.brand} ${vehicle.model} ${vehicle.vincode || ''} ${vehicle.inventoryId || ''} ${vehicle.regNum || ''}`
-    );
+    return this.vehicles.map(vehicle => this.vehicleName(vehicle));
   }
 
   get groupsNames(): string[] {
@@ -88,7 +94,7 @@ export class CreateIssueComponent implements OnInit {
     const subgroups = this.malfunctionSubgroups
       .filter(val => {
         const group = this.issueForm.value.malfunctionGroup;
-        if (group === '') {
+        if (!group) {
           return true;
         }
         return val.malfunctionGroup.name === group;
@@ -104,7 +110,7 @@ export class CreateIssueComponent implements OnInit {
     const malfunctions = this.malfunctions
       .filter(val => {
         const subgroup = this.issueForm.value.malfunctionSubgroup;
-        if (subgroup === '') {
+        if (!subgroup) {
           const subgroups = this.subgroupsNames;
           return subgroups.findIndex(v => v === val.malfunctionSubgroup.name) !== -1;
         } else {

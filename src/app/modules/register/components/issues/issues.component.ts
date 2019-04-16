@@ -61,6 +61,52 @@ export class IssuesComponent implements OnInit {
       .api()
       .rows.add(view)
       .draw();
+
+    $('button[id^="details-issue"]').on('click', event => {
+      const idTokens = event.currentTarget.id.split('-');
+      const id = parseInt(idTokens[idTokens.length - 1], 10);
+      this.selectedIssue = this.issues.find(i => i.id === id);
+    });
+  }
+
+  private removeTableData(issue: Issue) {
+    const row: any = $('#issues')
+      .DataTable()
+      .row($(`button[id^="details-issue-${issue.id}"]`).parents('tr'));
+    row.remove().draw(false);
+  }
+
+  deleteIssue() {
+    this.issueService.deleteEntity(this.selectedIssue.id).subscribe(_ => {
+      this.issues = this.issues.filter(i => i.id !== this.selectedIssue.id);
+      this.removeTableData(this.selectedIssue);
+    });
+    const modalWindow: any = $('#editModal');
+    modalWindow.modal('hide');
+  }
+
+  get selectedVehicle(): string {
+    return this.selectedIssue && this.vehicleName(this.selectedIssue.vehicle);
+  }
+
+  get selectedGroup(): string {
+    return this.selectedIssue && this.selectedIssue.malfunction.malfunctionSubgroup.malfunctionGroup.name;
+  }
+
+  get selectedSubgroup(): string {
+    return this.selectedIssue && this.selectedIssue.malfunction.malfunctionSubgroup.name;
+  }
+
+  get selectedMalfunction(): string {
+    return this.selectedIssue && this.selectedIssue.malfunction.name;
+  }
+
+  get selectedSummary(): string {
+    return this.selectedIssue && this.selectedIssue.summary;
+  }
+
+  get canDeleteIssue() {
+    return this.selectedIssue && this.selectedIssue.state.name.toLowerCase() === 'new';
   }
 
   private vehicleName(vehicle: Vehicle): string {
