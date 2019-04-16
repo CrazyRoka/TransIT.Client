@@ -6,6 +6,8 @@ import { Vehicle } from '../../models/vehicle';
 import { MalfunctionSubgroup } from '../../models/malfunction-subgroup';
 import { Malfunction } from '../../models/malfunction';
 import { MalfunctionGroup } from '../../models/malfunction-group';
+import { Issue } from '../../models/issue';
+import { IssueService } from '../../services/issue.service';
 
 @Component({
   selector: 'app-create-issue',
@@ -20,7 +22,12 @@ export class CreateIssueComponent implements OnInit {
   malfunctionSubgroups: MalfunctionSubgroup[] = [];
   malfunctions: Malfunction[] = [];
 
-  constructor(private fb: FormBuilder, private vehicleService: VehicleService, private malfunctionService: MalfunctionService) {}
+  constructor(
+    private fb: FormBuilder,
+    private vehicleService: VehicleService,
+    private malfunctionService: MalfunctionService,
+    private issueService: IssueService
+  ) {}
 
   ngOnInit() {
     this.issueForm = this.fb.group({
@@ -46,6 +53,15 @@ export class CreateIssueComponent implements OnInit {
     if (this.issueForm.invalid) {
       return;
     }
+
+    const form = this.issueForm.value;
+    const issue: Issue = {
+      summary: form.summary as string,
+      malfunction: { id: this.malfunctions.find(m => m.name === form.malfunction).id },
+      vehicle: { id: this.vehicles[this.vehiclesNames.findIndex(v => v === form.vehicle)].id }
+    };
+
+    this.issueService.addEntity(issue).subscribe(data => console.log(data));
   }
 
   clickSubmit(button: HTMLButtonElement) {
