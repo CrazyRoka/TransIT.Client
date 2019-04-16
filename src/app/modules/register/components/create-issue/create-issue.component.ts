@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VehicleService } from '../../services/vehicle.service';
 import { MalfunctionService } from '../../services/malfunction.service';
@@ -16,6 +16,8 @@ import { IssueService } from '../../services/issue.service';
 })
 export class CreateIssueComponent implements OnInit {
   private issueForm: FormGroup;
+
+  @Output() createdIssue = new EventEmitter<Issue>();
 
   vehicles: Vehicle[] = [];
   malfunctionGroups: MalfunctionGroup[] = [];
@@ -61,7 +63,11 @@ export class CreateIssueComponent implements OnInit {
       vehicle: { id: this.vehicles[this.vehiclesNames.findIndex(v => v === form.vehicle)].id }
     };
 
-    this.issueService.addEntity(issue).subscribe(data => console.log(data));
+    this.issueService.addEntity(issue).subscribe(data => this.createdIssue.next(data));
+
+    this.issueForm.reset();
+    const modalWindow: any = $('#createIssue');
+    modalWindow.modal('hide');
   }
 
   clickSubmit(button: HTMLButtonElement) {

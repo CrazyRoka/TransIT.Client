@@ -1,4 +1,8 @@
-select.is-valid,
-select.is-invalid {
+.is-valid,
+.is-invalid {
   background-position: center right 1rem;
+}
+
+.margin-top-bottom {
+  margin: 1rem 0;
 }

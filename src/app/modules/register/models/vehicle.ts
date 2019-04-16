@@ -1,7 +1,7 @@
 import { VehicleType } from './vehicle-type';
+import { TEntity } from '../../core/models/entity/entity';
 
-export class Vehicle {
-  id?: number;
+export class Vehicle extends TEntity {
   vehicleType?: VehicleType;
   vincode?: string;
   inventoryId?: string;
