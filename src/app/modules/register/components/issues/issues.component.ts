@@ -9,7 +9,7 @@ import { Vehicle } from '../../models/vehicle';
   styleUrls: ['./issues.component.scss']
 })
 export class IssuesComponent implements OnInit {
-  issues: Issue[];
+  issues: Issue[] = [];
   selectedIssue: Issue;
 
   private readonly tableConfig: DataTables.Settings = {
@@ -47,7 +47,7 @@ export class IssuesComponent implements OnInit {
   }
 
   private addTableData(issues: Issue[]) {
-    this.issues = issues;
+    this.issues = [...this.issues, ...issues];
     const view = issues.map(i => [
       this.vehicleName(i.vehicle),
       i.state.name,
@@ -62,11 +62,13 @@ export class IssuesComponent implements OnInit {
       .rows.add(view)
       .draw();
 
-    $('button[id^="details-issue"]').on('click', event => {
-      const idTokens = event.currentTarget.id.split('-');
-      const id = parseInt(idTokens[idTokens.length - 1], 10);
-      this.selectedIssue = this.issues.find(i => i.id === id);
-    });
+    $('button[id^="details-issue"]')
+      .off('click')
+      .on('click', event => {
+        const idTokens = event.currentTarget.id.split('-');
+        const id = parseInt(idTokens[idTokens.length - 1], 10);
+        this.selectedIssue = this.issues.find(i => i.id === id);
+      });
   }
 
   private removeTableData(issue: Issue) {
