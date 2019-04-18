@@ -1,5 +1,9 @@
 <app-create-issue (createdIssue)="addTableData([$event])"></app-create-issue>
-<table id="issues" class="table table-striped table-bordered" style="width:100%"></table>
+<table id="issues" class="table table-striped table-bordered" style="width:100%">
+  <caption class="table-caption">
+    Мої Заявки
+  </caption>
+</table>
 
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="CreateIssue" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
