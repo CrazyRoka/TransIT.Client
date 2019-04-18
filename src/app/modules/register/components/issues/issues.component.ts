@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IssueService } from '../../services/issue.service';
 import { Issue } from '../../models/issue';
 import { Vehicle } from '../../models/vehicle';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-issues',
@@ -37,7 +38,7 @@ export class IssuesComponent implements OnInit {
     responsive: true
   };
 
-  constructor(private issueService: IssueService) {}
+  constructor(private issueService: IssueService, private toast: ToastrService) {}
 
   ngOnInit() {
     $('#issues').DataTable(this.tableConfig);
@@ -80,10 +81,13 @@ export class IssuesComponent implements OnInit {
   }
 
   deleteIssue() {
-    this.issueService.deleteEntity(this.selectedIssue.id).subscribe(_ => {
-      this.issues = this.issues.filter(i => i.id !== this.selectedIssue.id);
-      this.removeTableData(this.selectedIssue);
-    });
+    this.issueService.deleteEntity(this.selectedIssue.id).subscribe(
+      _ => {
+        this.issues = this.issues.filter(i => i.id !== this.selectedIssue.id);
+        this.removeTableData(this.selectedIssue);
+      },
+      _ => this.toast.error('Не вдалось видалити заявку', 'Помилка видалення')
+    );
     const modalWindow: any = $('#editModal');
     modalWindow.modal('hide');
   }
