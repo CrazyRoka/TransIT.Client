@@ -2,7 +2,11 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {IssueService} from '../../services/issue.service';
 import {Issue} from '../../../core/models/issue';
 import {State} from '../../../core/models/state';
-import {StateService} from "../../services/state.service";
+import {StateService} from '../../services/state.service';
+import {IssuelogService} from '../../services/issuelog.service';
+import {IssueLog} from '../../../core/models/issuelog';
+import {ActionTypeService} from '../../services/action-type.service';
+import {ActionType} from '../../../core/models/actionType';
 
 declare const $;
 
@@ -14,13 +18,18 @@ declare const $;
 export class IssuesComponent implements OnInit {
 
   public issue: Issue;
+  public issueLog: IssueLog;
   public stateList: Array<State>;
   public issues: Array<Issue>;
+  public issueLogs: Array<IssueLog>;
+  public actionTypes: Array<ActionType>;
 
   private table: any;
 
   constructor(
     private issueService: IssueService,
+    private issueLogService: IssuelogService,
+    private actionTypeService: ActionTypeService,
     private stateService: StateService,
     private chRef: ChangeDetectorRef
   ) {
@@ -28,6 +37,9 @@ export class IssuesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.actionTypeService.getEntities().subscribe(actions => {
+      this.actionTypes = actions;
+    });
     this.stateService.getEntities().subscribe(states => {
       this.stateList = states;
     });
@@ -35,10 +47,11 @@ export class IssuesComponent implements OnInit {
       this.issues = issues;
       this.chRef.detectChanges();
     });
-    this.table = $('#table').DataTable({
+    this.table = $('#issue-table').DataTable({
+      data: this.issues,
+      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json',
       // processing: true,
       // serverSide: true,
-      data: this.issues,
       // columns: [
       //   { name: 'state', title: 'Стан' },
       //   { name: 'malfunction', title: 'Поломка' },

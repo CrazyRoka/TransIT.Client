@@ -1,47 +1,4 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CreateModal"><i class="fas fa-plus"></i> Створити користувача </button>
-
-<div class="modal fade" id="CreateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Редагувати поломку</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="warranty" class="col-form-label">Гарантія:</label>
-            <input type="number" class="form-control" pattern="[0-9]" id="warranty" placeholder="Введіть гарантію" [(ngModel)]="issue.warranty" [ngModelOptions]="{standalone:true}" #nameRequired="ngModel" />
-          </div>
-          <div class="form-group">
-            <label for="summary" class="col-form-label">Опис:</label>
-            <textarea class="form-control" id="summary" placeholder="Введіть опис" [(ngModel)]="issue.summary" [ngModelOptions]="{standalone:true}" #nameRequired="ngModel"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="col-form-label">Стан:</label>
-            <select name="role" #state='ngModel' [(ngModel)]="issue.state" [ngModelOptions]="{standalone:true}" #nameRequired="ngModel" class="form-control">
-              <option value="0">--Select--</option>
-              <option *ngFor = 'let item of stateList' value="{{item.id}}">{{item.name}}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="deadline" class="col-form-label">Вірогідна дата закінчення ремонту:</label>
-            <input type="date" id="deadline" class="form-control" placeholder="Введіть дату" [(ngModel)]="issue.deadLine" [ngModelOptions]="{standalone:true}" #nameRequired="ngModel" />
-          </div>
-        </form>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-        <button type="button" class="btn btn-primary" (click)="editItem()">Зберегти</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<table #table class="table table-hover" cellspacing="0">
+<table id="issue-table" class="table table-striped table-bordered" >
   <thead>
     <tr>
       <th>Стан</th>
@@ -54,42 +11,16 @@
       <th>Редаговано</th>
     </tr>
   </thead>
-  <tbody>
-  <tr *ngFor="let item of issues">
-    <td>{{ item.state.name }}</td>
-    <td>{{ item.malfunction.name }}</td>
-    <td>{{ item.warranty }}</td>
-    <td>{{ item.vehicle.inventoryId }}</td>
-    <td>{{ item.assignedTo.login }}</td>
-    <td>{{ item.summary }}</td>
-    <td>{{ item.createDate }}</td>
-    <td>{{ item.modDate }}</td>
-    <td>
-      <button mat-button  data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
-    <td>
-      <button mat-button  data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
-    </td>
-    <td>
-      <button mat-button  data-toggle="modal" data-target="#deleteModal" ><i class="fas fa-trash-alt"></i></button>
-    </td>
-  </tr>
+  <tbody *ngFor="let item of issues" >
+    <tr (click)="issue = item">
+      <td>{{ item.state.name }}</td>
+      <td>{{ item.malfunction.name }}</td>
+      <td>{{ item.warranty }}</td>
+      <td>{{ item.vehicle.inventoryId }}</td>
+      <td>{{ item.assignedTo.login }}</td>
+      <td>{{ item.summary }}</td>
+      <td>{{ item.createDate }}</td>
+      <td>{{ item.modDate }}</td>
+    </tr>
   </tbody>
-  <button mat-button  data-toggle="modal" data-target="#deleteModal" ><i class="fas fa-trash-alt"></i></button>
 </table>
-
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Ви дійсно хочете видалити?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-        <button type="button" class="btn btn-primary" (click)="deleteItem(issue.id)">Видалити</button>
-      </div>
-    </div>
-  </div>
-</div>

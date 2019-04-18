@@ -5,45 +5,33 @@ import {IssueService} from './services/issue.service';
 import {CoreModule} from '../core/core.module';
 import {FormsModule} from '@angular/forms';
 import {DataTablesModule} from 'angular-datatables';
-import {
-  MatButtonModule,
-  MatDialogModule,
-  MatFormFieldModule, MatInputModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatTableModule, MatTabsModule
-} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {EngineerRoutingModule} from './engineer-routing.module';
 import { EngineerComponent } from './components/engineer/engineer.component';
-import { EngineerNavbarComponent } from './components/engineer-navbar/engineer-navbar.component';
 import {StateService} from './services/state.service';
+import { IssuelogComponent } from './components/issuelog/issuelog.component';
+import {IssuelogService} from './services/issuelog.service';
+import {ActionTypeService} from './services/action-type.service';
 
 @NgModule({
   declarations: [
     EngineerComponent,
     IssuesComponent,
-    EngineerNavbarComponent
+    IssuelogComponent
   ],
   imports: [
     CommonModule,
     CoreModule,
     EngineerRoutingModule,
     FormsModule,
-    HttpClientModule,
     DataTablesModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatTabsModule
+    HttpClientModule
   ],
   providers: [
     IssueService,
-    StateService
+    IssuelogService,
+    StateService,
+    ActionTypeService
   ]
 })
 export class EngineerModule { }
