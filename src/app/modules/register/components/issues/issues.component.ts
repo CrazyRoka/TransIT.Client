@@ -51,7 +51,7 @@ export class IssuesComponent implements OnInit {
     this.issues = [...this.issues, ...issues];
     const view = issues.map(i => [
       this.vehicleName(i.vehicle),
-      i.state.name,
+      i.state.transName,
       i.malfunction.name,
       i.summary,
       `<button id="details-issue-${i.id}" class="btn" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>`
