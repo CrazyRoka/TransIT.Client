@@ -35,7 +35,7 @@ export class IssuesComponent implements OnInit {
         orderable: false
       }
     ],
-    responsive: true
+    scrollX: true
   };
 
   constructor(private issueService: IssueService, private toast: ToastrService) {}

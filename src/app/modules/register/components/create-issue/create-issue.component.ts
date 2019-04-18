@@ -8,6 +8,7 @@ import { Malfunction } from '../../models/malfunction';
 import { MalfunctionGroup } from '../../models/malfunction-group';
 import { Issue } from '../../models/issue';
 import { IssueService } from '../../services/issue.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-issue',
@@ -28,7 +29,8 @@ export class CreateIssueComponent implements OnInit {
     private fb: FormBuilder,
     private vehicleService: VehicleService,
     private malfunctionService: MalfunctionService,
-    private issueService: IssueService
+    private issueService: IssueService,
+    private toast: ToastrService
   ) {}
 
   ngOnInit() {
@@ -67,7 +69,12 @@ export class CreateIssueComponent implements OnInit {
       vehicle: { id: vehicle.id }
     };
 
-    this.issueService.addEntity(issue).subscribe(data => this.createdIssue.next({ ...data, summary, vehicle, malfunction }));
+    this.issueService
+      .addEntity(issue)
+      .subscribe(
+        data => this.createdIssue.next({ ...data, summary, vehicle, malfunction }),
+        _ => this.toast.error('Не вдалось створити заявку', 'Помилка створення заявки')
+      );
 
     this.issueForm.reset();
     const modalWindow: any = $('#createIssue');
