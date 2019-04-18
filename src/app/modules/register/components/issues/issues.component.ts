@@ -33,7 +33,8 @@ export class IssuesComponent implements OnInit {
         title: '',
         orderable: false
       }
-    ]
+    ],
+    responsive: true
   };
 
   constructor(private issueService: IssueService) {}
