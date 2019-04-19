@@ -26,14 +26,11 @@ export class VehiclesComponent implements OnInit {
 
   ngOnInit() {
     this.serviceVehicleType.getEntities().subscribe(type => (this.vehicleTypeList = type));
-    this.serviceVehicle.getEntities().subscribe(vehicles => (this.vehicles = vehicles));
-
     this.serviceVehicle.getEntities().subscribe(vehicles => {
       this.vehicles = vehicles;
       this.chRef.detectChanges();
       const table: any = $('table');
       this.datatable = table.DataTable();
     });
-
   }
 }
