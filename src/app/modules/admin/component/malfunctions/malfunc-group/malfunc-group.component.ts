@@ -25,7 +25,8 @@ export class MalfuncGroupComponent implements OnInit {
         { "data": "id" },
         { "data": "name" },
         { "data": "position" },
-      ]
+      ],
+      scrollX: true
     });
   }
 
