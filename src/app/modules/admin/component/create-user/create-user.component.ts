@@ -1,61 +1,55 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/user/user';
 import { Role } from '../../models/role/role';
 import { RoleService } from '../../services/role.service';
-
-export interface DialogData {
-  user: User;
-  title: string;
-  buttonName: string;
-  createBool: boolean;
-}
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss']
 })
-
 export class CreateUserComponent implements OnInit {
-  formData: User;
-  roleList: Role[];
-  createBool: boolean;
-  constructor(private service: RoleService,
-              public dialogRef: MatDialogRef<CreateUserComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-    if (data.user == null) {
-      this.data.user = {
-        email: '', firstName: '', lastName: '', login: '', phoneNumber: 0, role: '',  id: 0 };
-      this.createBool = false;
-    } else {
-      this.createBool = true;
-    }
-  }
+  @ViewChild('close') closeDiv: ElementRef;
+  @Output() createUser = new EventEmitter<User>();
+  userForm: FormGroup;
+  roleList: Role[] = [];
+
+  constructor(private serviceRole: RoleService, private serviceUser: UserService, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.service.getEntities().subscribe(data => (this.roleList = data));
-    this.formData = {
-      id: 0,
-      firstName: '',
+    this.userForm = this.formBuilder.group({
       lastName: '',
-      email: '',
-      phoneNumber: 0,
-      login: '',
-      role: ''
-    };
+      firstName: '',
+      phoneNumber: '',
+      login: ['', Validators.required],
+      password: ['', Validators.required],
+      email: ['', Validators.email],
+      role: ['', Validators.required]
+    });
+    this.serviceRole.getEntities().subscribe(data => (this.roleList = data));
   }
-
-  // close  DialogComponent CreateUser
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  CreateEdit() {
-    if (this.createBool) {
-      // create user
-    } else {
-      // create user
+  clickSubmit() {
+    if (this.userForm.invalid) {
+      return;
     }
+    const form = this.userForm.value;
+    const user: User = {
+      id: 0,
+      firstName: form.firstName as string,
+      lastName: form.lastName as string,
+      phoneNumber: form.phoneNumber as number,
+      login: form.login as string,
+      email: form.email as string,
+      password: form.password as string,
+      role: this.roleList[this.roleName.findIndex(r => r === form.role)]
+    };
+    this.serviceUser.addEntity(user).subscribe(_ => this.createUser.next(user));
+    this.closeDiv.nativeElement.click();
+  }
+
+  get roleName(): string[] {
+    return this.roleList.map(r => r.name);
   }
 }
