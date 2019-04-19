@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Hero } from './hero';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import { MalfuncGroup } from '../../../models/malfuncGroup/malfunc-group';
+import { MalfuncGroupService } from '../../../services/malfunc-group.service';
 
 @Component({
   selector: 'app-malfunc-group',
@@ -7,27 +8,31 @@ import { Hero } from './hero';
   styleUrls: ['./malfunc-group.component.scss']
 })
 export class MalfuncGroupComponent implements OnInit {
-  heroes = [
-    new Hero(1, 'Windstorm','Asap'),
-    new Hero(13, 'Bombasto','Arap'),
-    new Hero(15, 'Magneta','Arack'),
-    new Hero(20, 'Tornado','Atar')
-  ];
-  constructor() { }
+  malfuncGroups: MalfuncGroup[];
+  dataTable:any;
+   malfuncGroup : MalfuncGroup={
+     name:''
+   };
+   private readonly tableParams = {
+     columnDefs: [
+      {
+         targets: [1, 2],
+         orderable: false
+       }
+     ],
+     language: {
+       url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+     },
+     "scrollX": true
+   };
+  constructor(private malfunGroupService: MalfuncGroupService,private chRef:ChangeDetectorRef) { }
 
   ngOnInit() {
-    $('#group').DataTable({
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
-      },
-      ajax: "../../assets/data.json",
-      columns: [
-        { "data": "id" },
-        { "data": "name" },
-        { "data": "position" },
-      ],
-      scrollX: true
+     this.malfunGroupService.getEntities().subscribe(malfuncGroups=> {
+       this.malfuncGroups=malfuncGroups;
+       this.chRef.detectChanges();
+       const table:any = $('table');
+       this.dataTable = table.DataTable(this.tableParams);
     });
   }
-
 }
