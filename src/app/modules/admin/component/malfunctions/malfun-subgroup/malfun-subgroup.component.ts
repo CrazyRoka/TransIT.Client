@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../../models/user/user';
 
 @Component({
   selector: 'app-malfun-subgroup',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./malfun-subgroup.component.scss']
 })
 export class MalfunSubgroupComponent implements OnInit {
+
+  users: User[] = [];
 
   constructor() { }
 

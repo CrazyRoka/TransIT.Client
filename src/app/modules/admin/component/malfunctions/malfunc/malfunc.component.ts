@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../../models/user/user';
 
 @Component({
   selector: 'app-malfunc',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./malfunc.component.scss']
 })
 export class MalfuncComponent implements OnInit {
+
+  users: User[] = [];
 
   constructor() { }
 
