@@ -23,6 +23,9 @@ import { CoreModule } from '../core/core.module';
 import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
 import { AdminNavbarComponent } from './component/admin-navbar/admin-navbar.component';
+import { CreateGroupMalfuncComponent } from './component/create-group-malfunc/create-group-malfunc.component';
+import { CreateSubgroupMalfuncComponent } from './component/create-subgroup-malfunc/create-subgroup-malfunc.component';
+import { CreateMalfuncComponent } from './component/create-malfunc/create-malfunc.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { AdminNavbarComponent } from './component/admin-navbar/admin-navbar.comp
     MalfuncComponent,
     MalfuncGroupComponent,
     MalfunSubgroupComponent,
-    AdminNavbarComponent
+    AdminNavbarComponent,
+    CreateGroupMalfuncComponent,
+    CreateSubgroupMalfuncComponent,
+    CreateMalfuncComponent
   ],
   exports: [AdminComponent],
   imports: [
