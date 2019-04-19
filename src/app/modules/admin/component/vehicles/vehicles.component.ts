@@ -21,6 +21,19 @@ export class VehiclesComponent implements OnInit {
     vehicleType: undefined,
     vincode: ''
   };
+
+  private readonly tableParams: DataTables.Settings = {
+    columnDefs: [
+      {
+        targets: [6,7],
+        orderable: false
+      }
+    ],
+    language: {
+      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+    }
+  };
+
   constructor(private serviceVehicle: VehicleService, private serviceVehicleType: VehicleTypeService,
     private chRef: ChangeDetectorRef) {}
 
@@ -30,7 +43,7 @@ export class VehiclesComponent implements OnInit {
       this.vehicles = vehicles;
       this.chRef.detectChanges();
       const table: any = $('table');
-      this.datatable = table.DataTable();
+      this.datatable = table.DataTable(this.tableParams);
     });
   }
 
