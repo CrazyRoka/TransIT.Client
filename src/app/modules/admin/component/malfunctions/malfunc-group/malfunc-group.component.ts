@@ -16,7 +16,8 @@ export class MalfuncGroupComponent implements OnInit {
    private readonly tableParams = {
      columnDefs: [
       {
-         targets: [1, 2],
+         targets: [1,2],
+         
          orderable: false
        }
      ],
@@ -33,6 +34,7 @@ export class MalfuncGroupComponent implements OnInit {
        this.chRef.detectChanges();
        const table:any = $('table');
        this.dataTable = table.DataTable(this.tableParams);
+       
     });
   }
 }
