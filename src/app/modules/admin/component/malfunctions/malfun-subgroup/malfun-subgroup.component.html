@@ -1,4 +1,7 @@
-<table id="subgroup" class="display">
+<h1 style="text-align:center">Підгрупа</h1>
+<app-create-malfunc-subgroup></app-create-malfunc-subgroup>
+<p></p>
+<table id="subgroup" class="table table-striped table-bordered" width="100%">
     <thead>
       <tr>
         <th>Підгрупа</th>
@@ -10,7 +13,6 @@
       <tr *ngFor="let userItem of users">
         <td>{{ userItem.firstName }}</td>
         <td>{{ userItem.lastName }}</td>
-        <td>{{ userItem.login }}</td>
         <td>
           <button mat-button  data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
         </td>
