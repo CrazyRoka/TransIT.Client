@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { MalfuncGroup } from '../../../models/malfuncGroup/malfunc-group';
+import { MalfuncGroupService } from '../../../services/malfunc-group.service';
 
 @Component({
   selector: 'app-malfunc-group',
@@ -6,16 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./malfunc-group.component.scss']
 })
 export class MalfuncGroupComponent implements OnInit {
-<<<<<<< HEAD
-  
-  constructor() { }
-
-  ngOnInit() {
-    $('#group').DataTable({
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
-      }      
-=======
   malfuncGroups: MalfuncGroup[];
   dataTable:any;
    malfuncGroup : MalfuncGroup={
@@ -43,7 +35,6 @@ export class MalfuncGroupComponent implements OnInit {
        const table:any = $('table');
        this.dataTable = table.DataTable(this.tableParams);
        
->>>>>>> 3b08fa0c429840b84c4505faa03f391d986ff52b
     });
   }
 }
