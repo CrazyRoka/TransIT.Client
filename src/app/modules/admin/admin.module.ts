@@ -22,8 +22,8 @@ import { UserService } from './services/user.service';
 import { AdminNavbarComponent } from './component/admin-navbar/admin-navbar.component';
 import { CreateGroupMalfuncComponent } from './component/create-group-malfunc/create-group-malfunc.component';
 import { CreateSubgroupMalfuncComponent } from './component/create-subgroup-malfunc/create-subgroup-malfunc.component';
-import { CreateMalfuncComponent } from './component/create-malfunc/create-malfunc.component;
-import { EditUserComponent } from './component/edit-user/edit-user;
+import { CreateMalfuncComponent } from './component/create-malfunc/create-malfunc.component';
+import { EditUserComponent } from './component/edit-user/edit-user';
 
 @NgModule({
   declarations: [
