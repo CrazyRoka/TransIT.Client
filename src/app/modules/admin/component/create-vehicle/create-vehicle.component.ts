@@ -37,6 +37,7 @@ export class CreateVehicleComponent implements OnInit {
     if (this.vehicleForm.invalid) {
       return;
     }
+
     const form = this.vehicleForm.value;
     const vehicle: Vehicle = {
       id: 0,
