@@ -1,6 +1,6 @@
 <h1 style="text-align:center">Група</h1>
 <app-create-malfunc-group (createMalfunctionGroup)="addMalfunctionGroup($event)"></app-create-malfunc-group>
-<!-- <app-edit-malfunc-group [user]="user" (updateUser)="updateUser($event)"></app-edit-malfunc-group> -->
+<app-edit-malfunc-group [malfuncGroup]="malfuncGroup" (updateMalfunctionGroup)="updateMalfunctionGroup($event)"></app-edit-malfunc-group>
 <app-delete-malfunc-group [malfuncGroup]="malfuncGroup" (deleteMalfunctionGroup)="deleteMalfunctionGroup($event)"></app-delete-malfunc-group >
 <p></p>
 <table id="group" class="table table-striped table-bordered" width="100%">

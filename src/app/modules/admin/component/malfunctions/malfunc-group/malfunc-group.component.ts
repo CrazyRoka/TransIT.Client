@@ -10,9 +10,7 @@ import { MalfuncGroupService } from '../../../services/malfunc-group.service';
 export class MalfuncGroupComponent implements OnInit {
   malfuncGroups: MalfuncGroup[];
   dataTable:any;
-   malfuncGroup : MalfuncGroup={
-     name:''
-   };
+   malfuncGroup : MalfuncGroup;
    private readonly tableParams = {
      columnDefs: [
       {
