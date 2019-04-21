@@ -5,6 +5,7 @@ import { catchError, tap, switchMap, first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { Token } from '../models/token/token';
+import { TokenStore } from '../helpers/TokenStore';
 
 @Injectable()
 export class HttpAuthInterceptor implements HttpInterceptor {
@@ -13,7 +14,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
   private refreshTokenSource = new Subject<Token>();
   private refreshToken$ = this.refreshTokenSource.asObservable();
 
-  constructor(private auth: AuthenticationService, private router: Router) {}
+  constructor(private auth: AuthenticationService, private tokenStore: TokenStore, private router: Router) {}
 
   refreshToken(): Observable<Token> {
     if (this.refreshTokenInProgress) {
@@ -50,7 +51,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
   }
 
   private addAuthentificationToken(request: HttpRequest<any>): HttpRequest<any> {
-    const token = this.auth.getToken();
+    const token = this.tokenStore.getToken();
     if (token && token.accessToken) {
       return request.clone({
         setHeaders: {
