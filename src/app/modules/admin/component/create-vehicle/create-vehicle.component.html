@@ -18,7 +18,7 @@
             <label>Тип транспорту:</label>
             <select formControlName="vehicleType" class="form-control">
               <option hidden value="" disabled selected>--Select--</option>
-              <option *ngFor="let item of vehicleTypeList" value="item.name">{{ item.name }}</option>
+              <option *ngFor="let item of vehicleTypeList" [value]="item.name">{{ item.name }}</option>
             </select>
           </div>
 

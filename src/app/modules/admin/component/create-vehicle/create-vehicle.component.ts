@@ -48,7 +48,7 @@ export class CreateVehicleComponent implements OnInit {
       model: form.model as string,
     };
     this.serviceVehicle.addEntity(vehicle).subscribe(_ => this.createVehicle.next(vehicle));
-    
+    this.closeDiv.nativeElement.click();
   }
 
   get vehicleTypeName(): string[] {
