@@ -25,7 +25,7 @@ export class VehiclesComponent implements OnInit {
   private readonly tableParams: DataTables.Settings = {
     columnDefs: [
       {
-        targets: [6,7],
+        targets: [6, 7],
         orderable: false
       }
     ],
@@ -35,7 +35,7 @@ export class VehiclesComponent implements OnInit {
   };
 
   constructor(private serviceVehicle: VehicleService, private serviceVehicleType: VehicleTypeService,
-    private chRef: ChangeDetectorRef) {}
+    private chRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.serviceVehicleType.getEntities().subscribe(type => (this.vehicleTypeList = type));
@@ -47,7 +47,8 @@ export class VehiclesComponent implements OnInit {
     });
   }
 
-  createItem() {}
+  addUser(vehicle: Vehicle) {
+    this.vehicles = [...this.vehicles, vehicle];
+  }
 
-  deleteItem(id: number) {}
 }

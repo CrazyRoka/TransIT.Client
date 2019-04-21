@@ -21,6 +21,7 @@ import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
 import { AdminNavbarComponent } from './component/admin-navbar/admin-navbar.component';
 import { EditUserComponent } from './component/edit-user/edit-user.component';
+import { CreateVehicleComponent } from './component/create-vehicle/create-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { EditUserComponent } from './component/edit-user/edit-user.component';
     MalfuncGroupComponent,
     MalfunSubgroupComponent,
     AdminNavbarComponent,
-    EditUserComponent
+    EditUserComponent,
+    CreateVehicleComponent
   ],
   exports: [AdminComponent],
   imports: [CommonModule, CoreModule, AdminRoutingModule, FormsModule, DataTablesModule, HttpClientModule, ReactiveFormsModule],
