@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { MalfuncGroup } from '../../models/malfuncGroup/malfunc-group';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { MalfuncGroupService } from '../../services/malfunc-group.service';
 
 @Component({
   selector: 'app-create-malfunc-group',
@@ -6,10 +9,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-malfunc-group.component.scss']
 })
 export class CreateMalfuncGroupComponent implements OnInit {
-
-  constructor() { }
+  @ViewChild('close') closeDiv: ElementRef;
+  @Output() createMalfuncGroup = new EventEmitter<MalfuncGroup>();
+  malfuncGroupForm: FormGroup;
+  
+  constructor(private serviceMalfuncGroup: MalfuncGroupService, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    $('#createGroup').on('hidden.bs.modal', function() {
+      $(this).find('form').trigger('reset');
+    });
+    this.malfuncGroupForm = this.formBuilder.group({
+      name: ''
+    });
   }
-
+  
+  clickSubmit() {
+    if (this.malfuncGroupForm.invalid) {
+      return;
+    }
+    const form = this.malfuncGroupForm.value;
+    const malfuncGroup: MalfuncGroup = {
+      id: 0,
+      name: form.name as string
+    };
+    this.serviceMalfuncGroup.addEntity(malfuncGroup).subscribe(_ => this.createMalfuncGroup.next(malfuncGroup));
+    this.closeDiv.nativeElement.click();
+  }
 }
