@@ -36,7 +36,22 @@ export class MalfuncGroupComponent implements OnInit {
        this.dataTable = table.DataTable(this.tableParams);      
     });
   }
+  
   addMalfunctionGroup(malfuncGroup: MalfuncGroup) {
     this.malfuncGroups = [...this.malfuncGroups, malfuncGroup];
+  }
+
+  deleteMalfunctionGroup(malfuncGroup: MalfuncGroup) {
+    this.malfuncGroups = this.malfuncGroups.filter(u => u.id !== malfuncGroup.id);
+  }
+
+  selectMalfunctionGroup(malfuncGroupItem: MalfuncGroup) {
+    this.malfuncGroup = malfuncGroupItem;
+  }
+
+  updateMalfunctionGroup(malfuncGroup: MalfuncGroup) {
+    const index = this.malfuncGroups.findIndex(u => u.id === malfuncGroup.id);
+    this.malfuncGroups[index] = malfuncGroup;
+    this.malfuncGroups = [...this.malfuncGroups];
   }
 }
