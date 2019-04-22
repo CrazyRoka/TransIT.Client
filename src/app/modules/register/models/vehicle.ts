@@ -8,4 +8,13 @@ export class Vehicle extends TEntity<Vehicle> {
   regNum: string;
   brand: string;
   model: string;
+
+  constructor(vehicle: Partial<Vehicle>) {
+    super(vehicle);
+    this.vehicleType = new VehicleType(this.vehicleType);
+  }
+
+  get name(): string {
+    return `${this.brand} ${this.model} ${this.vincode || ''} ${this.inventoryId || ''} ${this.regNum || ''}`;
+  }
 }

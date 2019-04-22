@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { TEntity } from '../models/entity/entity';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { SpinnerService } from './spinner.service';
 
@@ -14,6 +14,7 @@ export class CrudService<T extends TEntity<T>> {
   getEntities(): Observable<T[]> {
     this.spinner.show();
     return this.http.get<T[]>(this.serviceUrl).pipe(
+      map(array => array.map(entity => this.mapEntity(entity))),
       tap(data => this.handleSuccess('fetched data', data)),
       catchError(this.handleError())
     );
@@ -22,6 +23,7 @@ export class CrudService<T extends TEntity<T>> {
   getEntity(id: number): Observable<T> {
     this.spinner.show();
     return this.http.get<T>(`${this.serviceUrl}/${id}`).pipe(
+      map(entity => this.mapEntity(entity)),
       tap(data => this.handleSuccess('fetched data', data)),
       catchError(this.handleError())
     );
@@ -30,6 +32,7 @@ export class CrudService<T extends TEntity<T>> {
   addEntity(entity: T): Observable<T> {
     this.spinner.show();
     return this.http.post<T>(this.serviceUrl, entity).pipe(
+      map(addedEntity => this.mapEntity(addedEntity)),
       tap(data => this.handleSuccess('added entity', data)),
       catchError(this.handleError())
     );
@@ -38,6 +41,7 @@ export class CrudService<T extends TEntity<T>> {
   updateEntity(entity: T): Observable<T> {
     this.spinner.show();
     return this.http.put<T>(`${this.serviceUrl}/${entity.id}`, entity).pipe(
+      map(updatedEntity => this.mapEntity(updatedEntity)),
       tap(data => this.handleSuccess('updated entity', data)),
       catchError(this.handleError())
     );
@@ -62,5 +66,9 @@ export class CrudService<T extends TEntity<T>> {
       this.spinner.hide();
       return throwError(error);
     };
+  }
+
+  protected mapEntity(entity: T): T {
+    return entity;
   }
 }
