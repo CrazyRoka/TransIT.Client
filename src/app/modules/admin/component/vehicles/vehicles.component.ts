@@ -13,16 +13,12 @@ export class VehiclesComponent implements OnInit {
   vehicles: Vehicle[] = [];
   vehicleTypeList: VehicleType[] = [];
   datatable: any;
-  vehicle: Vehicle = {
-    brand: '',
-    inventoryId: '',
-    model: '',
-    regNum: '',
-    vehicleType: undefined,
-    vincode: ''
-  };
-  constructor(private serviceVehicle: VehicleService, private serviceVehicleType: VehicleTypeService,
-    private chRef: ChangeDetectorRef) {}
+  vehicle: Vehicle = new Vehicle({});
+  constructor(
+    private serviceVehicle: VehicleService,
+    private serviceVehicleType: VehicleTypeService,
+    private chRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.serviceVehicleType.getEntities().subscribe(type => (this.vehicleTypeList = type));

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActionType } from '../../models/action/actiontype';
-import { ActionTypeService } from '../../services/actiontype.sevice';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { ActionType } from '../../models/action/action-type';
+import { ActionTypeService } from '../../services/action-type.sevice';
 
 @Component({
   selector: 'app-action',

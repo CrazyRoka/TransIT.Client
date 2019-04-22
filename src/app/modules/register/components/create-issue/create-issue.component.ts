@@ -44,7 +44,11 @@ export class CreateIssueComponent implements OnInit {
 
     this.vehicleService.getEntities().subscribe(data => (this.vehicles = data));
     this.malfunctionService.getEntities().subscribe(malfunctions => {
-      const filterFunct = (val: MalfunctionGroup | MalfunctionSubgroup, index: number, a: MalfunctionGroup[] | MalfunctionSubgroup[]) => {
+      const filterFunct = (
+        val: MalfunctionGroup | MalfunctionSubgroup,
+        index: number,
+        a: MalfunctionGroup[] | MalfunctionSubgroup[]
+      ) => {
         return a.findIndex(v => v.name === val.name) === index;
       };
       this.malfunctions = malfunctions;
@@ -63,11 +67,11 @@ export class CreateIssueComponent implements OnInit {
     const vehicle = this.vehicles.find(v => this.vehicleName(v) === form.vehicle);
     const summary = form.summary as string;
 
-    const issue: Issue = {
+    const issue = new Issue({
       summary,
-      malfunction: { id: malfunction.id },
-      vehicle: { id: vehicle.id }
-    };
+      malfunction: new Malfunction(malfunction),
+      vehicle: new Vehicle(vehicle)
+    });
 
     this.issueService
       .addEntity(issue)
@@ -128,6 +132,7 @@ export class CreateIssueComponent implements OnInit {
   }
 
   private vehicleName(vehicle: Vehicle): string {
-    return `${vehicle.brand} ${vehicle.model} ${vehicle.vincode || ''} ${vehicle.inventoryId || ''} ${vehicle.regNum || ''}`;
+    return `${vehicle.brand} ${vehicle.model} ${vehicle.vincode || ''} ${vehicle.inventoryId || ''} ${vehicle.regNum ||
+      ''}`;
   }
 }

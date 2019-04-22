@@ -3,11 +3,10 @@ import { Observable, throwError } from 'rxjs';
 import { TEntity } from '../models/entity/entity';
 import { tap, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerService } from './spinner.service';
 
 @Injectable()
-export class CrudService<T extends TEntity> {
+export class CrudService<T extends TEntity<T>> {
   protected readonly serviceUrl: string;
 
   constructor(protected http: HttpClient, protected spinner: SpinnerService) {}
