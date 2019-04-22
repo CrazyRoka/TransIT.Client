@@ -13,14 +13,7 @@ export class VehiclesComponent implements OnInit {
   vehicles: Vehicle[] = [];
   vehicleTypeList: VehicleType[] = [];
   datatable: any;
-  vehicle: Vehicle = {
-    brand: '',
-    inventoryId: '',
-    model: '',
-    regNum: '',
-    vehicleType: undefined,
-    vincode: ''
-  };
+  vehicle: Vehicle ;
 
   private readonly tableParams: DataTables.Settings = {
     columnDefs: [
@@ -47,8 +40,21 @@ export class VehiclesComponent implements OnInit {
     });
   }
 
-  addUser(vehicle: Vehicle) {
+  addVehicle(vehicle: Vehicle) {
     this.vehicles = [...this.vehicles, vehicle];
   }
 
+  selectVehicle(vehicleItem: Vehicle) {
+    this.vehicle = vehicleItem;
+  }
+
+  deleteVehicle(vehicle: Vehicle) {
+    this.vehicles = this.vehicles.filter(v => v.id !== vehicle.id);
+  }
+
+  updateVehicle(vehicle: Vehicle) {
+    const index = this.vehicles.findIndex(v => v.id === vehicle.id);
+    this.vehicles[index] = vehicle;
+    this.vehicles = [...this.vehicles];
+  }
 }

@@ -22,6 +22,8 @@ import { UserService } from './services/user.service';
 import { AdminNavbarComponent } from './component/admin-navbar/admin-navbar.component';
 import { EditUserComponent } from './component/edit-user/edit-user.component';
 import { CreateVehicleComponent } from './component/create-vehicle/create-vehicle.component';
+import { EditVehicleComponent } from './component/edit-vehicle/edit-vehicle.component';
+import { DeleteVehicleComponent } from './component/delete-vehicle/delete-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { CreateVehicleComponent } from './component/create-vehicle/create-vehicl
     MalfunSubgroupComponent,
     AdminNavbarComponent,
     EditUserComponent,
-    CreateVehicleComponent
+    CreateVehicleComponent,
+    EditVehicleComponent,
+    DeleteVehicleComponent
   ],
   exports: [AdminComponent],
   imports: [CommonModule, CoreModule, AdminRoutingModule, FormsModule, DataTablesModule, HttpClientModule, ReactiveFormsModule],
