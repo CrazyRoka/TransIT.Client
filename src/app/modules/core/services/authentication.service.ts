@@ -66,8 +66,8 @@ export class AuthenticationService {
         refreshToken
       })
       .pipe(
-        tap(this.handleRefreshTokenSuccess),
-        catchError(this.handleRefreshTokenError)
+        tap(newToken => this.handleRefreshTokenSuccess(newToken)),
+        catchError(error => this.handleRefreshTokenError(error))
       );
   }
 
