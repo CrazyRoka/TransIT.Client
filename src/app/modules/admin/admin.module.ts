@@ -24,6 +24,8 @@ import { EditUserComponent } from './component/edit-user/edit-user.component';
 import { CreateMalfuncGroupComponent } from './component/create-malfunc-group/create-malfunc-group.component';
 import { CreateMalfuncComponent } from './component/create-malfunc/create-malfunc.component';
 import { CreateMalfuncSubgroupComponent } from './component/create-malfunc-subgroup/create-malfunc-subgroup.component';
+import { EditMalfuncSubgroupComponent } from './component/edit-malfunc-subgroup/edit-malfunc-subgroup.component';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { CreateMalfuncSubgroupComponent } from './component/create-malfunc-subgr
     EditUserComponent,
     CreateMalfuncGroupComponent,
     CreateMalfuncComponent,
-    CreateMalfuncSubgroupComponent
+    CreateMalfuncSubgroupComponent,
+    EditMalfuncSubgroupComponent
   ],
   exports: [AdminComponent],
   imports: [CommonModule, CoreModule, AdminRoutingModule, FormsModule, DataTablesModule, HttpClientModule, ReactiveFormsModule],

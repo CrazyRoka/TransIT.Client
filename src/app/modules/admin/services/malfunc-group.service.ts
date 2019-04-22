@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MalfuncGroup } from '../models/malfunc-group/malfunc-group';
+import { MalfuncGroup } from '../models/malfuncGroup/malfunc-group';
 import { CrudService } from '../../core/services/crud.service';
 import { environment } from 'src/environments/environment';
 

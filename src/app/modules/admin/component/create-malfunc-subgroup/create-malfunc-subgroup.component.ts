@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { MalfuncGroup } from '../../models/malfunc-group/malfunc-group';
+import { MalfuncGroup } from '../../models/malfuncGroup/malfunc-group';
 import { MalfuncGroupService } from '../../services/malfunc-group.service';
 import { MalfunSubgroup } from '../../models/malfun-subgroup/malfun-subgroup';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,12 +15,12 @@ export class CreateMalfuncSubgroupComponent implements OnInit {
   @ViewChild('close') closeDiv: ElementRef;
   @Output() createMalfuncSubgroup = new EventEmitter<MalfunSubgroup>();
   subGroupForm: FormGroup;
-  malfuncGroupList: MalfuncGroup[];
+  malfuncGroupList: MalfuncGroup[];  
 
   constructor(private serviceMalfuncGroup: MalfuncGroupService, private serviceMalfuncSubGroup: MalfunSubgroupService, private formBuilder: FormBuilder) { }
 
 
-  ngOnInit() {
+  ngOnInit() {    
     $('#createSubgroup').on('hidden.bs.modal', function () {
       $(this).find('form').trigger('reset');
     });
@@ -44,7 +44,9 @@ export class CreateMalfuncSubgroupComponent implements OnInit {
     };
     console.log("kok");
     console.log(form.name);
-    this.serviceMalfuncSubGroup.addEntity(malfunSubGroup).subscribe(_ => this.createMalfuncSubgroup.next(malfunSubGroup));
+    this.serviceMalfuncSubGroup.addEntity(malfunSubGroup).subscribe(x => {
+      this.createMalfuncSubgroup.next(malfunSubGroup);      
+    });
     this.closeDiv.nativeElement.click();
   }
 
