@@ -41,15 +41,17 @@ export class UsersComponent implements OnInit {
   updateUser(user: User) {
     const index = this.users.findIndex(u => u.id === user.id);
     this.users[index] = user;
-    this.users = [...this.users];
+   // this.dataTable.data().ajax.reload();
   }
 
   addUser(user: User) {
-    this.users = [...this.users, user];
+    this.users.push(user);
+   // this.dataTable.data().ajax.reload();
   }
 
   deleteUser(user: User) {
     this.users = this.users.filter(u => u.id !== user.id);
+    // this.dataTable.data().ajax.reload();
   }
 
   selectUser(userItem: User) {

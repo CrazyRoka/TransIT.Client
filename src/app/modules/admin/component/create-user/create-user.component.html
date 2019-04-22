@@ -60,7 +60,7 @@
             <label>Роль</label>
             <select class="form-control" formControlName="role">
               <option hidden value="" disabled selected>-</option>
-              <option *ngFor="let role of roleList" [value]="">{{role.name}}</option>
+              <option *ngFor="let role of roleList" [value]="">{{role.transName}}</option>
             </select>
           </div>
         </form>

@@ -4,6 +4,8 @@ import { User } from '../../models/user/user';
 import { Role } from '../../models/role/role';
 import { RoleService } from '../../services/role.service';
 import { UserService } from '../../services/user.service';
+import { throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-user',
@@ -50,11 +52,27 @@ export class CreateUserComponent implements OnInit {
       password: form.password as string,
       role: this.roleList[this.roleName.findIndex(r => r === form.role)]
     };
-    this.serviceUser.addEntity(user).subscribe(_ => this.createUser.next(user));
+    console.log(user);
+    console.log('ewfwefw');
+    this.serviceUser.addEntity(user).pipe(
+      catchError(this.handleError)
+    )
+      .subscribe(_ => this.createUser.next(user));
     this.closeDiv.nativeElement.click();
   }
-
+  handleError(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
+  }
   get roleName(): string[] {
-    return this.roleList.map(r => r.name);
+    return this.roleList.map(r => r.transName);
   }
 }

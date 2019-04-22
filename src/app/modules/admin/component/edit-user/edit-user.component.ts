@@ -43,7 +43,6 @@ export class EditUserComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
-    console.log(this.userForm.value);
     this.closeDiv.nativeElement.click();
     const form = this.userForm.value;
     const user: User = {
@@ -54,7 +53,7 @@ export class EditUserComponent implements OnInit {
       phoneNumber: form.phoneNumber as number,
       login: form.login as string,
       email: form.email as string,
-      password: '' as string,
+      password: null,
       role: this.roles.find(r => r.transName === form.role)
     };
     console.log(user);
