@@ -31,8 +31,6 @@ export class CreateMalfuncSubgroupComponent implements OnInit {
     this.serviceMalfuncGroup.getEntities().subscribe(group => {
       (this.malfuncGroupList = group);
     });
-    console.log(this.malfuncGroupList[1]);
-    console.log("data here");
   }
   clickSubmit() {
     if (this.subGroupForm.invalid) {
@@ -40,9 +38,12 @@ export class CreateMalfuncSubgroupComponent implements OnInit {
     }
     const form = this.subGroupForm.value;
     const malfunSubGroup: MalfunSubgroup = {
-      name: form.name as string,
-      malfunctionGroup: this.malfuncGroupList[this.malfuncGroupName.findIndex(f => f === form.malfunctionGroup)]
+      id: 0,
+      name: form.subgroup as string,
+      malfunctionGroup: this.malfuncGroupList[this.malfuncGroupName.findIndex(f => f === form.group)]
     };
+    console.log("kok");
+    console.log(form.name);
     this.serviceMalfuncSubGroup.addEntity(malfunSubGroup).subscribe(_ => this.createMalfuncSubgroup.next(malfunSubGroup));
     this.closeDiv.nativeElement.click();
   }
