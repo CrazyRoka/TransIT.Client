@@ -11,10 +11,10 @@ export class MalfuncGroupComponent implements OnInit {
 
   ngOnInit() {
     $('#group').DataTable({
+      scrollX: true,
       language: {
         url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
-      },
-      scrollX: true
+      }      
     });
   }
 
