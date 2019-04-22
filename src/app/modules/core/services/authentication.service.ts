@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Token } from '../models/token/token';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, finalize } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -31,8 +31,8 @@ export class AuthenticationService {
       })
       .pipe(
         tap(token => this.handleSuccess(token)),
-        tap(() => this.spinner.hide()),
-        catchError(error => this.handleError(error))
+        catchError(error => this.handleError(error)),
+        finalize(() => this.spinner.hide())
       );
   }
 
@@ -66,9 +66,18 @@ export class AuthenticationService {
         refreshToken
       })
       .pipe(
-        tap(newToken => this.tokenStore.setToken(newToken)),
-        catchError(error => throwError(error))
+        tap(this.handleRefreshTokenSuccess),
+        catchError(this.handleRefreshTokenError)
       );
+  }
+
+  private handleRefreshTokenSuccess(newToken: Token) {
+    this.tokenStore.setToken(newToken);
+  }
+
+  private handleRefreshTokenError(error: HttpErrorResponse): Observable<never> {
+    this.tokenStore.removeToken();
+    return throwError(error);
   }
 
   isLoggedIn(): boolean {
