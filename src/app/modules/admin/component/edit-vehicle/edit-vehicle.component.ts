@@ -28,6 +28,7 @@ export class EditVehicleComponent implements OnInit {
 
   ngOnInit() {
     this.vehicleForm = this.formBuilder.group({
+      id: '',
       vehicleType: ['', Validators.required],
       vincode: '',
       inventoryId: '',
@@ -45,7 +46,7 @@ export class EditVehicleComponent implements OnInit {
     this.closeDiv.nativeElement.click();
     const form = this.vehicleForm.value;
     const vehicle: Vehicle = {
-      id: 0,
+      id: form.id as number,
       vehicleType: this.vehicleTypeList.find(t => t.name === form.vehicleType),
       vincode: form.vincode as string,
       inventoryId: form.inventoryId as string,
@@ -53,7 +54,8 @@ export class EditVehicleComponent implements OnInit {
       brand: form.brand as string,
       model: form.model as string,
     };
-    this.serviceVehicle.addEntity(vehicle).subscribe(_ => this.updateVehicle.next(vehicle));
+    console.log(vehicle);
+    this.serviceVehicle.updateEntity(vehicle).subscribe(_ => this.updateVehicle.next(vehicle));
 
   }
 }
