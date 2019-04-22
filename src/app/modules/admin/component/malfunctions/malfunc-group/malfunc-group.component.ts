@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MalfuncGroup } from '../../../models/malfuncGroup/malfunc-group';
 import { MalfuncGroupService } from '../../../services/malfunc-group.service';
+import { ajax } from 'jquery';
 
 @Component({
   selector: 'app-malfunc-group',
@@ -22,7 +23,8 @@ export class MalfuncGroupComponent implements OnInit {
      language: {
        url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
      },
-     scrollX: true
+     scrollX: true,
+    //  scrollY: 50
    };
   constructor(private malfunGroupService: MalfuncGroupService,private chRef:ChangeDetectorRef) { }
 
@@ -31,7 +33,7 @@ export class MalfuncGroupComponent implements OnInit {
        this.malfuncGroups=malfuncGroups;
        this.chRef.detectChanges();
        const table:any = $('table');
-       this.dataTable = table.DataTable(this.tableParams);      
+       this.dataTable = table.DataTable(this.tableParams);
     });
   }
   

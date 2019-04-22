@@ -23,7 +23,7 @@
       </div>
       <div class="modal-footer">
         <button #close type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-        <button type="button" class="btn btn-primary" (click)="clickSubmit()" [disabled]="malfuncGroupForm.invalid">
+        <button type="button" class="btn btn-primary" (click)="clickSubmit();refreshClick()" [disabled]="malfuncGroupForm.invalid">
           Створити
         </button>
       </div>
