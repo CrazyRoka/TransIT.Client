@@ -43,8 +43,11 @@ export class EditUserComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
+
     this.closeDiv.nativeElement.click();
     const form = this.userForm.value;
+    console.log('ewfaerf');
+    console.log(form.id);
     const user: User = {
       id: form.id as number,
       firstName: form.firstName as string,

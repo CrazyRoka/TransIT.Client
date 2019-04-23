@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit {
   private readonly tableParams: DataTables.Settings = {
     columnDefs: [
       {
-        targets: [5, 7, 8],
+        targets: [5, 7],
         orderable: false
       },
     ],
@@ -41,7 +41,8 @@ export class UsersComponent implements OnInit {
   updateUser(user: User) {
     const index = this.users.findIndex(u => u.id === user.id);
     this.users[index] = user;
-   // this.dataTable.data().ajax.reload();
+  //  $('#userTable').dataTable( ).
+
   }
 
   addUser(user: User) {
