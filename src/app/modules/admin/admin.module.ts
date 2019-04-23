@@ -21,9 +21,18 @@ import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
 import { AdminNavbarComponent } from './component/admin-navbar/admin-navbar.component';
 import { EditUserComponent } from './component/edit-user/edit-user.component';
+
 import { CreateVehicleComponent } from './component/create-vehicle/create-vehicle.component';
 import { EditVehicleComponent } from './component/edit-vehicle/edit-vehicle.component';
 import { DeleteVehicleComponent } from './component/delete-vehicle/delete-vehicle.component';
+
+import { CreateMalfuncGroupComponent } from './component/create-malfunc-group/create-malfunc-group.component';
+import { CreateMalfuncComponent } from './component/create-malfunc/create-malfunc.component';
+import { CreateMalfuncSubgroupComponent } from './component/create-malfunc-subgroup/create-malfunc-subgroup.component';
+import { EditMalfuncGroupComponent } from './component/edit-malfunc-group/edit-malfunc-group.component';
+import { DeleteMalfuncGroupComponent } from './component/delete-malfunc-group/delete-malfunc-group.component';
+import { NgxMaskModule } from 'ngx-mask';
+
 
 @NgModule({
   declarations: [
@@ -39,12 +48,28 @@ import { DeleteVehicleComponent } from './component/delete-vehicle/delete-vehicl
     MalfunSubgroupComponent,
     AdminNavbarComponent,
     EditUserComponent,
+
     CreateVehicleComponent,
     EditVehicleComponent,
     DeleteVehicleComponent
+
+    CreateMalfuncGroupComponent,
+    CreateMalfuncComponent,
+    CreateMalfuncSubgroupComponent,
+    EditMalfuncGroupComponent,
+    DeleteMalfuncGroupComponent
+
   ],
   exports: [AdminComponent],
-  imports: [CommonModule, CoreModule, AdminRoutingModule, FormsModule, DataTablesModule, HttpClientModule, ReactiveFormsModule],
-  providers: [RoleService, UserService]
+  imports: [CommonModule,
+            CoreModule,
+            AdminRoutingModule,
+            FormsModule,
+            DataTablesModule,
+            HttpClientModule,
+            ReactiveFormsModule,
+            NgxMaskModule.forRoot()],
+  providers: [RoleService,
+              UserService]
 })
 export class AdminModule {}
