@@ -1,9 +1,8 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { ActionType } from '../../models/action/actiontype';
 import { ActionTypeService } from '../../services/actiontype.sevice';
 import { FormGroup } from '@angular/forms';
-
-declare const $;
+//declare const $;
 @Component({
   selector: 'app-action',
   templateUrl: './action.component.html',
@@ -42,11 +41,15 @@ export class ActionComponent implements OnInit {
   clickSubmit() {
     this.actionTypeService.addEntity(this.action).subscribe();
   }
+  // ngOnInit() {    
+  //   this.actionTypeService.getEntities().subscribe(action => {
+  //     this.actionTypeList = action;
+  //     $('#action').DataTable(this.tableParams);      
+  //   });    
+  // }
   ngOnInit() {    
-    this.actionTypeService.getEntities().subscribe(action => {
-      this.actionTypeList = action;
-      $('#action').DataTable(this.tableParams);      
-    });    
+    $('#action').DataTable(this.tableParams)
+    this.actionTypeService.getEntities().subscribe(actions => {this.actionTypeList = actions});    
   }
   addAtionType(actionType: ActionType) {
     this.actionTypeList = [...this.actionTypeList, actionType];
