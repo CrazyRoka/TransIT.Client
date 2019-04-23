@@ -1,0 +1,8 @@
+:host ::ng-deep .dt-bootstrap4 {
+  .row:first-child,
+  .row:last-child {
+    div {
+      min-width: 250px;
+    }
+  }
+}
