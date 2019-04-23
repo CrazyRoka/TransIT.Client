@@ -52,8 +52,7 @@ export class CreateUserComponent implements OnInit {
       password: form.password as string,
       role: this.roleList[this.roleName.findIndex(r => r === form.role)]
     };
-    console.log(user);
-    console.log('ewfwefw');
+
     this.serviceUser.addEntity(user).pipe(
       catchError(this.handleError)
     )

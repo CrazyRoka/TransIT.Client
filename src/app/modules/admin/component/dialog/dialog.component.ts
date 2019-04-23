@@ -19,6 +19,7 @@ export class DialogComponent implements OnInit {
   ngOnInit() {}
 
   delete() {
+    console.log('usdsjldlsidvjilsdvjer');
     console.log(this.user);
     this.closeDiv.nativeElement.click();
     this.service.deleteEntity(this.user.id).pipe(
