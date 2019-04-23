@@ -21,19 +21,18 @@ export class EditMalfuncSubgroupComponent implements OnInit {
       return;
     }
     console.log("tytytyt");
-    console.log(malfuncSubGroup.name);
-    this.subGroupForm.patchValue({subgroup: malfuncSubGroup.name, group: malfuncSubGroup.malfunctionGroup.name });
-    // console.log(this.subGroupForm.subgroup);
+    console.log(malfuncSubGroup.id);
+    this.subGroupForm.patchValue({ subgroup: malfuncSubGroup.name, group: malfuncSubGroup.malfunctionGroup.name });
   }
   @Output() updateSubGroup = new EventEmitter<MalfunSubgroup>();
 
   malfunctionGroups: MalfuncGroup[] = [];
 
-
   constructor(private formBuilder: FormBuilder, private serviceMalfuncGroup: MalfuncGroupService, private serviceMalfuncSubGroup: MalfunSubgroupService) { }
 
   ngOnInit() {
     this.subGroupForm = this.formBuilder.group({
+      id: '',
       group: ['', Validators.required],
       subgroup: ''
     });
@@ -55,7 +54,7 @@ export class EditMalfuncSubgroupComponent implements OnInit {
       id: form.id as number,
       name: form.subgroup as string,
       malfunctionGroup: this.malfunctionGroups.find(f => f.name === form.group)
-    };    
+    };
     this.serviceMalfuncSubGroup.updateEntity(malfunSubGroup).subscribe(x => this.updateSubGroup.next(malfunSubGroup));
   }
 
