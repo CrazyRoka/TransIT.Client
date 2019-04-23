@@ -11,8 +11,9 @@ declare const $;
   styleUrls: ['./malfunc-group.component.scss']
 })
 export class MalfuncGroupComponent implements OnInit {
-  public malfuncGroup: Array<MalfuncGroup>;
+  public malfuncGroups: Array<MalfuncGroup>;
   private table: any;
+  public malfuncGroup:MalfuncGroup;
 
   constructor(
     private malfuncGroupService:MalfuncGroupService,
@@ -34,17 +35,23 @@ export class MalfuncGroupComponent implements OnInit {
         url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
         }
     })
-    this.malfuncGroupService.getEntities().subscribe(malfuncGroup => {
-      this.malfuncGroup = malfuncGroup;
-      this.table.rows.add(this.malfuncGroup);
+    this.malfuncGroupService.getEntities().subscribe(malfuncGroups => {
+      this.malfuncGroups = malfuncGroups;
+      this.table.rows.add(this.malfuncGroups);
       this.table.draw();
     });
+    
     this.table.on('select', (e, dt, type, indexes) => {
       console.log("23456");
       const item = this.table.rows( indexes ).data()[0];
       this.router.navigate(['/admin/users', item]);
     });
-    console.dir(this.table);
-
+    console.dir(this.table); 
+  }
+  addMalfunctionGroup(malfuncGroup: MalfuncGroup) {
+    this.malfuncGroups = [...this.malfuncGroups, malfuncGroup];
+    this.table.row.add(malfuncGroup);
+    console.log(this.malfuncGroups);
+    this.table.draw();
   }
 }
