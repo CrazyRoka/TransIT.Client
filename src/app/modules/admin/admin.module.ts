@@ -26,6 +26,9 @@ import { CreateMalfuncComponent } from './component/create-malfunc/create-malfun
 import { CreateMalfuncSubgroupComponent } from './component/create-malfunc-subgroup/create-malfunc-subgroup.component';
 import { EditMalfuncSubgroupComponent } from './component/edit-malfunc-subgroup/edit-malfunc-subgroup.component';
 import { DeleteMalfuncSubgroupComponent } from './component/delete-malfunc-subgroup/delete-malfunc-subgroup.component';
+import { EditMalfuncGroupComponent } from './component/edit-malfunc-group/edit-malfunc-group.component';
+import { DeleteMalfuncGroupComponent } from './component/delete-malfunc-group/delete-malfunc-group.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -45,11 +48,22 @@ import { DeleteMalfuncSubgroupComponent } from './component/delete-malfunc-subgr
     CreateMalfuncGroupComponent,
     CreateMalfuncComponent,
     CreateMalfuncSubgroupComponent,
+    create-crud-mulfunc-subgroup,
     EditMalfuncSubgroupComponent,
-    DeleteMalfuncSubgroupComponent
+    DeleteMalfuncSubgroupComponent,
+    EditMalfuncGroupComponent,
+    DeleteMalfuncGroupComponent
   ],
   exports: [AdminComponent],
-  imports: [CommonModule, CoreModule, AdminRoutingModule, FormsModule, DataTablesModule, HttpClientModule, ReactiveFormsModule],
-  providers: [RoleService, UserService]
+  imports: [CommonModule,
+            CoreModule,
+            AdminRoutingModule,
+            FormsModule,
+            DataTablesModule,
+            HttpClientModule,
+            ReactiveFormsModule,
+            NgxMaskModule.forRoot()],
+  providers: [RoleService,
+              UserService]
 })
 export class AdminModule {}
