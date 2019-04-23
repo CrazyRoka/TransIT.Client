@@ -41,7 +41,6 @@ export class IssuesComponent implements OnInit {
   constructor(private issueService: IssueService, private toast: ToastrService) {}
 
   ngOnInit() {
-    // $('#users').DataTable(this.tableConfig);
     $('#issues').DataTable(this.tableConfig);
 
     this.issueService.getEntities().subscribe(data => {
