@@ -20,9 +20,9 @@ export class EditMalfuncSubgroupComponent implements OnInit {
     if (!malfuncSubGroup) {
       return;
     }
+    this.subGroupForm.patchValue({ ...malfuncSubGroup, group: malfuncSubGroup.malfunctionGroup.name });
     console.log("tytytyt");
-    console.log(malfuncSubGroup.id);
-    this.subGroupForm.patchValue({ subgroup: malfuncSubGroup.name, group: malfuncSubGroup.malfunctionGroup.name });
+    console.log(this.subGroupForm);
   }
   @Output() updateSubGroup = new EventEmitter<MalfunSubgroup>();
 
@@ -33,8 +33,8 @@ export class EditMalfuncSubgroupComponent implements OnInit {
   ngOnInit() {
     this.subGroupForm = this.formBuilder.group({
       id: '',
-      group: ['', Validators.required],
-      subgroup: ''
+      name: '',
+      group: ['', Validators.required]
     });
     this.serviceMalfuncGroup.getEntities().subscribe(group => {
       (this.malfunctionGroups = group);
