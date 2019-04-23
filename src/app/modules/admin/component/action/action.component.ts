@@ -55,7 +55,7 @@ export class ActionComponent implements OnInit {
   deleteActionType(index: number) {
     this.actionTypeService.deleteEntity(this.actionTypeList[this.index].id).subscribe(
       res => {this.actionTypeList.splice(this.index, 1)}, error => {
-        this.toast.error('Біда', 'Тікай з села');
+        this.toast.error('Помилка', 'Дія в експлуатації');
       } );
   }
   selectIndex(index: number){
