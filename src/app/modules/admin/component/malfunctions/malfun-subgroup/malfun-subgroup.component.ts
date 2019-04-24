@@ -39,6 +39,8 @@ export class MalfunSubgroupComponent implements OnInit {
     this.table.on('select', (e, dt, type, index) => {
       const item = this.table.rows(index).data()[0];
       this.selectedMalfunctionSubGroup = item;
+      console.log('rerererer');
+      console.log(this.selectedMalfunctionSubGroup);
     });
   }
 
@@ -53,6 +55,15 @@ export class MalfunSubgroupComponent implements OnInit {
     this.table
       .rows('.selected')
       .remove()
+      .draw();
+  }
+  editMalfunctionSubGroup(malfunctionSubGroup: MalfunSubgroup) {
+    this.malfuncSubgroups[
+      this.malfuncSubgroups.findIndex(i => i.id === this.selectedMalfunctionSubGroup.id)
+    ] = malfunctionSubGroup;
+    this.table
+      .row('.selected')
+      .data(malfunctionSubGroup)
       .draw();
   }
 }
