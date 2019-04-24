@@ -10,7 +10,7 @@ import { MalfuncGroupService } from '../../services/malfunc-group.service';
 export class DeleteMalfuncGroupComponent implements OnInit {
   @ViewChild('close') closeDiv: ElementRef;
   @Input() malfunctionGroup: MalfuncGroup;
-  @Output() deleteUser = new EventEmitter<MalfuncGroup>();
+  @Output() deleteMalfunctionGroup = new EventEmitter<MalfuncGroup>();
 
   constructor(private service: MalfuncGroupService) {}
 
@@ -20,7 +20,7 @@ export class DeleteMalfuncGroupComponent implements OnInit {
     this.closeDiv.nativeElement.click();
     this.service.deleteEntity(this.malfunctionGroup.id).subscribe(() => {
 
-      this.deleteUser.next(this.malfunctionGroup);
+      this.deleteMalfunctionGroup.next(this.malfunctionGroup);
     });
   }
 }

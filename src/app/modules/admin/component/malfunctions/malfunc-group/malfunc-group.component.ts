@@ -59,4 +59,13 @@ export class MalfuncGroupComponent implements OnInit {
     // console.log(malfunctionGroup);
     console.log(this.malfuncGroups);
   }
+
+  editMalfunctionGroup(malfunctionGroup: MalfuncGroup) {
+    this.malfuncGroups[this.malfuncGroups.findIndex(i => i.id === this.selectedMalfunctionGroup.id)] = malfunctionGroup;
+    this.table
+      .row('.selected')
+      .data(malfunctionGroup)
+      .draw();
+      console.log(this.malfuncGroups);
+  }
 }
