@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user/user';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dialog',
@@ -10,34 +11,22 @@ import { throwError } from 'rxjs';
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-  @ViewChild('close') closeDiv: ElementRef;
+  @ViewChild('close') closeDeleteModal: ElementRef;
   @Input() user: User;
   @Output() deleteUser = new EventEmitter<User>();
 
-  constructor(private service: UserService) {}
+  constructor(
+    private service: UserService,
+    private toast: ToastrService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   delete() {
-    console.log('usdsjldlsidvjilsdvjer');
-    console.log(this.user);
-    this.closeDiv.nativeElement.click();
-    this.service.deleteEntity(this.user.id).pipe(
-      catchError(this.handleError)
-    ).subscribe(data => {
-      this.deleteUser.next(this.user);
-    });
+    this.closeDeleteModal.nativeElement.click();
+    this.service.deleteEntity(this.user.id).subscribe
+      (
+        data => { this.deleteUser.next(this.user); },
+        error => this.toast.error('Помилка', 'Користувач містить записи'));
   }
-  handleError(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
 
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // server-side error
-      errorMessage = `Error Code: ${error.status}\n Повідомлення: ${` Видалення не можливе!\nКористувач містить записи.`}`;
-    }
-    window.alert(errorMessage);
-    return throwError(errorMessage);
-  }
 }

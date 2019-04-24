@@ -1,29 +1,38 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { User } from '../../models/user/user';
 import { Role } from '../../models/role/role';
+
 import { RoleService } from '../../services/role.service';
 import { UserService } from '../../services/user.service';
-import { throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss']
 })
+
 export class CreateUserComponent implements OnInit {
-  @ViewChild('close') closeDiv: ElementRef;
+
+  @ViewChild('close') closeCreateModal: ElementRef;
   @Output() createUser = new EventEmitter<User>();
   userForm: FormGroup;
   roleList: Role[] = [];
 
-  constructor(private serviceRole: RoleService, private serviceUser: UserService, private formBuilder: FormBuilder) { }
+  constructor(private serviceRole: RoleService,
+    private serviceUser: UserService,
+    private formBuilder: FormBuilder,
+    private toast: ToastrService) { }
 
   ngOnInit() {
     $('#createUser').on('hidden.bs.modal', function () {
-      $(this).find('form').trigger('reset');
+      $(this).find('form')
+        .trigger('reset');
     });
+
+
     this.userForm = this.formBuilder.group({
       lastName: '',
       firstName: '',
@@ -36,6 +45,8 @@ export class CreateUserComponent implements OnInit {
     });
     this.serviceRole.getEntities().subscribe(data => (this.roleList = data));
   }
+
+
   clickSubmit() {
     if (this.userForm.invalid) {
       return;
@@ -53,25 +64,14 @@ export class CreateUserComponent implements OnInit {
       role: this.roleList[this.roleName.findIndex(r => r === form.role)]
     };
 
-    this.serviceUser.addEntity(user).pipe(
-      catchError(this.handleError)
-    )
-      .subscribe(newUser => this.createUser.next(newUser));
-    this.closeDiv.nativeElement.click();
-    console.log
+    this.serviceUser.addEntity(user).subscribe
+      (
+        newUser => this.createUser.next(newUser),
+        error => this.toast.error('Помилка', 'Користувач з таким логіном')
+      );
+    this.closeCreateModal.nativeElement.click();
   }
-  handleError(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    window.alert(errorMessage);
-    return throwError(errorMessage);
-  }
+
   get roleName(): string[] {
     return this.roleList.map(r => r.transName);
   }
