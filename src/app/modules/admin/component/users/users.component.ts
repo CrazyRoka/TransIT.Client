@@ -3,6 +3,7 @@ import { User } from '../../models/user/user';
 import { UserService } from '../../services/user.service';
 import { RoleService } from '../../services/role.service';
 import { Role } from '../../models/role/role';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -80,19 +81,20 @@ export class UsersComponent implements OnInit {
       .clear()
       .rows.add(view)
       .draw();
+  }
 
+  addUser(user: User) {
+    this.users.push(user);
+    this.addTableData(this.users);
     $('button[id^="find-user"]')
       .off('click')
       .on('click', event => {
         const idTokens = event.currentTarget.id.split('-');
         const login = idTokens[idTokens.length - 1];
         this.user = this.users.find(i => i.login === login);
+        console.log('WDwdwd');
+        console.log(this.user);
       });
-  }
-
-  addUser(user: User) {
-    this.users.push(user);
-    this.addTableData(this.users);
   }
 
   updateUser(user: User) {
