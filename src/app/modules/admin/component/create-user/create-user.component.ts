@@ -18,10 +18,10 @@ export class CreateUserComponent implements OnInit {
   userForm: FormGroup;
   roleList: Role[] = [];
 
-  constructor(private serviceRole: RoleService, private serviceUser: UserService, private formBuilder: FormBuilder) {}
+  constructor(private serviceRole: RoleService, private serviceUser: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    $('#createUser').on('hidden.bs.modal', function() {
+    $('#createUser').on('hidden.bs.modal', function () {
       $(this).find('form').trigger('reset');
     });
     this.userForm = this.formBuilder.group({
@@ -45,7 +45,7 @@ export class CreateUserComponent implements OnInit {
       id: 0,
       firstName: form.firstName as string,
       lastName: form.lastName as string,
-      middleName : form.middleName as string,
+      middleName: form.middleName as string,
       phoneNumber: form.phoneNumber as number,
       login: form.login as string,
       email: form.email as string,
@@ -56,8 +56,9 @@ export class CreateUserComponent implements OnInit {
     this.serviceUser.addEntity(user).pipe(
       catchError(this.handleError)
     )
-      .subscribe(_ => this.createUser.next(user));
+      .subscribe(newUser => this.createUser.next(newUser));
     this.closeDiv.nativeElement.click();
+    console.log
   }
   handleError(error) {
     let errorMessage = '';
