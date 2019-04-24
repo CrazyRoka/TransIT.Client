@@ -19,6 +19,7 @@ export class DeleteMalfuncGroupComponent implements OnInit {
   deleteMalgGroup() {
     this.closeDiv.nativeElement.click();
     this.service.deleteEntity(this.malfunctionGroup.id).subscribe(() => {
+
       this.deleteUser.next(this.malfunctionGroup);
     });
   }

@@ -2,15 +2,15 @@
   <app-create-malfunc-group (createMalfuncGroup)="addMalfunctionGroup($event)"></app-create-malfunc-group>
 </span>
 <span class="second">
-  <app-edit-malfunc-group [malfuncGroup]="malfuncGroup" (deleteUser)="deleteMalfunction()"> </app-edit-malfunc-group>
+  <app-edit-malfunc-group> </app-edit-malfunc-group>
 </span>
 <span class="third">
   <app-delete-malfunc-group
     [malfunctionGroup]="selectedMalfunctionGroup"
-    (deleteUser)="deleteMalfunction()"
+    (deleteUser)="deleteMalfunction($event)"
   ></app-delete-malfunc-group>
 </span>
-<div class="captBox col-md-4 offset-5">
+<div>
   <caption class="caption">
     Група
   </caption>

@@ -56,5 +56,7 @@ export class MalfuncGroupComponent implements OnInit {
       .rows('.selected')
       .remove()
       .draw();
+    // console.log(malfunctionGroup);
+    console.log(this.malfuncGroups);
   }
 }
