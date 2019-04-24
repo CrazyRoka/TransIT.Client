@@ -12,6 +12,7 @@ export class DeleteMalfuncGroupComponent implements OnInit {
   @Input() malfunctionGroup: MalfuncGroup;
   @Output() deleteMalfunctionGroup = new EventEmitter<MalfuncGroup>();
 
+
   constructor(private service: MalfuncGroupService) {}
 
   ngOnInit() {}
