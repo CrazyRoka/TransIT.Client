@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MalfunSubgroup } from '../../../models/malfun-subgroup/malfun-subgroup';
 import { MalfunSubgroupService } from '../../../services/malfun-subgroup.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MalfuncGroup } from '../../../models/malfuncGroup/malfunc-group';
 
 declare const $;
 
@@ -11,6 +12,7 @@ declare const $;
   styleUrls: ['./malfun-subgroup.component.scss']
 })
 export class MalfunSubgroupComponent implements OnInit {
+
   private table: DataTables.Api;
 
   malfuncSubgroups: Array<MalfunSubgroup>;
@@ -20,6 +22,8 @@ export class MalfunSubgroupComponent implements OnInit {
   constructor(private malfuncSubroupService: MalfunSubgroupService, private router: Router) {}
 
   ngOnInit() {
+    
+
     this.table = $('#subgroup-table').DataTable({
       responsive: true,
       select: {
