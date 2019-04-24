@@ -38,11 +38,17 @@ export class CreateUserComponent implements OnInit {
         lastName: '',
         firstName: '',
         middleName: '',
-        phoneNumber: '',
+        phoneNumber: [''],
         login: ['', Validators.required],
-        password: ['', Validators.required],
+        password: ['', Validators.required, Validators.minLength(6)],
         confirmPassword: ['', Validators.required],
-        email: ['', Validators.email],
+        email: [
+          '',
+          Validators.compose([
+            Validators.required,
+            Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+          ])
+        ],
         role: ['', Validators.required]
       },
       { validator: this.checkPasswords }
@@ -84,4 +90,21 @@ export class CreateUserComponent implements OnInit {
   get roleName(): string[] {
     return this.roleList.map(r => r.transName);
   }
+
+  account_validation_messages = {
+    email: [{ type: 'pattern', message: 'Введіть коректно пошту' }],
+    confirm_password: [
+      { type: 'required', message: 'Підтвердження паролю вимагається' },
+      { type: 'notSame', message: 'Паролі не співпадають' }
+    ],
+    password: [
+      { type: 'required', message: 'Введіть пароль' },
+      { type: 'minLength', message: 'Пароль має бути більше 6 символів' }
+    ],
+    login: [
+      { type: 'required', message: 'Введіть логін' },
+      { type: 'minLength', message: 'Логін має бути більше 6 символів' }
+    ],
+    role: [{ type: 'required', message: 'Введіть роль користувача' }]
+  };
 }

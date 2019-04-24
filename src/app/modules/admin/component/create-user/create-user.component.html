@@ -42,17 +42,57 @@
 
           <div class="form-group">
             <label>Логін</label>
-            <input type="text" class="form-control" formControlName="login" placeholder="Введіть логін" />
+            <input type="text" class="form-control" formControlName="login" placeholder="Введіть логін" required />
+            <div *ngFor="let validation of account_validation_messages.login">
+              <div
+                class="error-message"
+                *ngIf="
+                  userForm.get('login').hasError(validation.type) &&
+                  (userForm.get('login').dirty || userForm.get('login').touched)
+                "
+              >
+                {{ validation.message }}
+              </div>
+            </div>
           </div>
 
           <div class="form-group">
             <label>Пошта</label>
-            <input type="email" class="form-control" formControlName="email" placeholder="Введіть пошту" />
+            <input type="email" class="form-control" formControlName="email" placeholder="Введіть пошту" required />
+            <div *ngFor="let validation of account_validation_messages.email">
+              <div
+                class="error-message"
+                *ngIf="
+                  userForm.get('email').hasError(validation.type) &&
+                  (userForm.get('email').dirty || userForm.get('email').touched)
+                "
+              >
+                {{ validation.message }}
+              </div>
+            </div>
+            >
           </div>
 
           <div class="form-group">
             <label>Пароль</label>
-            <input type="password" class="form-control" formControlName="password" placeholder="Введіть пароль" />
+            <input
+              type="password"
+              class="form-control"
+              formControlName="password"
+              placeholder="Введіть пароль"
+              required
+            />
+            <div *ngFor="let validation of account_validation_messages.password">
+              <div
+                class="error-message"
+                *ngIf="
+                  userForm.get('password').hasError(validation.type) &&
+                  (userForm.get('password').dirty || userForm.get('password').touched)
+                "
+              >
+                {{ validation.message }}
+              </div>
+            </div>
           </div>
 
           <div class="form-group">

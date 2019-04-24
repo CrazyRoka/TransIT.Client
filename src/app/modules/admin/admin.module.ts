@@ -38,6 +38,7 @@ import { CreateSupplierComponent } from './component/supplier/create-supplier/cr
 import { EditSupplierComponent } from './component/supplier/edit-supplier/edit-supplier.component';
 import { DeleteSupplierComponent } from './component/supplier/delete-supplier/delete-supplier.component';
 import { SupplierComponent } from './component/supplier/supplier.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { SupplierComponent } from './component/supplier/supplier.component';
   ],
   exports: [AdminComponent],
   imports: [
+    MatFormFieldModule,
     CommonModule,
     CoreModule,
     AdminRoutingModule,
