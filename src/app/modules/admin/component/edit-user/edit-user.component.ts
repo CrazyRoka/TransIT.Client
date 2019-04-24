@@ -30,7 +30,7 @@ export class EditUserComponent implements OnInit {
     private serviceRole: RoleService,
     private serviceUser: UserService,
     private toast: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.userForm = this.formBuilder.group({
@@ -64,11 +64,8 @@ export class EditUserComponent implements OnInit {
       password: null,
       role: this.roles.find(r => r.transName === form.role)
     };
-    this.serviceUser.updateEntity(user).subscribe(
-      _ => this.updateUser.next(user),
-      error => this.toast.error('Помилка', 'Користувач з таким логіном існує')
-
-    );
-
+    this.serviceUser
+      .updateEntity(user)
+      .subscribe(_ => this.updateUser.next(user), error => this.toast.error('Помилка', 'Користувач з таким логіном існує'));
   }
 }

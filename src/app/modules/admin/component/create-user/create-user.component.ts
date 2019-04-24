@@ -13,25 +13,25 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss']
 })
-
 export class CreateUserComponent implements OnInit {
-
   @ViewChild('close') closeCreateModal: ElementRef;
   @Output() createUser = new EventEmitter<User>();
   userForm: FormGroup;
   roleList: Role[] = [];
 
-  constructor(private serviceRole: RoleService,
+  constructor(
+    private serviceRole: RoleService,
     private serviceUser: UserService,
     private formBuilder: FormBuilder,
-    private toast: ToastrService) { }
+    private toast: ToastrService
+  ) {}
 
   ngOnInit() {
-    $('#createUser').on('hidden.bs.modal', function () {
-      $(this).find('form')
+    $('#createUser').on('hidden.bs.modal', function() {
+      $(this)
+        .find('form')
         .trigger('reset');
     });
-
 
     this.userForm = this.formBuilder.group({
       lastName: '',
@@ -45,7 +45,6 @@ export class CreateUserComponent implements OnInit {
     });
     this.serviceRole.getEntities().subscribe(data => (this.roleList = data));
   }
-
 
   clickSubmit() {
     if (this.userForm.invalid) {
@@ -64,11 +63,9 @@ export class CreateUserComponent implements OnInit {
       role: this.roleList[this.roleName.findIndex(r => r === form.role)]
     };
 
-    this.serviceUser.addEntity(user).subscribe
-      (
-        newUser => this.createUser.next(newUser),
-        error => this.toast.error('Помилка', 'Користувач з таким логіном')
-      );
+    this.serviceUser
+      .addEntity(user)
+      .subscribe(newUser => this.createUser.next(newUser), error => this.toast.error('Помилка', 'Користувач з таким логіном'));
     this.closeCreateModal.nativeElement.click();
   }
 

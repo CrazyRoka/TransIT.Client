@@ -24,7 +24,7 @@ export class UsersComponent implements OnInit {
         title: 'Прізвище'
       },
       {
-        title: 'Ім\'я'
+        title: "Ім'я"
       },
       {
         title: 'По_батькові'
@@ -50,8 +50,7 @@ export class UsersComponent implements OnInit {
     ]
   };
 
-
-  constructor(private service: UserService, private serviceRole: RoleService) { }
+  constructor(private service: UserService, private serviceRole: RoleService) {}
 
   ngOnInit() {
     $('#userTable').DataTable(this.tableParams);
@@ -62,7 +61,6 @@ export class UsersComponent implements OnInit {
     });
   }
 
-
   addTableData(newUsers: User[]) {
     this.users = [...newUsers];
     const view = newUsers.map(i => [
@@ -72,21 +70,18 @@ export class UsersComponent implements OnInit {
       i.login,
       i.phoneNumber,
       i.role.transName,
+      `<button id="find-user-${i.login}" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>`,
       `<button id="find-user-${
-      i.login
-      }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>`,
-      `<button id="find-user-${
-      i.login
+        i.login
       }" class="btn" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt color"></i></button>`
     ]);
 
-
     this.dataTable = $('#userTable')
       .dataTable()
-      .api().clear()
+      .api()
+      .clear()
       .rows.add(view)
       .draw();
-
 
     $('button[id^="find-user"]')
       .off('click')
@@ -95,7 +90,6 @@ export class UsersComponent implements OnInit {
         const login = idTokens[idTokens.length - 1];
         this.user = this.users.find(i => i.login === login);
       });
-
   }
 
   addUser(user: User) {
@@ -114,5 +108,4 @@ export class UsersComponent implements OnInit {
     this.users.splice(this.users.findIndex(i => i.login === user.login), 1);
     this.addTableData(this.users);
   }
-
 }

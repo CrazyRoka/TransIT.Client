@@ -15,18 +15,17 @@ export class DialogComponent implements OnInit {
   @Input() user: User;
   @Output() deleteUser = new EventEmitter<User>();
 
-  constructor(
-    private service: UserService,
-    private toast: ToastrService) { }
+  constructor(private service: UserService, private toast: ToastrService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   delete() {
     this.closeDeleteModal.nativeElement.click();
-    this.service.deleteEntity(this.user.id).subscribe
-      (
-        data => { this.deleteUser.next(this.user); },
-        error => this.toast.error('Помилка', 'Користувач містить записи'));
+    this.service.deleteEntity(this.user.id).subscribe(
+      data => {
+        this.deleteUser.next(this.user);
+      },
+      error => this.toast.error('Помилка', 'Користувач містить записи')
+    );
   }
-
 }
