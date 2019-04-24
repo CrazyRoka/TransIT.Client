@@ -76,7 +76,7 @@ export class CreateUserComponent implements OnInit {
       .addEntity(user)
       .subscribe(
         newUser => this.createUser.next(newUser),
-        error => this.toast.error('Помилка', 'Користувач з таким логіном')
+        error => this.toast.error('Помилка', 'Користувач з таким логіном існує')
       );
     this.closeCreateModal.nativeElement.click();
   }
