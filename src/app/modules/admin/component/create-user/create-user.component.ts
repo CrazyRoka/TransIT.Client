@@ -7,7 +7,6 @@ import { Role } from '../../models/role/role';
 import { RoleService } from '../../services/role.service';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { MIN_LENGTH_VALIDATOR } from '@angular/forms/src/directives/validators';
 
 @Component({
   selector: 'app-create-user',
