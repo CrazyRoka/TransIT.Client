@@ -29,7 +29,7 @@ export class MalfunctionsComponent implements OnInit {
   selectedMalfunctionSubGroup: MalfunSubgroup;
 
   //malfunctions
-  public malfunction: Array<Malfunction>;
+  public malfunctions: Array<Malfunction>;
   private tableMalfunction: any;
 
   constructor(
@@ -96,12 +96,13 @@ export class MalfunctionsComponent implements OnInit {
     this.tableSubGroup.on('select', (e, dt, type, index) => {
       const item = this.tableSubGroup.rows(index).data()[0];
       this.selectedMalfunctionSubGroup = item;
+      this.filterMalfunctions();
     });
 
     //malfunctions
     this.malfuncService.getEntities().subscribe(selectedMalfunction => {
-      this.malfunction = selectedMalfunction;
-      this.tableMalfunction.rows.add(this.malfunction);
+      this.malfunctions = selectedMalfunction;
+      this.tableMalfunction.rows.add(this.malfunctions);
       this.tableMalfunction.draw();
     });
     this.tableMalfunction.on('select', (e, dt, type, indexes) => {
@@ -173,5 +174,14 @@ export class MalfunctionsComponent implements OnInit {
   }
 
   //malfunctions
+  filterMalfunctions() {
+    this.tableMalfunction.clear();
+    this.tableMalfunction.rows.add(
+      this.malfunctions.filter(x => {
+        return x.malfunctionSubgroup !== null && x.malfunctionSubgroup.id === this.selectedMalfunctionSubGroup.id;
+      })
+    );
+    this.tableMalfunction.draw();
+  }
   //.............
 }
