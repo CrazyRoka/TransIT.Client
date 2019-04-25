@@ -13,14 +13,17 @@
             <label>Прізвище</label>
             <input type="text" class="form-control" formControlName="lastName" />
           </div>
+
           <div class="form-group">
             <label>Ім'я</label>
             <input type="text" class="form-control" formControlName="firstName" />
           </div>
+
           <div class="form-group">
             <label>По батькові</label>
             <input type="text" class="form-control" formControlName="middleName" />
           </div>
+
           <div class="form-group">
             <label>Номер телефону</label>
             <input class="form-control" formControlName="phoneNumber" mask="+(000)00-00-00-000" />
@@ -36,6 +39,7 @@
               </div>
             </div>
           </div>
+
           <div class="form-group">
             <label>Логін</label>
             <input type="text" class="form-control" formControlName="login" />
@@ -51,6 +55,7 @@
               </div>
             </div>
           </div>
+
           <div class="form-group">
             <label>Пошта</label>
             <input type="text" class="form-control" formControlName="email" />
@@ -70,6 +75,7 @@
               </div>
             </div>
           </div>
+
           <div class="form-group">
             <label>Роль</label>
             <select class="form-control" formControlName="role">
@@ -80,6 +86,7 @@
           <button hidden type="submit" #submit></button>
         </form>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" #close>Закрити</button>
         <button type="button" class="btn btn-info" [disabled]="userForm.invalid" (click)="updateData()">
