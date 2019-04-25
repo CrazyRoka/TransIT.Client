@@ -2,7 +2,11 @@
   <app-create-malfunc-subgroup (createMalfuncSubGroup)="addMalfunctionSubGroup($event)"></app-create-malfunc-subgroup>
 </span>
 <span class="second">
-  <app-edit-malfunc-subgroup> </app-edit-malfunc-subgroup>
+  <app-edit-malfunc-subgroup
+    [malfunctionSubGroup]="selectedMalfunctionSubGroup"
+    (editMalfuncSubGroup)="editMalfunctionSubGroup($event)"
+  >
+  </app-edit-malfunc-subgroup>
 </span>
 <span class="third">
   <app-delete-malfunc-subgroup
