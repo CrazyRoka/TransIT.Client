@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MalfuncGroup } from '../../../models/malfuncGroup/malfunc-group';
 import { MalfuncGroupService } from '../../../services/malfunc-group.service';
 import { Router } from '@angular/router';
-import { MalfunctionsFilterService } from '../../../services/malfunctions-filter.service';
+
 
 declare const $;
 
@@ -20,8 +20,7 @@ export class MalfuncGroupComponent implements OnInit {
 
   constructor(
     private malfuncGroupService: MalfuncGroupService,
-    private router: Router,
-    private malfunctionsFilterService: MalfunctionsFilterService
+    private router: Router    
   ) {}
 
   ngOnInit() {
@@ -45,7 +44,6 @@ export class MalfuncGroupComponent implements OnInit {
     this.tableGroup.on('select', (e, dt, type, index) => {
       const item = this.tableGroup.rows(index).data()[0];
       this.selectedMalfunctionGroup = item;
-      this.malfunctionsFilterService.selectedMalfunctionGroup = this.selectedMalfunctionGroup;
     });
   }
 

@@ -3,7 +3,7 @@ import { MalfunSubgroup } from '../../../models/malfun-subgroup/malfun-subgroup'
 import { MalfunSubgroupService } from '../../../services/malfun-subgroup.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MalfuncGroup } from '../../../models/malfuncGroup/malfunc-group';
-import { MalfunctionsFilterService } from '../../../services/malfunctions-filter.service';
+
 
 declare const $;
 
@@ -21,8 +21,7 @@ export class MalfunSubgroupComponent implements OnInit {
 
   constructor(
     private malfuncSubgroupService: MalfunSubgroupService,
-    private router: Router,
-    private malfunctionsFilterService: MalfunctionsFilterService
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -45,7 +44,6 @@ export class MalfunSubgroupComponent implements OnInit {
     this.tableSubGroup.on('select', (e, dt, type, index) => {
       const item = this.tableSubGroup.rows(index).data()[0];
       this.selectedMalfunctionSubGroup = item;
-      this.malfunctionsFilterService.selectedMalfunctionSubGroup = item;
     });
   }
 
