@@ -203,5 +203,14 @@ export class MalfunctionsComponent implements OnInit {
     this.tableMalfunction.draw();
   }
 
+  editMalfunction(malfunction: Malfunction) {
+    console.log('hello edit');
+    this.malfunctions[this.malfunctions.findIndex(i => i.id === this.selectedMalfunction.id)] = malfunction;
+    this.tableMalfunction
+      .row('.selected')
+      .data(malfunction)
+      .draw();
+  }
+
   //.............
 }
