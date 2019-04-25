@@ -50,7 +50,7 @@ export class MalfuncGroupComponent implements OnInit {
     this.table.draw();
   }
 
-  deleteMalfunction(malfunctionGroup: MalfuncGroup) {
+  deleteMalfunctionGroup(malfunctionGroup: MalfuncGroup) {
     this.malfuncGroups = this.malfuncGroups.filter(m => m !== malfunctionGroup);
     this.table
       .rows('.selected')
