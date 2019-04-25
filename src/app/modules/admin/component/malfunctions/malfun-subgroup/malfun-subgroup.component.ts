@@ -12,7 +12,6 @@ declare const $;
   styleUrls: ['./malfun-subgroup.component.scss']
 })
 export class MalfunSubgroupComponent implements OnInit {
-
   private table: DataTables.Api;
 
   malfuncSubgroups: Array<MalfunSubgroup>;
@@ -22,8 +21,6 @@ export class MalfunSubgroupComponent implements OnInit {
   constructor(private malfuncSubroupService: MalfunSubgroupService, private router: Router) {}
 
   ngOnInit() {
-    
-
     this.table = $('#subgroup-table').DataTable({
       responsive: true,
       select: {
@@ -62,6 +59,7 @@ export class MalfunSubgroupComponent implements OnInit {
       .draw();
   }
   editMalfunctionSubGroup(malfunctionSubGroup: MalfunSubgroup) {
+    console.log('I can edit entity');
     this.malfuncSubgroups[
       this.malfuncSubgroups.findIndex(i => i.id === this.selectedMalfunctionSubGroup.id)
     ] = malfunctionSubGroup;
