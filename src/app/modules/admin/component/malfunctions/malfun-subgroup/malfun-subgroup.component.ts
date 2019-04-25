@@ -4,6 +4,7 @@ import { MalfunSubgroupService } from '../../../services/malfun-subgroup.service
 import { Router, ActivatedRoute } from '@angular/router';
 import { MalfuncGroup } from '../../../models/malfuncGroup/malfunc-group';
 
+
 declare const $;
 
 @Component({
@@ -12,42 +13,61 @@ declare const $;
   styleUrls: ['./malfun-subgroup.component.scss']
 })
 export class MalfunSubgroupComponent implements OnInit {
-  public malfuncSubgroups: Array<MalfunSubgroup>;
-  private table: any;
+  private tableSubGroup: DataTables.Api;
+
+  malfuncSubgroups: Array<MalfunSubgroup>;
+  malfuncSubgroup: MalfunSubgroup;
+  selectedMalfunctionSubGroup: MalfunSubgroup;
 
   constructor(
-    private malfuncSubroupService:MalfunSubgroupService,
+    private malfuncSubgroupService: MalfunSubgroupService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    
-
-    this.table = $('#subgroup-table').DataTable({
+    this.tableSubGroup = $('#subgroup-table').DataTable({
       responsive: true,
       select: {
         style: 'single'
       },
-      columns: [
-        { data: 'id', bVisible: false },
-        { title: 'Підгрупа', data: 'name', defaultContent: '' }
-      ],
+      columns: [{ data: 'id', bVisible: false }, { title: 'Підгрупа', data: 'name', defaultContent: '' }],
       paging: true,
       language: {
-      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+        url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
       }
-    })
-    this.malfuncSubroupService.getEntities().subscribe(malfuncSubgroups => {
-      this.malfuncSubgroups = malfuncSubgroups;
-      this.table.rows.add(this.malfuncSubgroups);
-      this.table.draw();
     });
-    this.table.on('select', (e, dt, type, indexes) => {
-      console.log("23456");
-      const item = this.table.rows( indexes ).data()[0];
-      this.router.navigate(['/admin/users', item]);
+    this.malfuncSubgroupService.getEntities().subscribe(malfuncSubgroup => {
+      this.malfuncSubgroups = malfuncSubgroup;
+      this.tableSubGroup.rows.add(this.malfuncSubgroups);
+      this.tableSubGroup.draw();
     });
-    console.dir(this.table);
+    this.tableSubGroup.on('select', (e, dt, type, index) => {
+      const item = this.tableSubGroup.rows(index).data()[0];
+      this.selectedMalfunctionSubGroup = item;
+    });
+  }
+
+  addMalfunctionSubGroup(malfuncSubgroup: MalfunSubgroup) {
+    this.malfuncSubgroups = [...this.malfuncSubgroups, malfuncSubgroup];
+    this.tableSubGroup.row.add(malfuncSubgroup);
+    this.tableSubGroup.draw();
+  }
+
+  deleteMalfunctionSubGroup(malfunctionSubGroup: MalfunSubgroup) {
+    this.malfuncSubgroups = this.malfuncSubgroups.filter(x => x !== malfunctionSubGroup);
+    this.tableSubGroup
+      .rows('.selected')
+      .remove()
+      .draw();
+  }
+  editMalfunctionSubGroup(malfunctionSubGroup: MalfunSubgroup) {
+    console.log('I can edit entity');
+    this.malfuncSubgroups[
+      this.malfuncSubgroups.findIndex(i => i.id === this.selectedMalfunctionSubGroup.id)
+    ] = malfunctionSubGroup;
+    this.tableSubGroup
+      .row('.selected')
+      .data(malfunctionSubGroup)
+      .draw();
   }
 }
-

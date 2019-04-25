@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MalfuncService } from '../../../services/malfunc.service';
 import { Malfunction } from '../../../models/malfunc/malfunc';
 
+
 declare const $;
 
 @Component({
@@ -11,16 +12,19 @@ declare const $;
   styleUrls: ['./malfunc.component.scss']
 })
 export class MalfuncComponent implements OnInit {
-  private table: DataTables.Api;
+  private tableMalfunction: DataTables.Api;
 
   selectedMalfunction: Malfunction;
   malfunctions: Array<Malfunction>;
   malfunction: Malfunction;
 
-  constructor(private malfuncService: MalfuncService, private router: Router) {}
+  constructor(
+    private malfuncService: MalfuncService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.table = $('#malfunc-table').DataTable({
+    this.tableMalfunction = $('#malfunc-table').DataTable({
       responsive: true,
       select: {
         style: 'single'
@@ -33,18 +37,18 @@ export class MalfuncComponent implements OnInit {
     });
     this.malfuncService.getEntities().subscribe(malfunctions => {
       this.malfunctions = malfunctions;
-      this.table.rows.add(this.malfunctions);
-      this.table.draw();
+      this.tableMalfunction.rows.add(this.malfunctions);
+      this.tableMalfunction.draw();
     });
-    this.table.on('select', (e, dt, type, index) => {
-      const item = this.table.rows(index).data()[0];
+    this.tableMalfunction.on('select', (e, dt, type, index) => {
+      const item = this.tableMalfunction.rows(index).data()[0];
       this.selectedMalfunction=item;
     });
   }
 
   deleteMalfunction(malfunction: Malfunction) {
     this.malfunctions = this.malfunctions.filter(m => m !== malfunction);
-    this.table
+    this.tableMalfunction
       .rows('.selected')
       .remove()
       .draw();
@@ -54,8 +58,8 @@ export class MalfuncComponent implements OnInit {
 
   addMalfunction(malfunction: Malfunction) {
     this.malfunctions = [...this.malfunctions, malfunction];
-    this.table.row.add(malfunction);
+    this.tableMalfunction.row.add(malfunction);
     console.log(this.malfunctions);
-    this.table.draw();
+    this.tableMalfunction.draw();
   }
 }
