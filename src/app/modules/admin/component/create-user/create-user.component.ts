@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { User } from '../../models/user/user';
 import { Role } from '../../models/role/role';
@@ -7,6 +7,7 @@ import { Role } from '../../models/role/role';
 import { RoleService } from '../../services/role.service';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { MIN_LENGTH_VALIDATOR } from '@angular/forms/src/directives/validators';
 
 @Component({
   selector: 'app-create-user',
@@ -38,20 +39,14 @@ export class CreateUserComponent implements OnInit {
         lastName: '',
         firstName: '',
         middleName: '',
-        phoneNumber: [''],
-        login: ['', Validators.required],
-        password: ['', Validators.required, Validators.minLength(6)],
-        confirmPassword: ['', Validators.required],
-        email: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-          ])
-        ],
-        role: ['', Validators.required]
+        phoneNumber: '',
+        login: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+        password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+        confirmPassword: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+        email: new FormControl('', Validators.email),
+        role: new FormControl('', Validators.required)
       },
-      { validator: this.checkPasswords }
+      { Validator: this.checkPasswords }
     );
     this.serviceRole.getEntities().subscribe(data => (this.roleList = data));
   }
@@ -92,19 +87,19 @@ export class CreateUserComponent implements OnInit {
   }
 
   account_validation_messages = {
-    email: [{ type: 'pattern', message: 'Введіть коректно пошту' }],
-    confirm_password: [
+    email: [{ type: 'email', message: 'Введіть пошту коректно' }],
+    confirmPassword: [
       { type: 'required', message: 'Підтвердження паролю вимагається' },
       { type: 'notSame', message: 'Паролі не співпадають' }
     ],
     password: [
-      { type: 'required', message: 'Введіть пароль' },
-      { type: 'minLength', message: 'Пароль має бути більше 6 символів' }
+      { type: 'required', message: "Поле пароль є обов'язковим" },
+      { type: 'minlength', message: 'Пароль має бути більше 6 символів' }
     ],
     login: [
-      { type: 'required', message: 'Введіть логін' },
-      { type: 'minLength', message: 'Логін має бути більше 6 символів' }
+      { type: 'required', message: "Поле логін є обов'язковим" },
+      { type: 'minlength', message: 'Логін має бути більше 6 символів' }
     ],
-    role: [{ type: 'required', message: 'Введіть роль користувача' }]
+    role: [{ type: 'required', message: "Поле роль є обов'язковим" }]
   };
 }
