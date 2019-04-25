@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, EventEmitter, ViewChild, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Vehicle } from '../../models/vehicle/vehicle';
 import { VehicleType } from '../../models/vehicleType/vehicle-type';
 import { VehicleService } from '../../services/vehicle.service';
@@ -24,10 +24,10 @@ export class CreateVehicleComponent implements OnInit {
       $(this).find('form').trigger('reset');
     });
     this.vehicleForm = this.formBuilder.group({
-      vehicleType: ['', Validators.required],
-      vincode: '',
+      vehicleType: new FormControl('', Validators.required),
+      vincode: new FormControl('', Validators.minLength(8)),
       inventoryId: '',
-      regNum: '',
+      regNum: new FormControl('', Validators.minLength(8)),
       brand: '',
       model: ''
     });
@@ -56,4 +56,12 @@ export class CreateVehicleComponent implements OnInit {
   get vehicleTypeName(): string[] {
     return this.vehicleTypeList.map(t => t.name);
   }
+
+  validation_messages = {
+    vehicleType: [{ type: 'required', message: 'Оберіть тип транспорту' }],
+    vincode: [
+      { type: 'minlength', message: 'Vin-код має мати 8 символів' }
+    ],
+    regNum: [{ type: 'minlength', message: 'Введіть коректно номер' }]
+  };
 }

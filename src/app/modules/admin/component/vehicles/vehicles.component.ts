@@ -44,16 +44,7 @@ export class VehiclesComponent implements OnInit {
 
   addTableData(newVehicles: Vehicle[]) {
     this.vehicles = [...newVehicles];
-    const view = newVehicles.map(vehicle => [
-      vehicle.vehicleType.name,
-      vehicle.vincode,
-      vehicle.inventoryId,
-      vehicle.regNum,
-      vehicle.brand,
-      vehicle.model,
-      `<button id="vehicle-${vehicle.id}" class="btn" data-toggle="modal" data-target="#editVehicle"><i class="fas fa-edit"></i></button>
-       <button id="vehicle-${vehicle.id}" class="btn" data-toggle="modal" data-target="#deleteVehicle"><i class="fas fas fa-trash-alt"></i></button>`
-    ]);
+    const view = newVehicles.map(vehicle => this.vehicleToRow(vehicle));
     console.log(view);
     this.table.clear();
     this.table.rows.add(view).draw();

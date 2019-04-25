@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { Vehicle } from '../../models/vehicle/vehicle';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { VehicleType } from '../../models/vehicleType/vehicle-type';
 import { VehicleTypeService } from '../../services/vehicle-type.service';
 import { VehicleService } from '../../services/vehicle.service';
@@ -30,10 +30,10 @@ export class EditVehicleComponent implements OnInit {
   ngOnInit() {
     this.vehicleForm = this.formBuilder.group({
       id: '',
-      vehicleType: ['', Validators.required],
-      vincode: '',
+      vehicleType:  new FormControl('', Validators.required),
+      vincode: new FormControl('', Validators.minLength(8)),
       inventoryId: '',
-      regNum: '',
+      regNum: new FormControl('', Validators.minLength(8)),
       brand: '',
       model: ''
     });
@@ -59,4 +59,12 @@ export class EditVehicleComponent implements OnInit {
     this.serviceVehicle.updateEntity(vehicle).subscribe(data => this.updateVehicle.next(vehicle), _ => this.toast.error('Не вдалось редагувати дані про транспорт', 'Помилка редагування даних'));
 
   }
+
+  validation_messages = {
+    vehicleType: [{ type: 'required', message: 'Оберіть тип транспорту' }],
+    vincode: [
+      { type: 'minlength', message: 'Vin-код має мати 8 символів' }
+    ],
+    regNum: [{ type: 'minlength', message: 'Введіть коректно номер' }]
+  };
 }
