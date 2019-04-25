@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Supplier } from 'src/app/modules/engineer/models/supplier';
 import { SupplierService } from 'src/app/modules/engineer/services/supplier.service';
-import { Router } from '@angular/router';
 
 declare const $;
 
@@ -15,10 +14,10 @@ export class SupplierComponent implements OnInit {
   
   public suppliers: Array<Supplier>;
   private table: any;
+  public supplier: Supplier;
 
   constructor(
-    private supplierSevice: SupplierService,
-    private router: Router
+    private supplierSevice: SupplierService
   ) {}
 
   ngOnInit() {
@@ -28,23 +27,74 @@ export class SupplierComponent implements OnInit {
         style: 'single'
       },
       columns: [
-        { data: 'id', bVisible: false },
-        { title: '', data: 'name', defaultContent: '' },
+        { 
+          title: "Ім'я", 
+          defaultContent: ''
+        },
+        {
+          title: 'Видалити',
+          orderable: false,
+          defaultContent: ''
+        }
       ],
       paging: true,
       language: {
         url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
       }
     });
-    this.table.on('select', (e, dt, type, indexes) => {
-      const item = this.table.rows( indexes ).data()[0];
-      this.router.navigate(['/admin/supplier/edit', item]);
-    });
-    this.supplierSevice.getEntities().subscribe(suppliers => {
+    this.supplierSevice.getEntities().subscribe(
+      suppliers => {
       this.suppliers = suppliers;
       this.table.rows.add(this.suppliers);
       this.table.draw();
+      this.addTableData(suppliers);      
     });
   }
 
+  addItem(supplier: Supplier) {
+      this.suppliers = [...this.suppliers, supplier];
+      const view = [
+        supplier.name,
+        `<button id="find-supplier-${
+          supplier.id
+        }" class="btn" data-toggle="modal" data-target="#deleteSupplierModal"><i class="fas fa-trash-alt" style="color: darkred"></i></button>`
+      ];
+  
+      this.table.row.add(view)
+        .draw();
+  
+      $('button[id^="find-supplier"]')
+        .off('click')
+        .on('click', event => {
+          const idTokens = event.currentTarget.id.split('-');
+          const id = parseInt(idTokens[idTokens.length - 1], 10);
+          this.supplier = this.suppliers.find(i => i.id === id);
+        });
+    }
+
+  addTableData(newSuppliers: Supplier[]) {
+    this.suppliers = [...newSuppliers, ...this.suppliers];
+    const view = newSuppliers.map(i => [
+      i.name,
+      `<button id="find-supplier-${
+        i.id
+      }" class="btn" data-toggle="modal" data-target="#deleteSupplierModal"><i class="fas fa-trash-alt" style="color: darkred"></i></button>`
+    ]);
+
+    this.table = $('#supplier-table')
+      .dataTable()
+      .api()
+      .clear()
+      .rows.add(view)
+      .draw();
+
+    $('button[id^="find-supplier"]')
+      .off('click')
+      .on('click', event => {
+        const idTokens = event.currentTarget.id.split('-');
+        const id = parseInt(idTokens[idTokens.length - 1], 10);
+        this.supplier = this.suppliers.find(i => i.id === id);
+        
+      });
+  }
 }

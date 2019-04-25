@@ -6,7 +6,7 @@
   <div class="modal-dialog modal-dialog-centered" role="supplier">
     <div class="modal-content">
       <div class="modal-header color">
-        <h5 class="modal-title"> <i class="fas fa-user-plus"></i> Створити </h5>
+        <h5 class="modal-title"> <i class="fas fa-user-plus"></i> Додати постачальника </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,8 +15,8 @@
         <form [formGroup]="supplierForm">
 
           <div class="form-group">
-            <label for="nameInput">Назва</label>
-            <input id="nameInput" type="text" class="form-control"
+            <label for="name">Ім'я постачальника</label>
+            <input id="name" type="text" class="form-control"
                    formControlName="name"
                    [(ngModel)]="supplier.name"
                    placeholder="Введіть ім'я" >
@@ -25,9 +25,7 @@
       </div>
       <div class="modal-footer">
         <button #close type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-        <button type="button" class="btn btn-info" (click)="onSubmit()" [disabled]="supplierForm.invalid">
-          Створити
-        </button>
+        <button type="button" class="btn btn-info" (click)="onSubmit()" [disabled]="supplierForm.invalid">Створити</button>
       </div>
     </div>
   </div>
