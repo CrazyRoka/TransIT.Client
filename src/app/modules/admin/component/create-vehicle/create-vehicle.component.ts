@@ -4,6 +4,7 @@ import { Vehicle } from '../../models/vehicle/vehicle';
 import { VehicleType } from '../../models/vehicleType/vehicle-type';
 import { VehicleService } from '../../services/vehicle.service';
 import { VehicleTypeService } from '../../services/vehicle-type.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-vehicle',
@@ -16,7 +17,7 @@ export class CreateVehicleComponent implements OnInit {
   vehicleForm: FormGroup;
   vehicleTypeList: VehicleType[] = [];
 
-  constructor(private serviceVehicleType: VehicleTypeService, private serviceVehicle: VehicleService, private formBuilder: FormBuilder) { }
+  constructor(private serviceVehicleType: VehicleTypeService, private serviceVehicle: VehicleService, private formBuilder: FormBuilder, private toast: ToastrService) { }
 
   ngOnInit() {
     $('#createVehicle').on('hidden.bs.modal', function () {
@@ -48,7 +49,7 @@ export class CreateVehicleComponent implements OnInit {
       brand: form.brand as string,
       model: form.model as string,
     };
-    this.serviceVehicle.addEntity(vehicle).subscribe(_ => this.createVehicle.next(vehicle));
+    this.serviceVehicle.addEntity(vehicle).subscribe(newVehicle => this.createVehicle.next(newVehicle), _ => this.toast.error('Не вдалось створити транспорт', 'Помилка створення нового транспорту'));
     this.closeDiv.nativeElement.click();
   }
 

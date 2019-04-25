@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VehicleType } from '../../models/vehicleType/vehicle-type';
 import { VehicleTypeService } from '../../services/vehicle-type.service';
 import { VehicleService } from '../../services/vehicle.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-vehicle',
@@ -24,7 +25,7 @@ export class EditVehicleComponent implements OnInit {
   vehicleForm: FormGroup;
   vehicleTypeList: VehicleType[] = [];
 
-  constructor(private formBuilder: FormBuilder, private serviceVehicleType: VehicleTypeService, private serviceVehicle: VehicleService) { }
+  constructor(private formBuilder: FormBuilder, private serviceVehicleType: VehicleTypeService, private serviceVehicle: VehicleService, private toast: ToastrService) { }
 
   ngOnInit() {
     this.vehicleForm = this.formBuilder.group({
@@ -55,7 +56,7 @@ export class EditVehicleComponent implements OnInit {
       model: form.model as string,
     };
     console.log(vehicle);
-    this.serviceVehicle.updateEntity(vehicle).subscribe(_ => this.updateVehicle.next(vehicle));
+    this.serviceVehicle.updateEntity(vehicle).subscribe(data => this.updateVehicle.next(vehicle), _ => this.toast.error('Не вдалось редагувати дані про транспорт', 'Помилка редагування даних'));
 
   }
 }
