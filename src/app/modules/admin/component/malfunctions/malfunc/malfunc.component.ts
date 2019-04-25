@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MalfuncService } from '../../../services/malfunc.service';
 import { Malfunction } from '../../../models/malfunc/malfunc';
+import { MalfunctionsFilterService } from '../../../services/malfunctions-filter.service';
 
 declare const $;
 
@@ -14,7 +15,11 @@ export class MalfuncComponent implements OnInit {
   public malfunction: Array<Malfunction>;
   private table: any;
 
-  constructor(private malfuncService: MalfuncService, private router: Router) {}
+  constructor(
+    private malfuncService: MalfuncService,
+    private router: Router,
+    private malfunctionsFilterService: MalfunctionsFilterService
+  ) {}
 
   ngOnInit() {
     this.table = $('#malfunc-table').DataTable({

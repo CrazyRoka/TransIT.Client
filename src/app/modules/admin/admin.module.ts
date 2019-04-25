@@ -38,6 +38,7 @@ import { CreateSupplierComponent } from './component/supplier/create-supplier/cr
 import { EditSupplierComponent } from './component/supplier/edit-supplier/edit-supplier.component';
 import { DeleteSupplierComponent } from './component/supplier/delete-supplier/delete-supplier.component';
 import { SupplierComponent } from './component/supplier/supplier.component';
+import { MalfunctionsFilterService } from './services/malfunctions-filter.service';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,6 @@ import { SupplierComponent } from './component/supplier/supplier.component';
     ReactiveFormsModule,
     NgxMaskModule.forRoot()
   ],
-  providers: [RoleService, UserService]
+  providers: [RoleService, UserService, MalfunctionsFilterService]
 })
 export class AdminModule {}
