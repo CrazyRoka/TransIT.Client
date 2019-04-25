@@ -34,25 +34,28 @@ export class CreateUserComponent implements OnInit {
         .trigger('reset');
     });
 
-    this.userForm = this.formBuilder.group({
-      lastName: '',
-      firstName: '',
-      middleName: '',
-      phoneNumber: new FormControl('', Validators.minLength(12)),
-      login: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-      password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-      confirmPassword: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-      email: new FormControl('', Validators.email),
-      role: new FormControl('', Validators.required)
-    });
+    this.userForm = this.formBuilder.group(
+      {
+        lastName: '',
+        firstName: '',
+        middleName: '',
+        phoneNumber: new FormControl('', Validators.minLength(12)),
+        login: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+        password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+        confirmPassword: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+        email: new FormControl('', Validators.email),
+        role: new FormControl('', Validators.required)
+      },
+      { validator: this.checkPasswords }
+    );
     this.serviceRole.getEntities().subscribe(data => (this.roleList = data));
   }
 
-  // checkPasswords(group: FormGroup) {
-  //   let pass = group.controls.password.value;
-  //   let confirmPass = group.controls.confirmPassword.value;
-  //   return pass === confirmPass ? { notSame: false } : { notSame: true };
-  // }
+  checkPasswords(group: FormGroup) {
+    let pass = group.controls.password.value;
+    let confirmPass = group.controls.confirmPassword.value;
+    return pass === confirmPass ? null : { notSame: true };
+  }
   clickSubmit() {
     if (this.userForm.invalid) {
       return;
