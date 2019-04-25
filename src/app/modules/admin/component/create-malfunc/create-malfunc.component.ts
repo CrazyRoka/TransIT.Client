@@ -96,8 +96,8 @@ export class CreateMalfuncComponent implements OnInit {
       this.malfunctionGroupList = malfunctionGroupList;
     });
 
-     this.serviceMalfunction.getEntities().subscribe(malfunctions => {
-       this.malfunctions = malfunctions;
+    this.serviceMalfunction.getEntities().subscribe(malfunctions => {
+      this.malfunctions = malfunctions;
 
       const allSubgroups = malfunctions.map(m => m.malfunctionSubgroup);
       this.malfunctionSubgroupList = Array.from(this.getDistinct(allSubgroups));
