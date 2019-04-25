@@ -35,7 +35,11 @@
                   (userForm.get('phoneNumber').dirty || userForm.get('phoneNumber').touched)
                 "
               >
+                <i class="fas fa-phone-slash"></i>
                 {{ validation.message }}
+                <a href="#" class="close d-flex" data-dismiss="alert">
+                  <i class="fas fa-times"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -51,7 +55,11 @@
                   (userForm.get('login').dirty || userForm.get('login').touched)
                 "
               >
+                <i class="fas fa-sign-in-alt"></i>
                 {{ validation.message }}
+                <a href="#" class="close d-flex" data-dismiss="alert">
+                  <i class="fas fa-times"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -80,7 +88,7 @@
             <label>Роль</label>
             <select class="form-control" formControlName="role">
               <option hidden value="" disabled selected></option>
-              <option *ngFor="let role of roles">{{ role.transName }}</option>
+              <option *ngFor="let role of roles"> {{ role.transName }}</option>
             </select>
           </div>
           <button hidden type="submit" #submit></button>
