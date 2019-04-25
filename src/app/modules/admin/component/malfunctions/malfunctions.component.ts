@@ -197,9 +197,9 @@ export class MalfunctionsComponent implements OnInit {
   }
 
   addMalfunction(malfunction: Malfunction) {
+    console.log('ttttttttttt1');
     this.malfunctions = [...this.malfunctions, malfunction];
     this.tableMalfunction.row.add(malfunction);
-    console.log(this.malfunctions);
     this.tableMalfunction.draw();
   }
 

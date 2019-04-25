@@ -38,6 +38,7 @@ export class CreateMalfuncComponent implements OnInit {
     if (this.malfunctionForm.invalid) {
       return;
     }
+    console.log('lllllllllllll');
     this.createMalfunction();
     this.setUpForm();
     this.hideModalWindow();
@@ -77,6 +78,9 @@ export class CreateMalfuncComponent implements OnInit {
 
   clickSubmit(button: HTMLButtonElement) {
     button.click();
+    this.createMalfunction();
+    this.setUpForm();
+    this.hideModalWindow();
   }
 
   private setUpForm() {
@@ -112,7 +116,11 @@ export class CreateMalfuncComponent implements OnInit {
   }
 
   private createMalfunction() {
-    const issue = new Malfunction(this.formValue);
+    const issue = new Malfunction({
+      name: this.formValue.name,
+      malfunctionSubgroup: this.formValue.subgroup
+    });
+    console.log(issue);
     this.serviceMalfunction
       .addEntity(issue)
       .subscribe(
