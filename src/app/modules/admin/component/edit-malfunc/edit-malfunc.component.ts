@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { Malfunction } from '../../models/malfunc/malfunc';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
