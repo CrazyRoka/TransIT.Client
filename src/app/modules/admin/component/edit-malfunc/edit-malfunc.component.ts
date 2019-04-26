@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditMalfuncComponent implements OnInit {
   malfunctionForm: FormGroup;
+  curentMalfunction: Malfunction;
 
   @ViewChild('close') closeDiv: ElementRef;
 
@@ -24,6 +25,7 @@ export class EditMalfuncComponent implements OnInit {
     if (!malfunction) {
       return;
     }
+    this.curentMalfunction = malfunction;
     this.malfunctionForm.patchValue({
       ...malfunction,
       group: malfunction.malfunctionSubgroup.malfunctionGroup.name,
@@ -100,14 +102,15 @@ export class EditMalfuncComponent implements OnInit {
 
   updateData() {
     const malfunc = new Malfunction({
+      id: this.curentMalfunction.id,
       name: this.malfunctionForm.value.name,
       malfunctionSubgroup: this.malfunctionForm.value.subgroup
     });
-    console.log(malfunc);
+    this.closeDiv.nativeElement.click();
     this.serviceMalfunction
       .updateEntity(malfunc)
       .subscribe(
-        newMalfunction => this.editedMalfunction.next(newMalfunction),
+        newMalfunction => this.editedMalfunction.next(malfunc),
         _ => this.toast.error('Не вдалось створити помилку', 'Помилка вже існує у заявках')
       );
   }
