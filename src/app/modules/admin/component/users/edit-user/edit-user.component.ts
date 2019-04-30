@@ -71,13 +71,4 @@ export class EditUserComponent implements OnInit {
         error => this.toast.error('Помилка', 'Користувач з таким логіном існує')
       );
   }
-
-  account_validation_messages = {
-    email: [{ type: 'email', message: 'Введіть пошту коректно' }],
-    login: [
-      { type: 'required', message: "Поле логін є обов'язковим" },
-      { type: 'minlength', message: 'Логін має бути більше 6 символів' }
-    ],
-    phoneNumber: [{ type: 'minlength', message: 'Введіть коректно номер' }]
-  };
 }

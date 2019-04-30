@@ -6,6 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Role } from '../../../models/role/role';
 import { User } from '../../../models/user/user';
+import { MatchPassword } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-create-user',
@@ -44,16 +45,13 @@ export class CreateUserComponent implements OnInit {
         email: new FormControl('', Validators.email),
         role: new FormControl('', Validators.required)
       },
-      { validator: this.checkPasswords }
+      {
+        validators: MatchPassword
+      }
     );
     this.serviceRole.getEntities().subscribe(data => (this.roleList = data));
   }
 
-  checkPasswords(group: FormGroup) {
-    let pass = group.controls.password.value;
-    let confirmPass = group.controls.confirmPassword.value;
-    return pass === confirmPass ? null : { checkPasswords: true };
-  }
   clickSubmit() {
     if (this.userForm.invalid) {
       return;
