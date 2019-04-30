@@ -38,6 +38,7 @@ import { UsersComponent } from './component/users/users.component';
 import { CreateUserComponent } from './component/users/create-user/create-user.component';
 import { EditUserComponent } from './component/users/edit-user/edit-user.component';
 import { DeleteUserComponent } from './component/users/delete-user/delete-user.component';
+import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { DeleteUserComponent } from './component/users/delete-user/delete-user.c
     DataTablesModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgBootstrapFormValidationModule
   ],
   providers: [RoleService, UserService]
 })

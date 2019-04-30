@@ -36,81 +36,21 @@
               placeholder="+(380)99-99-99-999"
               mask="+(000)00-00-00-000"
             />
-            <div *ngFor="let validation of account_validation_messages.phoneNumber">
-              <div
-                class="alert alert-danger"
-                *ngIf="
-                  userForm.get('phoneNumber').hasError(validation.type) &&
-                  (userForm.get('phoneNumber').dirty || userForm.get('phoneNumber').touched)
-                "
-              >
-                <i class="fas fa-phone-slash"></i>
-                {{ validation.message }}
-                <a href="#" class="close d-flex" data-dismiss="alert">
-                  <i class="fas fa-times"></i>
-                </a>
-              </div>
-            </div>
           </div>
 
           <div class="form-group">
             <label>Логін</label>
             <input type="text" class="form-control" formControlName="login" placeholder="Введіть логін*" />
-            <div *ngFor="let validation of account_validation_messages.login">
-              <div
-                class="alert alert-danger"
-                *ngIf="
-                  userForm.get('login').hasError(validation.type) &&
-                  (userForm.get('login').dirty || userForm.get('login').touched)
-                "
-              >
-                <i class="fas fa-sign-in-alt"></i>
-                {{ validation.message }}
-                <a href="#" class="close d-flex" data-dismiss="alert">
-                  <i class="fas fa-times"></i>
-                </a>
-              </div>
-            </div>
           </div>
 
           <div class="form-group">
             <label>Пошта</label>
             <input type="text" class="form-control" formControlName="email" placeholder="Введіть пошту" />
-            <div *ngFor="let validation of account_validation_messages.email">
-              <div
-                class="alert alert-danger"
-                *ngIf="
-                  userForm.get('email').hasError(validation.type) &&
-                  (userForm.get('email').dirty || userForm.get('email').touched)
-                "
-              >
-                <i class="fas fa-envelope"></i>
-                {{ validation.message }}
-                <a href="#" class="close d-flex" data-dismiss="alert">
-                  <i class="fas fa-times"></i>
-                </a>
-              </div>
-            </div>
           </div>
 
           <div class="form-group">
             <label>Пароль</label>
             <input type="password" class="form-control" formControlName="password" placeholder="Введіть пароль*" />
-            <div *ngFor="let validation of account_validation_messages.password">
-              <div
-                class="alert alert-danger"
-                *ngIf="
-                  userForm.get('password').hasError(validation.type) &&
-                  (userForm.get('password').dirty || userForm.get('password').touched)
-                "
-              >
-                <i class="fas fa-key"></i>
-                {{ validation.message }}
-                <a href="#" class="close d-flex" data-dismiss="alert">
-                  <i class="fas fa-times"></i>
-                </a>
-              </div>
-            </div>
           </div>
 
           <div class="form-group">
@@ -121,21 +61,6 @@
               formControlName="confirmPassword"
               placeholder="Введіть пароль ще раз*"
             />
-            <div *ngFor="let validation of account_validation_messages.confirmPassword">
-              <div
-                class="alert alert-danger"
-                *ngIf="
-                  userForm.get('confirmPassword').hasError(validation.type) &&
-                  (userForm.get('confirmPassword').dirty || userForm.get('confirmPassword').touched)
-                "
-              >
-                <i class="fas fa-key"></i>
-                {{ validation.message }}
-                <a href="#" class="close d-flex" data-dismiss="alert">
-                  <i class="fas fa-times"></i>
-                </a>
-              </div>
-            </div>
           </div>
 
           <div class="form-group">
@@ -144,21 +69,6 @@
               <option hidden value="" disabled selected>Виберіть роль для користувача</option>
               <option *ngFor="let role of roleList" [value]="">{{ role.transName }}</option>
             </select>
-            <div *ngFor="let validation of account_validation_messages.role">
-              <div
-                class="alert alert-danger"
-                *ngIf="
-                  userForm.get('role').hasError(validation.type) &&
-                  (userForm.get('role').dirty || userForm.get('role').touched)
-                "
-              >
-                <i class="fas fa-user-cog"></i>
-                {{ validation.message }}
-                <a href="#" class="close d-flex" data-dismiss="alert">
-                  <i class="fas fa-times"></i>
-                </a>
-              </div>
-            </div>
           </div>
         </form>
       </div>

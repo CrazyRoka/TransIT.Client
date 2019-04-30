@@ -83,22 +83,4 @@ export class CreateUserComponent implements OnInit {
   get roleName(): string[] {
     return this.roleList.map(r => r.transName);
   }
-
-  account_validation_messages = {
-    email: [{ type: 'email', message: 'Введіть пошту коректно' }],
-    confirmPassword: [
-      { type: 'required', message: 'Підтвердження паролю вимагається' },
-      { type: 'checkPasswords', message: 'Паролі не співпадають' }
-    ],
-    password: [
-      { type: 'required', message: "Поле пароль є обов'язковим" },
-      { type: 'minlength', message: 'Пароль має бути більше 6 символів' }
-    ],
-    login: [
-      { type: 'required', message: "Поле логін є обов'язковим" },
-      { type: 'minlength', message: 'Логін має бути більше 6 символів' }
-    ],
-    phoneNumber: [{ type: 'minlength', message: 'Введіть коректно номер' }],
-    role: [{ type: 'required', message: "Поле роль є обов'язковим" }]
-  };
 }
