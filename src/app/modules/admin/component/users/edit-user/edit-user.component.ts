@@ -1,10 +1,10 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { RoleService } from '../../services/role.service';
-import { UserService } from '../../services/user.service';
-import { Role } from '../../models/role/role';
-import { User } from '../../models/user/user';
+import { RoleService } from '../../../services/role.service';
+import { UserService } from '../../../services/user.service';
+import { Role } from '../../../models/role/role';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../../models/user/user';
 
 @Component({
   selector: 'app-edit-user',

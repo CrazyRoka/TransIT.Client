@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user/user';
 import { UserService } from '../../services/user.service';
 import { RoleService } from '../../services/role.service';
-import { Role } from '../../models/role/role';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
