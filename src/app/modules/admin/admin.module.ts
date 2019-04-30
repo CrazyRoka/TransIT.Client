@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DataTablesModule } from 'angular-datatables';
 import { VehiclesComponent } from './component/vehicles/vehicles.component';
-import { DialogComponent } from './component/dialog/dialog.component';
 import { MalfunctionsComponent } from './component/malfunctions/malfunctions.component';
 import { ActionComponent } from './component/action/action.component';
 import { MalfuncComponent } from './component/malfunctions/malfunc/malfunc.component';
@@ -25,7 +24,7 @@ import { EditUserComponent } from './component/edit-user/edit-user.component';
 import { CreateVehicleComponent } from './component/create-vehicle/create-vehicle.component';
 import { EditVehicleComponent } from './component/edit-vehicle/edit-vehicle.component';
 import { DeleteVehicleComponent } from './component/delete-vehicle/delete-vehicle.component';
-
+import { DeleteUserComponent } from './component/delete-user/delete-user.component';
 import { CreateMalfuncGroupComponent } from './component/create-malfunc-group/create-malfunc-group.component';
 import { CreateMalfuncComponent } from './component/create-malfunc/create-malfunc.component';
 import { CreateMalfuncSubgroupComponent } from './component/create-malfunc-subgroup/create-malfunc-subgroup.component';
@@ -47,7 +46,6 @@ import { DeleteMalfuncComponent } from './component/delete-malfunc/delete-malfun
     UsersComponent,
     CreateUserComponent,
     VehiclesComponent,
-    DialogComponent,
     ActionComponent,
     MalfuncComponent,
     MalfuncGroupComponent,
@@ -72,7 +70,8 @@ import { DeleteMalfuncComponent } from './component/delete-malfunc/delete-malfun
     EditSupplierComponent,
     DeleteSupplierComponent,
     EditMalfuncComponent,
-    DeleteMalfuncComponent
+    DeleteMalfuncComponent,
+    DeleteUserComponent
   ],
   exports: [AdminComponent],
   imports: [
