@@ -34,9 +34,9 @@ export class CreateUserComponent implements OnInit {
 
     this.userForm = this.formBuilder.group(
       {
-        lastName: '',
-        firstName: '',
-        middleName: '',
+        lastName: new FormControl(''),
+        firstName: new FormControl(''),
+        middleName: new FormControl(''),
         phoneNumber: new FormControl('', Validators.minLength(12)),
         login: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
         password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
