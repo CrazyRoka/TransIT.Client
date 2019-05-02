@@ -22,6 +22,7 @@ export class DeleteUserComponent implements OnInit {
     this.service.deleteEntity(this.user.id).subscribe(
       data => {
         this.deleteUser.next(this.user);
+        this.toast.success('', 'Користувача видалено');
       },
       error => this.toast.error('Помилка', 'Користувач містить записи')
     );

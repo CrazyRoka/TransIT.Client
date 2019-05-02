@@ -38,6 +38,8 @@ import { UsersComponent } from './component/users/users.component';
 import { CreateUserComponent } from './component/users/create-user/create-user.component';
 import { EditUserComponent } from './component/users/edit-user/edit-user.component';
 import { DeleteUserComponent } from './component/users/delete-user/delete-user.component';
+import { RestoreUserPasswordComponent } from './component/users/restore-user-password/restore-user-password.component';
+
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 
 @NgModule({
@@ -71,7 +73,8 @@ import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
     DeleteSupplierComponent,
     EditMalfuncComponent,
     DeleteMalfuncComponent,
-    DeleteUserComponent
+    DeleteUserComponent,
+    RestoreUserPasswordComponent
   ],
   exports: [AdminComponent],
   imports: [

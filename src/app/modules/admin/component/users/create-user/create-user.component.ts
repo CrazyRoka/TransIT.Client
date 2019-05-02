@@ -45,9 +45,7 @@ export class CreateUserComponent implements OnInit {
         email: new FormControl('', Validators.email),
         role: new FormControl('', Validators.required)
       },
-      {
-        validators: matchPassword
-      }
+      { validators: matchPassword }
     );
     this.serviceRole.getEntities().subscribe(data => (this.roleList = data));
   }
@@ -57,24 +55,24 @@ export class CreateUserComponent implements OnInit {
       return;
     }
     const form = this.userForm.value;
-    const user: User = {
-      id: 0,
-      firstName: form.firstName as string,
-      lastName: form.lastName as string,
-      middleName: form.middleName as string,
-      phoneNumber: form.phoneNumber as number,
-      login: form.login as string,
-      email: form.email as string,
-      password: form.password as string,
+    const user: User = new User({
+      firstName: form.firstName,
+      lastName: form.lastName,
+      middleName: form.middleName,
+      phoneNumber: form.phoneNumber,
+      login: form.login,
+      email: form.email,
+      password: form.password,
       role: this.roleList[this.roleName.findIndex(r => r === form.role)]
-    };
+    });
 
-    this.serviceUser
-      .addEntity(user)
-      .subscribe(
-        newUser => this.createUser.next(newUser),
-        error => this.toast.error('Помилка', 'Користувач з таким логіном існує')
-      );
+    this.serviceUser.addEntity(user).subscribe(
+      newUser => {
+        this.createUser.next(newUser);
+        this.toast.success('', 'Користувача створено');
+      },
+      error => this.toast.error('Помилка', 'Користувач з таким логіном існує')
+    );
     this.closeCreateModal.nativeElement.click();
   }
 

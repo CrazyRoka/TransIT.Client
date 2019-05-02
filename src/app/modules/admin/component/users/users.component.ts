@@ -20,6 +20,9 @@ export class UsersComponent implements OnInit {
     },
     columns: [
       {
+        title: 'Статус'
+      },
+      {
         title: 'Прізвище'
       },
       {
@@ -60,6 +63,7 @@ export class UsersComponent implements OnInit {
   addTableData(newUsers: User[]) {
     this.users = [...newUsers];
     const view = newUsers.map(i => [
+      `<input type="checkbox"></input>`,
       i.lastName,
       i.firstName,
       i.middleName,
@@ -72,7 +76,8 @@ export class UsersComponent implements OnInit {
       }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>
       <button id="find-user-${
         i.login
-      }" class="btn" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt" style="color: darkred"></i></button>`
+      }" class="btn" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt" style="color: darkred"></i>
+      </button>`
     ]);
 
     this.dataTable = $('#userTable')
