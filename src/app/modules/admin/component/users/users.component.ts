@@ -61,6 +61,8 @@ export class UsersComponent implements OnInit {
   }
 
   addTableData(newUsers: User[]) {
+    console.log('this.uasdasdser');
+    console.log(newUsers);
     this.users = [...newUsers];
     const view = newUsers.map(i => [
       `<input type="checkbox"></input>`,
@@ -72,12 +74,12 @@ export class UsersComponent implements OnInit {
       i.phoneNumber,
       i.role.transName,
       `<button id="find-user-${
-        i.login
+        i.id
       }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>
-      <button id="find-user-${
-        i.login
-      }" class="btn" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt" style="color: darkred"></i>
-      </button>`
+   <!-- <button id="find-user-${
+     i.id
+   }" class="btn" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt" style="color: darkred"></i>
+      </button>-->`
     ]);
 
     this.dataTable = $('#userTable')
@@ -87,13 +89,11 @@ export class UsersComponent implements OnInit {
       .rows.add(view)
       .draw();
 
-    $('button[id^="find-user"]')
-      .off('click')
-      .on('click', event => {
-        const idTokens = event.currentTarget.id.split('-');
-        const login = idTokens[idTokens.length - 1];
-        this.user = this.users.find(i => i.login === login);
-      });
+    $('#userTable tbody').on('click', 'button', event => {
+      const idTokens = event.currentTarget.id.split('-');
+      const id = parseInt(idTokens[idTokens.length - 1], 10);
+      this.user = this.users.find(i => i.id === id);
+    });
   }
 
   addUser(user: User) {
