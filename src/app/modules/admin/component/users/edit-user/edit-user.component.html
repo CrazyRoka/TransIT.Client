@@ -1,4 +1,4 @@
-<app-restore-user-password></app-restore-user-password>
+<app-restore-user-password [selectedUser]="selectedUser"></app-restore-user-password>
 
 <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="CreateUser" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -48,7 +48,9 @@
               <option *ngFor="let role of roles"> {{ role.transName }}</option>
             </select>
           </div>
-          <a href="#" data-toggle="modal" data-target="#restore" data-dismiss="modal" class="right">Відновити пароль</a>
+          <a href="#" data-toggle="modal" data-target="#restoreModal" data-dismiss="modal" class="right"
+            >Відновити пароль</a
+          >
           <button hidden type="submit" #submit></button>
         </form>
       </div>

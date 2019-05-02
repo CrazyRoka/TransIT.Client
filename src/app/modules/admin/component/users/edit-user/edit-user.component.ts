@@ -20,8 +20,9 @@ export class EditUserComponent implements OnInit {
       return;
     }
     this.userForm.patchValue({ ...user, role: user.role.transName });
+    this.selectedUser = user;
   }
-
+  selectedUser: User;
   userForm: FormGroup;
   roles: Role[] = [];
 
