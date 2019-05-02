@@ -15,8 +15,8 @@ export const CUSTOM_ERRORS: ErrorMessage[] = [
     format: maxLengthFormat
   },
   {
-    error: 'matchPassword',
-    format: matchPasswordFormat
+    error: 'MatchPassword',
+    format: MatchPasswordFormat
   }
 ];
 
@@ -31,13 +31,13 @@ export function minLengthFormat(label: string, error: any): string {
 export function maxLengthFormat(label: string, error: any): string {
   return `Максимальна довжина поля - ${error.requiredLength}`;
 }
-export function matchPasswordFormat(label: string, error: any): string {
+export function MatchPasswordFormat(label: string, error: any): string {
   return `Паролі не співпадають`;
 }
-export function matchPassword(AC: AbstractControl) {
+export function MatchPassword(AC: AbstractControl) {
   let password = AC.get('password').value;
   let confirmPassword = AC.get('confirmPassword').value;
-  if (password !== confirmPassword) {
+  if (password != confirmPassword) {
     AC.get('confirmPassword').setErrors({ MatchPassword: true });
   } else {
     return null;

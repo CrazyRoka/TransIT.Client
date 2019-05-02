@@ -6,7 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Role } from '../../../models/role/role';
 import { User } from '../../../models/user/user';
-import { matchPassword } from 'src/app/custom-errors';
+import { MatchPassword } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-create-user',
@@ -46,7 +46,7 @@ export class CreateUserComponent implements OnInit {
         role: new FormControl('', Validators.required)
       },
       {
-        validators: matchPassword
+        validators: MatchPassword
       }
     );
     this.serviceRole.getEntities().subscribe(data => (this.roleList = data));
