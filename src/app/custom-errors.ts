@@ -37,7 +37,7 @@ export function matchPasswordFormat(label: string, error: any): string {
 export function matchPassword(AC: AbstractControl) {
   let password = AC.get('password').value;
   let confirmPassword = AC.get('confirmPassword').value;
-  if (password !== confirmPassword) {
+  if (password != confirmPassword) {
     AC.get('confirmPassword').setErrors({ MatchPassword: true });
   } else {
     return null;
