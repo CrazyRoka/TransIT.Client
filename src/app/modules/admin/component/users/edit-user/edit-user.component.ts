@@ -16,8 +16,6 @@ export class EditUserComponent implements OnInit {
   @Output() updateUser = new EventEmitter<User>();
   @Input()
   set user(user: User) {
-    console.log('user');
-    console.log(user);
     if (!user) {
       return;
     }

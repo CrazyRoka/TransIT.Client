@@ -45,6 +45,7 @@ export class IssuesComponent implements OnInit {
     this.initializeTable();
     this.loadEntities();
   }
+
   private initializeTable(): void {
     this.table = $('#issues').DataTable(this.tableConfig);
     this.setUpDetailsButtonClick();
