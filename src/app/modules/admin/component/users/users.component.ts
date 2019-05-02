@@ -65,7 +65,15 @@ export class UsersComponent implements OnInit {
     console.log(newUsers);
     this.users = [...newUsers];
     const view = newUsers.map(i => [
-      `<input type="checkbox"></input>`,
+      `<input
+      type="checkbox"
+      data-toggle="switchbutton"
+      checked
+      data-onlabel="ON"
+      data-offlabel="OFF"
+      data-onstyle="success"
+      data-offstyle="danger"
+    />`,
       i.lastName,
       i.firstName,
       i.middleName,
