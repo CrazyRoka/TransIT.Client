@@ -42,6 +42,9 @@ export class UsersComponent implements OnInit {
         title: 'Роль'
       },
       {
+        title: 'Статус'
+      },
+      {
         title: 'Дії',
         orderable: false
       }
@@ -67,6 +70,7 @@ export class UsersComponent implements OnInit {
       i.email,
       i.phoneNumber,
       i.role.transName,
+      i.isActive ? 'активний' : 'неактивний',
       `<button id="find-user-${
         i.id
       }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>

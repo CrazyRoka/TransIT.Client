@@ -1,5 +1,8 @@
 <app-restore-user-password [selectedUser]="selectedUser"></app-restore-user-password>
-
+<app-is-active-modal
+  [selectedUser]="selectedUser"
+  (updateUserChangeActive)="updateUserChangeActive($event)"
+></app-is-active-modal>
 <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="CreateUser" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -51,9 +54,30 @@
               <option *ngFor="let role of roles"> {{ role.transName }}</option>
             </select>
           </div>
-          <a href="#" data-toggle="modal" data-target="#restoreModal" data-dismiss="modal" class="right"
-            >Відновити пароль</a
+          <a href="#" data-toggle="modal" data-target="#restoreModal" data-dismiss="modal" class="right">
+            Відновити пароль
+          </a>
+          <br />
+          <a
+            href="#"
+            data-toggle="modal"
+            data-target="#activateModal"
+            data-dismiss="modal"
+            class="right"
+            *ngIf="selectedUser.isActive === true"
           >
+            Деактивувати користувача
+          </a>
+          <a
+            href="#"
+            data-toggle="modal"
+            data-target="#activateModal"
+            data-dismiss="modal"
+            class="right"
+            *ngIf="selectedUser.isActive === false"
+          >
+            Активувати користувача
+          </a>
           <button hidden type="submit" #submit></button>
         </form>
       </div>
