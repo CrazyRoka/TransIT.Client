@@ -20,9 +20,6 @@ export class UsersComponent implements OnInit {
     },
     columns: [
       {
-        title: 'Статус'
-      },
-      {
         title: 'Прізвище'
       },
       {
@@ -63,15 +60,6 @@ export class UsersComponent implements OnInit {
   addTableData(newUsers: User[]) {
     this.users = [...newUsers];
     const view = newUsers.map(i => [
-      `<input
-      type="checkbox"
-      data-toggle="switchbutton"
-      checked
-      data-onlabel="ON"
-      data-offlabel="OFF"
-      data-onstyle="success"
-      data-offstyle="danger"
-    />`,
       i.lastName,
       i.firstName,
       i.middleName,
