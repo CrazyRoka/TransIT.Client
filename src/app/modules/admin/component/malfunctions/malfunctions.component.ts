@@ -97,7 +97,7 @@ export class MalfunctionsComponent implements OnInit {
     this.malfuncSubgroupService.getEntities().subscribe(malfuncSubgroup => {
       this.malfuncSubgroups = malfuncSubgroup;
       this.tableSubGroup.rows.add(this.malfuncSubgroups);
-      // this.tableSubGroup.draw();
+      //this.tableSubGroup.draw();
     });
     this.tableSubGroup.on('select', (e, dt, type, index) => {
       const item = this.tableSubGroup.rows(index).data()[0];
@@ -135,8 +135,6 @@ export class MalfunctionsComponent implements OnInit {
       .rows('.selected')
       .remove()
       .draw();
-    // console.log(malfunctionGroup);
-    console.log(this.malfuncGroups);
   }
 
   editMalfunctionGroup(malfunctionGroup: MalfuncGroup) {
@@ -213,8 +211,7 @@ export class MalfunctionsComponent implements OnInit {
       .rows('.selected')
       .remove()
       .draw();
-    // console.log(malfunctionGroup);
-    console.log(this.malfunctions);
+    // console.log(this.malfunctions);
   }
 
   addMalfunction(malfunction: Malfunction) {
