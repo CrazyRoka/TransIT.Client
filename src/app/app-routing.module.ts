@@ -5,6 +5,7 @@ import { LoginGuard } from './modules/core/guards/login.guard';
 import { AdminGuard } from './modules/core/guards/admin.guard';
 import { EngineerGuard } from './modules/core/guards/engineer.guard';
 import { CustomerGuard } from './modules/core/guards/customer.guard';
+import { AnalystGuard } from './modules/core/guards/analyst.guard';
 
 const routes: Routes = [
   {
@@ -28,6 +29,11 @@ const routes: Routes = [
     canActivate: [CustomerGuard]
   },
   {
+    path: 'analyst',
+    loadChildren: './modules/analyst/analyst.module#AnalystModule',
+    canActivate: [AnalystGuard]
+  },
+  {
     path: '**',
     redirectTo: '/login'
   }
@@ -38,4 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
