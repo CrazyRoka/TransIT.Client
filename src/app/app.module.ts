@@ -9,9 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './modules/core/core.module';
 import { CUSTOM_ERRORS } from './custom-errors';
+import { AnalystComponent } from './modules/analyst/component/analyst/analyst.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AnalystComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
