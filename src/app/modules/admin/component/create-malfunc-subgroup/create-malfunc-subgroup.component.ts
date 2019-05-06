@@ -30,7 +30,7 @@ export class CreateMalfuncSubgroupComponent implements OnInit {
     });
     this.subGroupForm = this.formBuilder.group({
       group: ['', Validators.required],
-      subgroup: ''
+      subgroup: ['',Validators.required]
     });
     this.serviceMalfuncGroup.getEntities().subscribe(group => {
       this.malfuncGroupList = group;
@@ -52,7 +52,7 @@ export class CreateMalfuncSubgroupComponent implements OnInit {
       malfunctionGroup: this.malfuncGroupList[this.malfuncGroupName.findIndex(f => f === form.group)]
     };
     this.serviceMalfuncSubGroup.addEntity(malfunSubGroup).subscribe(x => {
-      this.createMalfuncSubGroup.next(malfunSubGroup);
+      this.createMalfuncSubGroup.next(x);
     });
     this.closeDiv.nativeElement.click();
   }
