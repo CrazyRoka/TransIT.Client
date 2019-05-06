@@ -40,6 +40,12 @@ export class CreateMalfuncSubgroupComponent implements OnInit {
   get malfuncGroupName(): string[] {
     return this.malfuncGroupList.map(e => e.name);
   }
+
+  clickAddMalfunctionSubGroup(){
+    this.serviceMalfuncGroup.getEntities().subscribe(group => {
+      this.malfuncGroupList = group;
+    });
+  }
   
   clickSubmit() {
     if (this.subGroupForm.invalid) {
