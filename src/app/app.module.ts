@@ -10,9 +10,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './modules/core/core.module';
 import { CUSTOM_ERRORS } from './custom-errors';
 import { AnalystComponent } from './modules/analyst/component/analyst/analyst.component';
+import { IssueAnalystComponent } from './modules/analyst/component/issue-analyst/issue-analyst.component';
 
 @NgModule({
-  declarations: [AppComponent, AnalystComponent],
+  declarations: [AppComponent, AnalystComponent, IssueAnalystComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
