@@ -46,14 +46,6 @@ export class CrudService<T extends TEntity<T>> {
       catchError(this.handleError())
     );
   }
-  updatePasswordEntity(entity: T): Observable<T> {
-    this.spinner.show();
-    return this.http.put<T>(`${this.serviceUrl}/${entity.id}/password`, entity).pipe(
-      map(updatedEntity => this.mapEntity(updatedEntity)),
-      tap(data => this.handleSuccess('updated entity', data)),
-      catchError(this.handleError())
-    );
-  }
 
   deleteEntity(id: number): Observable<T> {
     this.spinner.show();
