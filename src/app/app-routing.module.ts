@@ -24,14 +24,14 @@ const routes: Routes = [
     canActivate: [EngineerGuard]
   },
   {
-    path: 'customer',
-    loadChildren: './modules/register/register.module#RegisterModule',
-    canActivate: [CustomerGuard]
-  },
-  {
     path: 'analyst',
     loadChildren: './modules/analyst/analyst.module#AnalystModule',
     canActivate: [AnalystGuard]
+  },
+  {
+    path: 'customer',
+    loadChildren: './modules/register/register.module#RegisterModule',
+    canActivate: [CustomerGuard]
   },
   {
     path: '**',
@@ -44,4 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
