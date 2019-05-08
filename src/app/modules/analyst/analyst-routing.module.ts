@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AnalystComponent } from './component/analyst/analyst.component';
-import { IssueAnalystComponent } from './component/issue-analyst/issue-analyst.component';
-import { IssueLogAnalystComponent } from './component/issue-log-analyst/issue-log-analyst.component';
+import { AnalystComponent } from './components/analyst/analyst.component';
+import { IssueAnalystComponent } from './components/issue-analyst/issue-analyst.component';
+import { IssueLogAnalystComponent } from './components/issue-log-analyst/issue-log-analyst.component';
+import { ReportComponent } from './components/report/report.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
     children: [
       { path: 'issues', component: IssueAnalystComponent },
       { path: 'issue-logs', component: IssueLogAnalystComponent },
+      { path: 'report', component: ReportComponent },
       { path: '**', redirectTo: 'issues' }
     ]
   }
