@@ -42,6 +42,7 @@ import { RestoreUserPasswordComponent } from './component/users/restore-user-pas
 
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { IsActiveModalComponent } from './component/users/is-active-modal/is-active-modal.component';
+import { VehicleTypeComponent } from './component/vehicle-type/vehicle-type.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { IsActiveModalComponent } from './component/users/is-active-modal/is-act
     DeleteMalfuncComponent,
     DeleteUserComponent,
     RestoreUserPasswordComponent,
-    IsActiveModalComponent
+    IsActiveModalComponent,
+    VehicleTypeComponent
   ],
   exports: [AdminComponent],
   imports: [

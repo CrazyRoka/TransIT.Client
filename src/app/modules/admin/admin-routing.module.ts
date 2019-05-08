@@ -9,6 +9,8 @@ import { MalfuncComponent } from './component/malfunctions/malfunc/malfunc.compo
 import { ActionComponent } from './component/action/action.component';
 import { AdminComponent } from './component/admin/admin.component';
 import { SupplierComponent } from './component/supplier/supplier.component';
+import { VehicleTypeComponent } from './component/vehicle-type/vehicle-type.component';
+
 
 const routes: Routes = [
   {
@@ -28,6 +30,7 @@ const routes: Routes = [
       },
       { path: 'actions', component: ActionComponent },
       { path: 'supplier', component: SupplierComponent },
+      { path: 'vehicleTypes', component: VehicleTypeComponent },
       { path: '**', redirectTo: 'users' }
     ]
   }
