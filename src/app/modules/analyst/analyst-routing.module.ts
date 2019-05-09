@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: AnalystComponent,
-    children: [{ path: 'issue', component: IssueAnalystComponent }, { path: '**', redirectTo: 'analyst' }]
+    children: [{ path: 'issue', component: IssueAnalystComponent }, { path: '**', redirectTo: 'issue' }]
   }
 ];
 
