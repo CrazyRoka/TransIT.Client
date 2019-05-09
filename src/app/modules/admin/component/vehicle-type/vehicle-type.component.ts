@@ -41,9 +41,9 @@ export class VehicleTypeComponent implements OnInit {
     this.table.clear();
     this.table.rows.add(view).draw();
 
-    $('#vehicles tbody')
+    $('#vehicleTypes tbody')
       .off('click')
-      .on('click', 'button[id^="vehicle"]', event => {
+      .on('click', 'button[id^="vehicleType"]', event => {
         const idTokens = event.currentTarget.id.split('-');
         const id = parseInt(idTokens[idTokens.length - 1], 10);
         console.log(id);
@@ -52,7 +52,7 @@ export class VehicleTypeComponent implements OnInit {
 
   }
 
-  addVehicle(vehicleType: VehicleType) {
+  addVehicleType(vehicleType: VehicleType) {
     this.vehicleTypes.push(vehicleType);
     this.table.row.add(this.vehicleToRow(vehicleType)).draw();
   }
@@ -60,8 +60,8 @@ export class VehicleTypeComponent implements OnInit {
   vehicleToRow(vehicleType: VehicleType): string[] {
     return [
       vehicleType.name,
-      `<button id="vehicle-${vehicleType.id}" class="btn" data-toggle="modal" data-target="#editVehicle"><i class="fas fa-edit"></i></button>
-     <button id="vehicle-${vehicleType.id}" class="btn" data-toggle="modal" data-target="#deleteVehicle"><i class="fas fas fa-trash-alt"></i></button>`
+      `<button id="vehicleType-${vehicleType.id}" class="btn" data-toggle="modal" data-target="#editVehicleType"><i class="fas fa-edit"></i></button>
+     <button id="vehicleType-${vehicleType.id}" class="btn" data-toggle="modal" data-target="#deleteVehicleType"><i class="fas fas fa-trash-alt"></i></button>`
     ];
   }
 
