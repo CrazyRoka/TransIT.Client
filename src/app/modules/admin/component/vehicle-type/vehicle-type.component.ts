@@ -65,4 +65,10 @@ export class VehicleTypeComponent implements OnInit {
     ];
   }
 
+  updateVehicleType(vehicleType: VehicleType) {
+    this.vehicleTypes[this.vehicleTypes.findIndex(i => i.id === vehicleType.id)] = vehicleType;
+    this.vehicleTypeService.getEntities().subscribe(vehicleTypes => {
+      this.addTableData(vehicleTypes);
+    });
+  }
 }

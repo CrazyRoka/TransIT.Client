@@ -1,5 +1,7 @@
 <div class="border">
-    <app-create-vehicle-type (createVehicleType)="addVehicleType($event)"></app-create-vehicle-type> 
+    <app-create-vehicle-type (createVehicleType)="addVehicleType($event)"></app-create-vehicle-type>
+    <app-edit-vehicle-type [vehicleType]="selectedVehicleType" (updateVehicleType)="updateVehicleType($event)"></app-edit-vehicle-type>
+  
   <p> </p>
 
   <table id="vehicleTypes" class="table table-bordered  table-hover" style="width:100%;" cellspacing="0">

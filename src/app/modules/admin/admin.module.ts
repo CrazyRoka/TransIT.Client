@@ -44,6 +44,7 @@ import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { IsActiveModalComponent } from './component/users/is-active-modal/is-active-modal.component';
 import { VehicleTypeComponent } from './component/vehicle-type/vehicle-type.component';
 import { CreateVehicleTypeComponent } from './component/create-vehicle-type/create-vehicle-type.component';
+import { EditVehicleTypeComponent } from './component/edit-vehicle-type/edit-vehicle-type.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { CreateVehicleTypeComponent } from './component/create-vehicle-type/crea
     RestoreUserPasswordComponent,
     IsActiveModalComponent,
     VehicleTypeComponent,
-    CreateVehicleTypeComponent
+    CreateVehicleTypeComponent,
+    EditVehicleTypeComponent
   ],
   exports: [AdminComponent],
   imports: [

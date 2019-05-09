@@ -30,7 +30,7 @@ const routes: Routes = [
       },
       { path: 'actions', component: ActionComponent },
       { path: 'supplier', component: SupplierComponent },
-      { path: 'vehicleTypes', component: VehicleTypeComponent },
+      { path: 'vehicle-types', component: VehicleTypeComponent },
       { path: '**', redirectTo: 'users' }
     ]
   }
@@ -40,4 +40,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }
