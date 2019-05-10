@@ -65,6 +65,13 @@ export class VehicleTypeComponent implements OnInit {
     ];
   }
 
+  deleteVehicleType(vehicleType: VehicleType) {
+    console.log(this.selectedVehicleType);
+    this.vehicleTypes = this.vehicleTypes.filter(v => v.id !== vehicleType.id);
+    this.table.rows($(`button[id^="vehicleType-${vehicleType.id}"]`).parents('tr'))
+      .remove()
+      .draw(false);
+  }
   updateVehicleType(vehicleType: VehicleType) {
     this.vehicleTypes[this.vehicleTypes.findIndex(i => i.id === vehicleType.id)] = vehicleType;
     this.vehicleTypeService.getEntities().subscribe(vehicleTypes => {

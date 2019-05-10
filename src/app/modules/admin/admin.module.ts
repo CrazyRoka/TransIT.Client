@@ -45,6 +45,7 @@ import { IsActiveModalComponent } from './component/users/is-active-modal/is-act
 import { VehicleTypeComponent } from './component/vehicle-type/vehicle-type.component';
 import { CreateVehicleTypeComponent } from './component/create-vehicle-type/create-vehicle-type.component';
 import { EditVehicleTypeComponent } from './component/edit-vehicle-type/edit-vehicle-type.component';
+import { DeleteVehicleTypeComponent } from './component/delete-vehicle-type/delete-vehicle-type.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { EditVehicleTypeComponent } from './component/edit-vehicle-type/edit-veh
     IsActiveModalComponent,
     VehicleTypeComponent,
     CreateVehicleTypeComponent,
-    EditVehicleTypeComponent
+    EditVehicleTypeComponent,
+    DeleteVehicleTypeComponent
   ],
   exports: [AdminComponent],
   imports: [
