@@ -20,13 +20,7 @@ export class UsersComponent implements OnInit {
     },
     columns: [
       {
-        title: 'Прізвище'
-      },
-      {
-        title: "Ім'я"
-      },
-      {
-        title: 'Побатькові'
+        title: 'ПІП'
       },
       {
         title: 'Логін'
@@ -63,9 +57,7 @@ export class UsersComponent implements OnInit {
   addTableData(newUsers: User[]) {
     this.users = [...newUsers];
     const view = newUsers.map(i => [
-      i.lastName,
-      i.firstName,
-      i.middleName,
+      i.lastName + '\n' + i.firstName + '\n' + i.middleName,
       i.login,
       i.email,
       i.phoneNumber,
