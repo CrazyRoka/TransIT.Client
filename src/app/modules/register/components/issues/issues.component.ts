@@ -39,7 +39,7 @@ export class IssuesComponent implements OnInit {
     scrollX: true
   };
 
-  constructor(private issueService: IssueService, private toast: ToastrService) { }
+  constructor(private issueService: IssueService) {}
 
   ngOnInit() {
     this.initializeTable();
@@ -80,7 +80,7 @@ export class IssuesComponent implements OnInit {
       issue.malfunction.name,
       issue.summary,
       `<button id="details-issue-${
-      issue.id
+        issue.id
       }" class="btn" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>`
     ]);
   }
