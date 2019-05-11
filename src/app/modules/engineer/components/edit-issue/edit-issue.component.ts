@@ -9,7 +9,7 @@ import { IssueService } from '../../services/issue.service';
   styleUrls: ['./edit-issue.component.scss']
 })
 export class EditIssueComponent implements OnInit {
-  public issue: Issue;
+  issue: Issue;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -19,6 +19,8 @@ export class EditIssueComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(data => {
       this.issue = new Issue(data);
+      // console.log(data.id);
+      
       this.issueService.getEntity(data.id).subscribe(res => {
         this.issue = res;
       });
