@@ -53,4 +53,13 @@ export class DocumentsComponent implements OnInit {
       this.router.navigate(['/admin/issue-log', this.selectedDocument.issueLog]);
     });
   }
+  addDocument(document: Documents) {
+    this.Documents = [...this.Documents, document];
+    this.tableDocument.row.add(document);
+    this.tableDocument.draw(); 
+  }
+
+  deleteDocument(){
+    
+  }
 }

@@ -44,6 +44,8 @@ import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { IsActiveModalComponent } from './component/users/is-active-modal/is-active-modal.component';
 import { DocumentsComponent } from './component/documents/documents.component';
 import { IssueLogComponent } from './component/issue-log/issue-log.component';
+import { CreateDocumentComponent} from './component/documents/create-document/create-document.component';
+import { DeleteDocumentComponent } from './component/documents/delete-document/delete-document.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { IssueLogComponent } from './component/issue-log/issue-log.component';
     RestoreUserPasswordComponent,
     IsActiveModalComponent,
     DocumentsComponent,
-    IssueLogComponent
+    IssueLogComponent,
+    CreateDocumentComponent,
+    DeleteDocumentComponent
   ],
   exports: [AdminComponent],
   imports: [
