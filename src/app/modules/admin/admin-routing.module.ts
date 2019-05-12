@@ -11,7 +11,7 @@ import { AdminComponent } from './component/admin/admin.component';
 import { SupplierComponent } from './component/supplier/supplier.component';
 import { DocumentsComponent } from './component/documents/documents.component';
 import { IssueLogComponent } from './component/issue-log/issue-log.component';
-import { DictionaryComponent } from './component/dictionary/dictionary.component';
+import { DictionaryComponent } from '../core/shared/components/dictionary/dictionary.component';
 
 const routes: Routes = [
   {

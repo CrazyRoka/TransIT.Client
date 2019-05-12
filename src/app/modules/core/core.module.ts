@@ -11,9 +11,16 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { HttpAuthInterceptor } from './interceptors/http-auth.interceptor';
 import { CrudService } from './services/crud.service';
 import { SpinnerService } from './services/spinner.service';
+import { DictionaryComponent } from './shared/components/dictionary/dictionary.component';
+import { CountryComponent } from './shared/components/dictionary/country/country.component';
+import { CurrencyComponent } from './shared/components/dictionary/currency/currency.component';
+import { CreteCountryComponent } from './shared/components/dictionary/country/crete-country/crete-country.component';
+import { DeleteCountryComponent } from './shared/components/dictionary/country/delete-country/delete-country.component';
+import { CreateCurrencyComponent } from './shared/components/dictionary/currency/create-currency/create-currency.component';
+import { DeleteCurrencyComponent } from './shared/components/dictionary/currency/delete-currency/delete-currency.component';
 
 @NgModule({
-  declarations: [NavbarComponent, LoginComponent],
+  declarations: [NavbarComponent, LoginComponent, DictionaryComponent, CountryComponent, CurrencyComponent, CreteCountryComponent, DeleteCountryComponent, CreateCurrencyComponent, DeleteCurrencyComponent],
   imports: [CommonModule, ReactiveFormsModule, RouterModule, NgBootstrapFormValidationModule, HttpClientModule],
   exports: [NavbarComponent, LoginComponent],
   providers: [
