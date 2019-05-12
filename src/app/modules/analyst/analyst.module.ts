@@ -7,9 +7,17 @@ import { CoreModule } from '../core/core.module';
 import { IssueLogAnalystComponent } from './components/issue-log-analyst/issue-log-analyst.component';
 import { WebDataRocksPivot } from 'src/types/webdatarocks/webdatarocks.angular4';
 import { ReportComponent } from './components/report/report.component';
+import { GlobalIssueComponent } from '../shared/components/global-issue/global-issue.component';
 
 @NgModule({
-  declarations: [AnalystComponent, IssueAnalystComponent, IssueLogAnalystComponent, WebDataRocksPivot, ReportComponent],
+  declarations: [
+    AnalystComponent,
+    IssueAnalystComponent,
+    IssueLogAnalystComponent,
+    WebDataRocksPivot,
+    ReportComponent,
+    GlobalIssueComponent
+  ],
   exports: [],
   imports: [CommonModule, AnalystRoutingModule, CoreModule]
 })
