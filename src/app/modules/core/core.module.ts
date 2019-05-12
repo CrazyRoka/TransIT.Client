@@ -14,13 +14,23 @@ import { SpinnerService } from './services/spinner.service';
 import { DictionaryComponent } from './shared/components/dictionary/dictionary.component';
 import { CountryComponent } from './shared/components/dictionary/country/country.component';
 import { CurrencyComponent } from './shared/components/dictionary/currency/currency.component';
-import { CreteCountryComponent } from './shared/components/dictionary/country/crete-country/crete-country.component';
 import { DeleteCountryComponent } from './shared/components/dictionary/country/delete-country/delete-country.component';
 import { CreateCurrencyComponent } from './shared/components/dictionary/currency/create-currency/create-currency.component';
 import { DeleteCurrencyComponent } from './shared/components/dictionary/currency/delete-currency/delete-currency.component';
+import { CreateCountryComponent } from './shared/components/dictionary/country/create-country/create-country.component';
 
 @NgModule({
-  declarations: [NavbarComponent, LoginComponent, DictionaryComponent, CountryComponent, CurrencyComponent, CreteCountryComponent, DeleteCountryComponent, CreateCurrencyComponent, DeleteCurrencyComponent],
+  declarations: [
+    NavbarComponent,
+    LoginComponent,
+    DictionaryComponent,
+    CountryComponent,
+    CurrencyComponent,
+    DeleteCountryComponent,
+    CreateCurrencyComponent,
+    DeleteCurrencyComponent,
+    CreateCountryComponent
+  ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule, NgBootstrapFormValidationModule, HttpClientModule],
   exports: [NavbarComponent, LoginComponent],
   providers: [
