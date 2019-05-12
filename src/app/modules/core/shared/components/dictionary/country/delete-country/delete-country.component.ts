@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Country } from '../../../../models/country';
+import { CountryService } from '../../../../services/country.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-delete-country',
@@ -6,10 +9,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./delete-country.component.scss']
 })
 export class DeleteCountryComponent implements OnInit {
+  @ViewChild('close') closeDeleteModal: ElementRef;
+  @Input() country: Country;
+  @Output() deleteCountry = new EventEmitter<Country>();
 
-  constructor() { }
+  constructor(private service: CountryService, private toast: ToastrService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+  delete() {
+    this.closeDeleteModal.nativeElement.click();
+    this.service.deleteEntity(this.country.id).subscribe(
+      data => {
+        this.deleteCountry.next(this.country);
+        this.toast.success('', 'Країну видалено');
+      },
+      error => this.toast.error('Помилка')
+    );
   }
-
 }

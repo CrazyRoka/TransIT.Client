@@ -92,14 +92,14 @@ export class UsersComponent implements OnInit {
   }
 
   updateUser(user: User) {
-    this.users[this.users.findIndex(i => i.login === user.login)] = user;
+    this.users[this.users.findIndex(i => i.id === user.id)] = user;
     this.service.getEntities().subscribe(users => {
       this.addTableData(users);
     });
   }
 
   deleteUser(user: User) {
-    this.users.splice(this.users.findIndex(i => i.login === user.login), 1);
+    this.users.splice(this.users.findIndex(i => i.id === user.id), 1);
     this.addTableData(this.users);
   }
 }

@@ -1,11 +1,8 @@
-<p>
-  currency works!
-</p>
 <div class="table-background border">
-  <app-create-currency></app-create-currency>
-  <app-delete-currency></app-delete-currency>
+  <app-create-currency (createCurrency)="addCurrency($event)"></app-create-currency>
+  <app-delete-currency [currency]="currency" (deleteCurrency)="deleteCurrency($event)"></app-delete-currency>
   <p></p>
   <div>
-    <table id="countryTable" class="table table-bordered  table-hover" style="width:100%;"></table>
+    <table id="currencyTable" class="table table-bordered  table-hover" style="width:100%;"></table>
   </div>
 </div>

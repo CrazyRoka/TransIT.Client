@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CountryService } from '../../../services/country.service';
+import { Country } from '../../../models/country';
 
 @Component({
   selector: 'app-country',
@@ -6,10 +8,63 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./country.component.scss']
 })
 export class CountryComponent implements OnInit {
+  countries: Country[];
+  country: Country;
+  dataTable: DataTables.Api;
+  constructor(private service: CountryService) {}
 
-  constructor() { }
+  private readonly tableParams: DataTables.Settings = {
+    scrollX: true,
+    language: {
+      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+    },
+    columns: [
+      {
+        title: 'Назва країни'
+      },
+      {
+        title: '',
+        orderable: false
+      }
+    ]
+  };
 
   ngOnInit() {
+    $('#countryTable').DataTable(this.tableParams);
+    this.service.getEntities().subscribe(countries => {
+      this.addTableData(countries);
+    });
   }
 
+  addTableData(newCountries: Country[]) {
+    this.countries = [...newCountries];
+    const view = newCountries.map(i => [
+      i.name,
+      `<button id="find-country-${
+        i.id
+      }" class="btn" data-toggle="modal" data-target="#deleteCountry"><i class="fas fa-trash-alt" style="color: darkred"></i>
+      </button>`
+    ]);
+
+    this.dataTable = $('#currencyTable')
+      .dataTable()
+      .api()
+      .clear()
+      .rows.add(view)
+      .draw();
+
+    $('#countryTable tbody').on('click', 'button', event => {
+      const idTokens = event.currentTarget.id.split('-');
+      const id = parseInt(idTokens[idTokens.length - 1], 10);
+      this.country = this.countries.find(i => i.id === id);
+    });
+  }
+  addCountry(country: Country) {
+    this.countries.push(country);
+    this.addTableData(this.countries);
+  }
+  deleteCountry(country: Country) {
+    this.countries.splice(this.countries.findIndex(i => i.id === country.id), 1);
+    this.addTableData(this.countries);
+  }
 }
