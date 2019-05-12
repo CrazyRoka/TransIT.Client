@@ -4,6 +4,7 @@ import { GlobalIssueComponent } from './components/global-issue/global-issue.com
 
 @NgModule({
   declarations: [GlobalIssueComponent],
-  imports: [CommonModule] 
+  imports: [CommonModule],
+  exports: [GlobalIssueComponent]
 })
 export class SharedModule {}
