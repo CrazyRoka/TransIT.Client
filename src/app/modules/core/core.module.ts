@@ -11,6 +11,7 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { HttpAuthInterceptor } from './interceptors/http-auth.interceptor';
 import { CrudService } from './services/crud.service';
 import { SpinnerService } from './services/spinner.service';
+
 import { DictionaryComponent } from './shared/components/dictionary/dictionary.component';
 import { CountryComponent } from './shared/components/dictionary/country/country.component';
 import { CurrencyComponent } from './shared/components/dictionary/currency/currency.component';
@@ -18,6 +19,7 @@ import { DeleteCountryComponent } from './shared/components/dictionary/country/d
 import { CreateCurrencyComponent } from './shared/components/dictionary/currency/create-currency/create-currency.component';
 import { DeleteCurrencyComponent } from './shared/components/dictionary/currency/delete-currency/delete-currency.component';
 import { CreateCountryComponent } from './shared/components/dictionary/country/create-country/create-country.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -29,10 +31,11 @@ import { CreateCountryComponent } from './shared/components/dictionary/country/c
     DeleteCountryComponent,
     CreateCurrencyComponent,
     DeleteCurrencyComponent,
-    CreateCountryComponent
+    CreateCountryComponent,
+    TruncatePipe
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule, NgBootstrapFormValidationModule, HttpClientModule],
-  exports: [NavbarComponent, LoginComponent],
+  exports: [NavbarComponent, LoginComponent, TruncatePipe],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
