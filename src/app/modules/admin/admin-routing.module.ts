@@ -11,6 +11,7 @@ import { AdminComponent } from './component/admin/admin.component';
 import { SupplierComponent } from './component/supplier/supplier.component';
 import { DocumentsComponent } from './component/documents/documents.component';
 import { IssueLogComponent } from './component/issue-log/issue-log.component';
+import { DictionaryComponent } from './component/dictionary/dictionary.component';
 
 const routes: Routes = [
   {
@@ -30,8 +31,9 @@ const routes: Routes = [
       },
       { path: 'actions', component: ActionComponent },
       { path: 'supplier', component: SupplierComponent },
-      { path: 'documents', component: DocumentsComponent},
-      { path: 'issue-log', component: IssueLogComponent},
+      { path: 'documents', component: DocumentsComponent },
+      { path: 'issue-log', component: IssueLogComponent },
+      { path: 'dictionary', component: DictionaryComponent },
       { path: '**', redirectTo: 'users' }
     ]
   }
