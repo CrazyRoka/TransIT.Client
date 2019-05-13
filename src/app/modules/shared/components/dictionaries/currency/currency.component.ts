@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Currency } from '../../../models/currency';
 import { CurrencyService } from '../../../services/currency.service';
 
@@ -11,6 +11,7 @@ export class CurrencyComponent implements OnInit {
   dataTable: DataTables.Api;
   currencies: Currency[];
   currency: Currency;
+  @Input() isVisible: boolean;
   constructor(private service: CurrencyService) {}
 
   private readonly tableParams: DataTables.Settings = {
@@ -27,7 +28,8 @@ export class CurrencyComponent implements OnInit {
       },
       {
         title: '',
-        orderable: false
+        orderable: false,
+        visible: this.isVisible
       }
     ]
   };

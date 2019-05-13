@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Country } from '../../../models/country';
 import { CountryService } from '../../../services/country.service';
 
@@ -11,6 +11,7 @@ export class CountryComponent implements OnInit {
   countries: Country[];
   country: Country;
   dataTable: any;
+  @Input() isVisible: boolean;
   constructor(private service: CountryService) {}
 
   private readonly tableParams: DataTables.Settings = {
@@ -24,7 +25,8 @@ export class CountryComponent implements OnInit {
       },
       {
         title: '',
-        orderable: false
+        orderable: false,
+        visible: this.isVisible
       }
     ]
   };
