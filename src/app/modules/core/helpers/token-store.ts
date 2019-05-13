@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Token } from '../models/token/token';
 import { TokenPayload } from '../models/tokenPayload/tokenPayload';
 import { Role } from '../models/role/role';
+import { ChannelMessage } from './channel-message';
+import { Router } from '@angular/router';
 
 const USER_TOKEN_STORE = 'userToken';
 
@@ -10,12 +12,44 @@ const USER_TOKEN_STORE = 'userToken';
 })
 export class TokenStore {
   private token: Token;
+  private channel = new BroadcastChannel('TransITChannel');
 
   constructor() {
-    const tokenString = localStorage.getItem(USER_TOKEN_STORE);
+    const tokenString = sessionStorage.getItem(USER_TOKEN_STORE);
     if (tokenString) {
       this.parseTokenString(tokenString);
+    } else {
+      this.channel.postMessage({ command: 'getStorage' });
     }
+    this.channel.onmessage = event => {
+      console.log(event);
+      const message: ChannelMessage = event.data;
+      switch (message.command) {
+        case 'getStorage':
+          if (this.token) {
+            this.channel.postMessage({ command: 'shareStorage', token: this.token });
+          }
+          break;
+        case 'shareStorage':
+          if (JSON.stringify(this.token) !== JSON.stringify(message.token)) {
+            this.setToken(message.token);
+            location.reload();
+          }
+          break;
+        case 'login':
+          if (JSON.stringify(this.token) !== JSON.stringify(message.token)) {
+            this.setToken(message.token);
+            location.reload();
+          }
+          break;
+        case 'logout':
+          if (this.token) {
+            this.removeToken();
+            location.reload();
+          }
+          break;
+      }
+    };
   }
 
   private parseTokenString(tokenString: string): void {
@@ -74,12 +108,14 @@ export class TokenStore {
   }
 
   removeToken(): void {
-    localStorage.removeItem(USER_TOKEN_STORE);
+    sessionStorage.removeItem(USER_TOKEN_STORE);
+    this.channel.postMessage({ command: 'logout' });
     this.token = null;
   }
 
   setToken(token: Token): void {
-    localStorage.setItem(USER_TOKEN_STORE, JSON.stringify(token));
+    sessionStorage.setItem(USER_TOKEN_STORE, JSON.stringify(token));
+    this.channel.postMessage({ command: 'login', token });
     this.token = token;
   }
 }
