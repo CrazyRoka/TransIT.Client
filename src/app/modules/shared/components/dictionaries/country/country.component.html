@@ -1,0 +1,8 @@
+<div class="table-background border">
+  <app-create-country (createCountry)="addCountry($event)"></app-create-country>
+  <app-delete-country [country]="country" (deleteCountry)="deleteCountry($event)"></app-delete-country>
+  <p></p>
+  <div>
+    <table id="countryTable" class="table table-bordered  table-hover" style="width:100%;"></table>
+  </div>
+</div>
