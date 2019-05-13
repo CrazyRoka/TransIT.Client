@@ -8,6 +8,7 @@ import { SpinnerService } from './spinner.service';
 @Injectable()
 export class CrudService<T extends TEntity<T>> {
   protected readonly serviceUrl: string;
+  protected readonly datatableUrl: string;
 
   constructor(protected http: HttpClient, protected spinner: SpinnerService) {}
 
@@ -16,6 +17,13 @@ export class CrudService<T extends TEntity<T>> {
     return this.http.get<T[]>(this.serviceUrl).pipe(
       map(array => array.map(entity => this.mapEntity(entity))),
       tap(data => this.handleSuccess('fetched data', data)),
+      catchError(this.handleError())
+    );
+  }
+
+  getFilteredEntities(params: any): Observable<any> {
+    return this.http.post<any>(this.datatableUrl, params, {}).pipe(
+      map(response => ({ ...response, data: response.data.map(d => this.mapEntity(d)) })),
       catchError(this.handleError())
     );
   }

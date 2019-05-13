@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Documents } from '../../../models/document/document';
+import { DocumentService } from '../../../services/document.service';
 
 @Component({
   selector: 'app-delete-document',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./delete-document.component.scss']
 })
 export class DeleteDocumentComponent implements OnInit {
-
-  constructor() { }
+  @ViewChild('close') closeDiv: ElementRef;
+  @Input() document: Documents;
+  @Output() deleteDocument = new EventEmitter<Documents>();
+  
+  constructor(private service: DocumentService) { }
 
   ngOnInit() {
+    
   }
 
+  DeleteDocument() {
+    this.closeDiv.nativeElement.click();
+    this.service.deleteEntity(this.document.id).subscribe(() => {
+      this.deleteDocument.next(this.document);
+    });
+  }
 }

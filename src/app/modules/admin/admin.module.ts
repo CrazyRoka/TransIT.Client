@@ -46,6 +46,7 @@ import { DocumentsComponent } from './component/documents/documents.component';
 import { IssueLogComponent } from './component/issue-log/issue-log.component';
 import { CreateDocumentComponent} from './component/documents/create-document/create-document.component';
 import { DeleteDocumentComponent } from './component/documents/delete-document/delete-document.component';
+import { EditDocumentComponent } from './component/documents/edit-document/edit-document.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { DeleteDocumentComponent } from './component/documents/delete-document/d
     DocumentsComponent,
     IssueLogComponent,
     CreateDocumentComponent,
-    DeleteDocumentComponent
+    DeleteDocumentComponent,
+    EditDocumentComponent
   ],
   exports: [AdminComponent],
   imports: [

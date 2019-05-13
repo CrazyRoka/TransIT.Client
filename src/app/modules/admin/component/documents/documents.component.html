@@ -1,4 +1,13 @@
 <h1 style="text-align:center">Документи</h1>
-<app-create-document (createDocument)="addDocument($event)"></app-create-document>
+<span><app-create-document (createDocument)="addDocument($event)"></app-create-document></span>
+<span class="second">
+  <app-edit-document
+    [document]="selectedDocumentDc"
+    (editDocument)="editDocument($event)"
+  ></app-edit-document>
+</span>
+<span class="third">
+  <app-delete-document [document]="selectedDocumentDc" (deleteDocument)="deleteDocument($event)"></app-delete-document>
+</span>
 <p></p>
 <table id="document-table" class="table table-striped table-bordered" cellspacing="0"></table>
