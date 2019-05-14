@@ -1,55 +1,68 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Token } from '../models/token/token';
 import { TokenPayload } from '../models/tokenPayload/tokenPayload';
 import { Role } from '../models/role/role';
 import { ChannelMessage } from './channel-message';
-import { Router } from '@angular/router';
 
 const USER_TOKEN_STORE = 'userToken';
+const TRANS_IT_CHANNEL = 'TransITChannel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenStore {
   private token: Token;
-  private channel = new BroadcastChannel('TransITChannel');
+  private channel = new BroadcastChannel(TRANS_IT_CHANNEL);
 
   constructor() {
     const tokenString = sessionStorage.getItem(USER_TOKEN_STORE);
     if (tokenString) {
       this.parseTokenString(tokenString);
     } else {
-      this.channel.postMessage({ command: 'getStorage' });
+      this.requestStorage();
     }
+    this.setUpChannel();
+  }
+
+  private requestStorage() {
+    this.channel.postMessage({ command: 'getStorage' });
+  }
+
+  private setUpChannel() {
     this.channel.onmessage = event => {
-      console.log(event);
       const message: ChannelMessage = event.data;
       switch (message.command) {
         case 'getStorage':
-          if (this.token) {
-            this.channel.postMessage({ command: 'shareStorage', token: this.token });
-          }
+          this.shareStorage();
           break;
         case 'shareStorage':
-          if (JSON.stringify(this.token) !== JSON.stringify(message.token)) {
-            this.setToken(message.token);
-            location.reload();
-          }
+          this.getStorage(message.token);
           break;
-        case 'login':
-          if (JSON.stringify(this.token) !== JSON.stringify(message.token)) {
-            this.setToken(message.token);
-            location.reload();
-          }
-          break;
-        case 'logout':
-          if (this.token) {
-            this.removeToken();
-            location.reload();
-          }
+        case 'cleanStorage':
+          this.cleanStorage();
           break;
       }
     };
+  }
+
+  private shareStorage() {
+    if (this.token) {
+      this.channel.postMessage({ command: 'shareStorage', token: this.token });
+    }
+  }
+
+  private getStorage(token: Token) {
+    if (JSON.stringify(this.token) !== JSON.stringify(token)) {
+      this.setToken(token);
+      location.reload();
+    }
+  }
+
+  private cleanStorage() {
+    if (this.token) {
+      this.removeToken();
+      location.reload();
+    }
   }
 
   private parseTokenString(tokenString: string): void {
@@ -109,13 +122,13 @@ export class TokenStore {
 
   removeToken(): void {
     sessionStorage.removeItem(USER_TOKEN_STORE);
-    this.channel.postMessage({ command: 'logout' });
+    this.channel.postMessage({ command: 'cleanStorage' });
     this.token = null;
   }
 
   setToken(token: Token): void {
     sessionStorage.setItem(USER_TOKEN_STORE, JSON.stringify(token));
-    this.channel.postMessage({ command: 'login', token });
+    this.channel.postMessage({ command: 'shareStorage', token });
     this.token = token;
   }
 }
