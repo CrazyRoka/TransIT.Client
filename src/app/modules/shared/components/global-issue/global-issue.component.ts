@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Issue } from '../../models/issue';
 import { IssueService } from '../../services/issue.service';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 
 declare const $;
 
@@ -12,6 +10,7 @@ declare const $;
   styleUrls: ['./global-issue.component.scss']
 })
 export class GlobalIssueComponent implements OnInit {
+  readonly priorityColors = Object.freeze (['#FFCCCC','#FFFFCC','#CCFFCC']);
   protected table: any;
   protected readonly tableConfig: any = {
     scrollX: true,
@@ -19,6 +18,8 @@ export class GlobalIssueComponent implements OnInit {
       style: 'single'
     },
     columns: [
+      { title: 'Номер', data: 'number', defaultContent: '' },
+      { title: 'Пріоритет', data: 'priority', defaultContent: '', bVisible: false },
       { title: 'Статус', data: 'state.transName', defaultContent: '' },
       { title: 'Поломка', data: 'malfunction.name', defaultContent: '' },
       { title: 'Гарантія', data: 'warranty', defaultContent: '' },
@@ -28,7 +29,7 @@ export class GlobalIssueComponent implements OnInit {
       { title: 'Опис', data: 'summary', defaultContent: '' },
       { title: 'Створено', data: 'createDate', defaultContent: '' },
       { title: 'Редаговано', data: 'modDate', defaultContent: '' },
-      { data: 'id', bVisible: false },
+      { data: 'id', bVisible: false }
     ],
     processing: true,
     serverSide: true,
@@ -36,6 +37,9 @@ export class GlobalIssueComponent implements OnInit {
     paging: true,
     language: {
       url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+    },
+    createdRow: (row, data, dataIndex) => {
+      $(row).css('background-color', this.priorityColors[data.priority]);
     }
   };
 
