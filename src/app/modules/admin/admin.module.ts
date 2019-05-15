@@ -42,12 +42,19 @@ import { RestoreUserPasswordComponent } from './component/users/restore-user-pas
 
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
 import { IsActiveModalComponent } from './component/users/is-active-modal/is-active-modal.component';
+
+import { VehicleTypeComponent } from './component/vehicle-type/vehicle-type.component';
+import { CreateVehicleTypeComponent } from './component/create-vehicle-type/create-vehicle-type.component';
+import { EditVehicleTypeComponent } from './component/edit-vehicle-type/edit-vehicle-type.component';
+import { DeleteVehicleTypeComponent } from './component/delete-vehicle-type/delete-vehicle-type.component';
+
 import { DocumentsComponent } from './component/documents/documents.component';
 import { IssueLogComponent } from './component/issue-log/issue-log.component';
 import { CreateDocumentComponent} from './component/documents/create-document/create-document.component';
 import { DeleteDocumentComponent } from './component/documents/delete-document/delete-document.component';
 import { EditDocumentComponent } from './component/documents/edit-document/edit-document.component';
 import { NestedDocumentComponent } from './component/documents/nested-document/nested-document.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -83,6 +90,10 @@ import { NestedDocumentComponent } from './component/documents/nested-document/n
     DeleteUserComponent,
     RestoreUserPasswordComponent,
     IsActiveModalComponent,
+    VehicleTypeComponent,
+    CreateVehicleTypeComponent,
+    EditVehicleTypeComponent,
+    DeleteVehicleTypeComponent,
     DocumentsComponent,
     IssueLogComponent,
     CreateDocumentComponent,
@@ -94,6 +105,7 @@ import { NestedDocumentComponent } from './component/documents/nested-document/n
   imports: [
     CommonModule,
     CoreModule,
+    SharedModule,
     AdminRoutingModule,
     FormsModule,
     DataTablesModule,
