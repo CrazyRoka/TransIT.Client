@@ -1,7 +1,9 @@
 <div class="borderFilterTab">
   <div class="block">
-    <input id="startDate" placeholder="Start Date" width="200" />
-    <input id="endDate" placeholder="End Date" width="200" />
+    <div>
+      <input id="startDate" placeholder="Start Date" width="200" />
+      <input id="endDate" placeholder="End Date" width="200" />
+    </div>
     <div>
       <select class="form-control" width="200" (change)="selectVechicleType($event.target.value)">
         <option value="" selected class="grey"> Виберіть транспорт</option>
