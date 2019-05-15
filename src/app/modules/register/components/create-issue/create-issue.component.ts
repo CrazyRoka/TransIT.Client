@@ -63,6 +63,10 @@ export class CreateIssueComponent implements OnInit {
     button.click();
   }
 
+  closeModal() {
+    this.setUpForm();
+  }
+
   private setUpForm() {
     this.issueForm = this.fb.group({
       vehicle: ['', Validators.required],
