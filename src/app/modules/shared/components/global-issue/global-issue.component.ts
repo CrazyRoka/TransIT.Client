@@ -11,11 +11,13 @@ declare const $;
 })
 export class GlobalIssueComponent implements OnInit {
   readonly priorityColors = Object.freeze(['#FFCCCC', '#FFFFCC', '#CCFFCC']);
+
   protected table: any;
   private startDate: string;
   private endDate: string;
   private vehicleType: string;
   private state: string;
+
   protected readonly tableConfig: any = {
     scrollX: true,
     select: {
@@ -57,7 +59,8 @@ export class GlobalIssueComponent implements OnInit {
     if (this.state) {
       dataTablesParameters.filters = [
         {
-          entityPropertyPath: 'vehicle.vehicleType.name',
+          //entityPropertyPath: 'vehicle.vehicleType.name',
+          entityPropertyPath: 'state',
           value: this.state,
           operator: '=='
         }
