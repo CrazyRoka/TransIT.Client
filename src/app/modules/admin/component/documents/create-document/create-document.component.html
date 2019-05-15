@@ -6,7 +6,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"> <i class="fas fa-plus"></i> Створити групу</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle"> <i class="fas fa-plus"></i> Створити документ</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -14,9 +14,9 @@
       <div class="modal-body">
         <form [formGroup]="documentForm">
           <div class="form-group">
-            <label>Назва документу</label>
+            <label>Назва</label>
             <input type="text" class="form-control" formControlName="name" autocomplete="off"
-                   placeholder="Введіть групу" >
+                   placeholder="Введіть назву документа" >
           </div>
           <button hidden type="submit" #submit></button>
         </form>
@@ -24,19 +24,19 @@
           <div class="form-group">
             <label>Опис</label>
             <input type="text" class="form-control" formControlName="description" autocomplete="off"
-                   placeholder="Введіть групу" >
+                   placeholder="Введіть опис документа" >
           </div>
           <button hidden type="submit" #submit></button>
         </form>
-        <form [formGroup]="documentForm">
+        <!-- <form [formGroup]="documentForm">
         <div class="form-group">
-          <label>Група</label>
+          <label>Історія</label>
           <select class="form-control" formControlName="issueLog">
             <option hidden value="" disabled selected>-</option>
             <option *ngFor="let groupItem of issueLogList" [value]="groupItem.description">{{ groupItem.description }}</option>
           </select>
         </div>
-      </form>
+      </form> -->
       </div>
       <div class="modal-footer">
         <button #close type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>

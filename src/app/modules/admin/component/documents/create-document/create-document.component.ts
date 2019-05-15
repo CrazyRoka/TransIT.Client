@@ -25,16 +25,16 @@ export class CreateDocumentComponent implements OnInit {
     this.documentForm = this.formBuilder.group({
       name: ['', Validators.required],
       description : ['', Validators.required],
-      issueLog: ['', Validators.required]
+      // issueLog: ['']
     });
     this.serviceIssueLog.getEntities().subscribe(issuelog => {
       this.issueLogList = issuelog;
     });
   }
 
-  get issueLogDescription(): string[] {
-    return this.issueLogList.map(e => e.description);
-  }
+  // get issueLogDescription(): string[] {
+  //   return this.issueLogList.map(e => e.description);
+  // }
 
   clickSubmit() {
     if (this.documentForm.invalid) {
@@ -45,7 +45,7 @@ export class CreateDocumentComponent implements OnInit {
       id: 0,
       name: form.name as string,
       description : form.description as string,
-      issueLog : this.issueLogList[this.issueLogDescription.findIndex(f => f === form.issueLog)]
+      // issueLog : this.issueLogList[this.issueLogDescription.findIndex(f => f === form.issueLog)]
     };
     
     this.serviceDocument.addEntity(document).subscribe(newGroup => this.createDocument.next(newGroup));

@@ -1,13 +1,9 @@
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editMalfuncSubgroup">
-  <i class="fas fa-pen"></i> Редагувати вибарний документ
-</button>
-
 <div
   class="modal fade"
-  id="editMalfuncSubgroup"
+  id="editDocument"
   tabindex="-1"
   role="dialog"
-  aria-labelledby="EditMalfuncSubgroup"
+  aria-labelledby="EditDocument"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -21,22 +17,22 @@
       <div class="modal-body">
         <form [formGroup]="documentFrom">
           <div class="form-group">
-            <label>Підгрупа</label>
+            <label>Назва</label>
             <input type="text" class="form-control" formControlName="name" autocomplete="off" />
           </div>
           <div class="form-group">
-            <label>Підгрупа</label>
+            <label>Опис</label>
             <input type="text" class="form-control" formControlName="description" autocomplete="off" />
           </div>
-          <div class="form-group">
-            <label>Група</label>
+          <!-- <div class="form-group">
+            <label>Історія</label>
             <select class="form-control" formControlName="issueLog">
               <option hidden value="" disabled selected>-</option>
               <option *ngFor="let groupItem of issueLogs" [value]="groupItem.description">{{
-                groupItem.description
+                groupItem?.description
               }}</option>
             </select>
-          </div>
+          </div> -->
           <button hidden type="submit" #submit></button>
         </form>
       </div>
