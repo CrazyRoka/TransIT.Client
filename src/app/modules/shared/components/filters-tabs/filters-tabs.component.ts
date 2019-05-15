@@ -16,47 +16,47 @@ export class FiltersTabsComponent implements OnInit {
   @Output() EndDateValue = new EventEmitter<string>();
   @Output() VechicleTypeValue = new EventEmitter<string>();
   @Output() StateValue = new EventEmitter<string>();
+  selectedType: string;
+  selectedState: string;
 
   constructor(private vehicleTypeService: VehicleTypeService, private stateService: StateService) {}
 
   ngOnInit() {
     this.vehicleTypeService.getEntities().subscribe(data => (this.vehicleTypeList = data));
     this.stateService.getEntities().subscribe(data => (this.stateList = data));
-    (<any>$('#startDate'))
-      .datepicker({
-        uiLibrary: 'bootstrap4',
-        iconsLibrary: 'fontawesome',
-        maxDate: function() {
-          return $('#endDate').val();
-        }
-      })
-      .on('change', () => {
-        this.StartDateValue.next(
-          $('#startDate')
-            .val()
-            .toString()
-        );
-      });
-    (<any>$('#endDate'))
-      .datepicker({
-        uiLibrary: 'bootstrap4',
-        iconsLibrary: 'fontawesome',
-        minDate: function() {
-          return $('#startDate').val();
-        }
-      })
-      .on('change', () => {
-        this.EndDateValue.next(
-          $('#endDate')
-            .val()
-            .toString()
-        );
-      });
+    (<any>$('#startDate')).datepicker({
+      uiLibrary: 'bootstrap4',
+      iconsLibrary: 'fontawesome',
+      maxDate: function() {
+        return $('#endDate').val();
+      }
+    });
+    (<any>$('#endDate')).datepicker({
+      uiLibrary: 'bootstrap4',
+      iconsLibrary: 'fontawesome',
+      minDate: function() {
+        return $('#startDate').val();
+      }
+    });
   }
   selectVechicleType(type) {
-    this.VechicleTypeValue.next(type);
+    this.selectedType = type;
   }
   selectState(state) {
-    this.StateValue.next(state);
+    this.selectedState = state;
+  }
+  selectFilter() {
+    this.EndDateValue.next(
+      $('#endDate')
+        .val()
+        .toString()
+    );
+    this.StartDateValue.next(
+      $('#startDate')
+        .val()
+        .toString()
+    );
+    this.VechicleTypeValue.next(this.selectedState);
+    this.StateValue.next(this.selectedType);
   }
 }
