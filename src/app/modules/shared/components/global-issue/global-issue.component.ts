@@ -53,7 +53,17 @@ export class GlobalIssueComponent implements OnInit {
     this.initTable();
   }
   private ajaxCallback(dataTablesParameters: any, callback): void {
-    dataTablesParameters.filters = [{ entityPropertyPath: 'vehicle.name', value: this.vehicleType }];
+    console.log(this.state);
+    if (this.state) {
+      dataTablesParameters.filters = [
+        {
+          entityPropertyPath: 'vehicle.vehicleType.name',
+          value: this.state,
+          operator: '=='
+        }
+      ];
+    }
+    console.dir(dataTablesParameters);
     this.issueService.getFilteredEntities(dataTablesParameters).subscribe(callback);
   }
 
@@ -69,11 +79,16 @@ export class GlobalIssueComponent implements OnInit {
     this.endDate = value;
   }
   getVechicleTypeValue(value) {
-    console.log(value);
     this.vehicleType = value;
+    console.log(value);
   }
   getStateValue(value) {
     console.log(value);
+    this.table = $('#issue-table').DataTable({
+      ...this.tableConfig,
+      destroy: true
+    });
+    console.dir(this);
     this.state = value;
   }
 }
