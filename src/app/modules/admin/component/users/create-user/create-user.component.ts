@@ -35,9 +35,18 @@ export class CreateUserComponent implements OnInit {
 
     this.userForm = this.formBuilder.group(
       {
-        lastName: new FormControl(''),
-        firstName: new FormControl(''),
-        middleName: new FormControl(''),
+        lastName: new FormControl(
+          '',
+          Validators.compose([Validators.maxLength(30), Validators.pattern('^[A-Za-zА-Яа-яїієЇІЯ-]+$')])
+        ),
+        firstName: new FormControl(
+          '',
+          Validators.compose([Validators.maxLength(30), Validators.pattern('^[A-Za-zА-Яа-яїієЇІЯ-]+$')])
+        ),
+        middleName: new FormControl(
+          '',
+          Validators.compose([Validators.maxLength(30), Validators.pattern('^[A-Za-zА-Яа-яїієЇІЯ-]+$')])
+        ),
         phoneNumber: new FormControl('', Validators.minLength(12)),
         login: new FormControl(
           '',
