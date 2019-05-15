@@ -50,17 +50,17 @@ export class CreateUserComponent implements OnInit {
         phoneNumber: new FormControl('', Validators.minLength(12)),
         login: new FormControl(
           '',
-          Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(50)])
+          Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])
         ),
         password: new FormControl(
           '',
-          Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(30)])
+          Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])
         ),
         confirmPassword: new FormControl(
           '',
-          Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(30)])
+          Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(30)])
         ),
-        email: new FormControl('', Validators.email),
+        email: new FormControl('', Validators.compose([Validators.email, Validators.maxLength(30)])),
         role: new FormControl('', Validators.required)
       },
       { validators: matchPassword }
