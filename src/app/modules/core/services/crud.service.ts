@@ -64,13 +64,11 @@ export class CrudService<T extends TEntity<T>> {
   }
 
   protected handleSuccess(message: string, data: any) {
-    console.log(message, data);
     this.spinner.hide();
   }
 
   protected handleError() {
     return (error: any): Observable<never> => {
-      console.warn(error);
       this.spinner.hide();
       return throwError(error);
     };
