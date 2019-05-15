@@ -12,6 +12,10 @@ declare const $;
 export class GlobalIssueComponent implements OnInit {
   readonly priorityColors = Object.freeze(['#FFCCCC', '#FFFFCC', '#CCFFCC']);
   protected table: any;
+  private startDate: string;
+  private endDate: string;
+  private vehicleType: string;
+  private state: string;
   protected readonly tableConfig: any = {
     scrollX: true,
     select: {
@@ -49,11 +53,27 @@ export class GlobalIssueComponent implements OnInit {
     this.initTable();
   }
   private ajaxCallback(dataTablesParameters: any, callback): void {
-    //  dataTablesParameters.filters = [{entityPropertyPath: 'malfunction.name', value: ''},{}]
+    dataTablesParameters.filters = [{ entityPropertyPath: 'vehicle.name', value: this.vehicleType }];
     this.issueService.getFilteredEntities(dataTablesParameters).subscribe(callback);
   }
 
   protected initTable(): void {
     this.table = $('#issue-table').DataTable(this.tableConfig);
+  }
+  getStartDateValue(value) {
+    console.log(value);
+    this.startDate = value;
+  }
+  getEndDateValue(value) {
+    console.log(value);
+    this.endDate = value;
+  }
+  getVechicleTypeValue(value) {
+    console.log(value);
+    this.vehicleType = value;
+  }
+  getStateValue(value) {
+    console.log(value);
+    this.state = value;
   }
 }
