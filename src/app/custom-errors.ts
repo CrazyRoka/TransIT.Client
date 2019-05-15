@@ -44,3 +44,12 @@ export function matchPassword(form: FormGroup) {
     return null;
   }
 }
+
+export function malfunctionSelectedValidator(form: FormGroup) {
+  const { malfunctionGroup, malfunction } = form.value;
+  if (malfunctionGroup && !malfunction) {
+    form.get('malfunction').setErrors({ required: true });
+  } else {
+    return null;
+  }
+}
