@@ -46,10 +46,11 @@ export function matchPassword(form: FormGroup) {
 }
 
 export function malfunctionSelectedValidator(form: FormGroup) {
-  const { malfunctionGroup, malfunction } = form.value;
-  if (malfunctionGroup && !malfunction) {
+  const { malfunctionGroup, malfunctionSubgroup, malfunction } = form.value;
+  if (malfunctionSubgroup && !malfunction) {
     form.get('malfunction').setErrors({ required: true });
-  } else {
-    return null;
+  }
+  if (malfunctionGroup && !malfunctionSubgroup) {
+    form.get('malfunctionSubgroup').setErrors({ required: true });
   }
 }
