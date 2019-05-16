@@ -79,7 +79,7 @@ export class CreateIssueComponent implements OnInit {
   private setUpForm() {
     this.issueForm = this.fb.group(
       {
-        vehicle: ['', Validators.required],
+        vehicle: [undefined, Validators.required],
         malfunctionGroup: '',
         malfunctionSubgroup: [{ value: '', disabled: true }],
         malfunction: [{ value: '', disabled: true }],
