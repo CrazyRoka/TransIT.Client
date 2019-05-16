@@ -29,7 +29,7 @@ export class GlobalIssueComponent implements OnInit {
       { title: 'Статус', data: 'state.transName', defaultContent: '' },
       { title: 'Поломка', data: 'malfunction.name', defaultContent: '' },
       { title: 'Гарантія', data: 'warranty', defaultContent: '' },
-      { title: 'Транспорт', data: 'vehicle.inventoryId', defaultContent: '' },
+      { title: 'Транспорт', data: 'vehicle.vehicleType.name', defaultContent: '' },
       { title: 'Відповідальний', data: 'assignedTo.login', defaultContent: '' },
       { title: 'Виконати до', data: 'deadline', defaultContent: '' },
       { title: 'Опис', data: 'summary', defaultContent: '' },
@@ -55,17 +55,27 @@ export class GlobalIssueComponent implements OnInit {
     this.initTable();
   }
   private ajaxCallback(dataTablesParameters: any, callback): void {
-    console.log(this.state);
+    dataTablesParameters.filters = [];
     if (this.state) {
-      dataTablesParameters.filters = [
-        {
-          //entityPropertyPath: 'vehicle.vehicleType.name',
-          entityPropertyPath: 'state',
-          value: this.state,
-          operator: '=='
-        }
-      ];
+      dataTablesParameters.filters.push({
+        entityPropertyPath: 'state.transName',
+        value: this.state,
+        operator: '=='
+      });
+    } else if (this.startDate) {
+      dataTablesParameters.filters.push({
+        entityPropertyPath: 'createDate',
+        value: this.startDate,
+        operator: '=='
+      });
+    } else if (this.vehicleType) {
+      dataTablesParameters.filters.push({
+        entityPropertyPath: 'vehicle.vehicleType.name',
+        value: this.vehicleType,
+        operator: '=='
+      });
     }
+
     console.dir(dataTablesParameters);
     this.issueService.getFilteredEntities(dataTablesParameters).subscribe(callback);
   }

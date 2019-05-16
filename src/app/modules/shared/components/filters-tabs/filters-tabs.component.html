@@ -6,7 +6,7 @@
     </div>
     <div>
       <select class="form-control" width="200" (change)="selectVechicleType($event.target.value)">
-        <option value="" selected class="grey"> Виберіть транспорт</option>
+        <option value="" selected class="grey"> Виберіть тип транспорту</option>
         <option *ngFor="let vehicleType of vehicleTypeList" [value]="">{{ vehicleType.name }}</option>
       </select>
     </div>
