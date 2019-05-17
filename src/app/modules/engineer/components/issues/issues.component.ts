@@ -19,6 +19,8 @@ export class IssuesComponent implements OnInit {
     },
     columns: [
       { title: 'Статус', data: 'state.transName', defaultContent: '' },
+      { title: 'Група', data: 'malfunction.malfunctionSubgroup.malfunctionGroup.name', defaultContent: '' },
+      { title: 'Підрупа', data: 'malfunction.malfunctionSubgroup.name', defaultContent: '' },
       { title: 'Поломка', data: 'malfunction.name', defaultContent: '' },
       { title: 'Гарантія', data: 'warranty', defaultContent: '' },
       { title: 'Транспорт', data: 'vehicle.inventoryId', defaultContent: '' },
@@ -27,7 +29,7 @@ export class IssuesComponent implements OnInit {
       { title: 'Опис', data: 'summary', defaultContent: '' },
       { title: 'Створено', data: 'createDate', defaultContent: '' },
       { title: 'Редаговано', data: 'modDate', defaultContent: '' },
-      { data: 'id', bVisible: false },
+      { data: 'id', bVisible: false }
     ],
     processing: true,
     serverSide: true,
