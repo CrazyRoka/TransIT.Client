@@ -5,6 +5,7 @@ import { User } from './user';
 import { TEntity } from '../../core/models/entity/entity';
 
 export class Issue extends TEntity<Issue> {
+  number?: number;
   state?: State;
   malfunction?: Malfunction;
   warranty?: number;
