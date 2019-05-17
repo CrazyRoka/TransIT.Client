@@ -23,9 +23,10 @@ export class IssuesComponent implements OnInit {
       style: 'single'
     },
     columns: [
+      { title: 'Номер', data: 'number', defaultContent: '' },
       { title: 'Статус', data: 'state.transName', defaultContent: '' },
       { title: 'Група', data: 'malfunction.malfunctionSubgroup.malfunctionGroup.name', defaultContent: '' },
-      { title: 'Підрупа', data: 'malfunction.malfunctionSubgroup.name', defaultContent: '' },
+      { title: 'Підгрупа', data: 'malfunction.malfunctionSubgroup.name', defaultContent: '' },
       { title: 'Поломка', data: 'malfunction.name', defaultContent: '' },
       { title: 'Пріоритет', data: 'priority', defaultContent: '', bVisible: false },
       { title: 'Гарантія', data: 'warranty', defaultContent: '' },
