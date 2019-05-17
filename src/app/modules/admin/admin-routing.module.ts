@@ -14,6 +14,7 @@ import { DocumentsComponent } from './component/documents/documents.component';
 import { IssueLogComponent } from './component/issue-log/issue-log.component';
 import { DictionaryComponent } from '../shared/components/dictionaries/dictionary.component';
 import { PostsComponent } from './component/posts/posts.component';
+import { EmployeesComponent } from './component/employees/employees.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
       { path: 'issue-log', component: IssueLogComponent },
       { path: 'dictionary', component: DictionaryComponent },
       { path: 'posts', component: PostsComponent },
+      { path: 'employees', component: EmployeesComponent },
       { path: '**', redirectTo: 'users' }
     ]
   }

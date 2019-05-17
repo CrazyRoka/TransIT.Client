@@ -61,6 +61,10 @@ import { EditPostComponent } from './component/posts/edit-post/edit-post.compone
 import { DeletePostComponent } from './component/posts/delete-post/delete-post.component';
 import { EmployeeService } from './services/employee.service';
 import { PostService } from './services/post.service';
+import { EmployeesComponent } from './component/employees/employees.component';
+import { CreateEmployeeComponent } from './component/employees/create-employee/create-employee.component';
+import { EditEmployeeComponent } from './component/employees/edit-employee/edit-employee.component';
+import { DeleteEmployeeComponent } from './component/employees/delete-employee/delete-employee.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +113,11 @@ import { PostService } from './services/post.service';
     PostsComponent,
     CreatePostComponent,
     EditPostComponent,
-    DeletePostComponent
+    DeletePostComponent,
+    EmployeesComponent,
+    CreateEmployeeComponent,
+    EditEmployeeComponent,
+    DeleteEmployeeComponent
   ],
   exports: [AdminComponent],
   imports: [
