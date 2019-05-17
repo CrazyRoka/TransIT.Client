@@ -17,7 +17,7 @@
         <form [formGroup]="postForm" (validSubmit)="onSubmit()">
           <div class="form-group">
             <label>Назва</label>
-            <input type="text" placeholder="*Введіть назву" class="form-control" formControlName="name" />
+            <input type="text" placeholder="Введіть назву" class="form-control" formControlName="name" />
           </div>
           <button hidden type="submit" #submit data-toggle="modal" data-target="#createPost"></button>
         </form>

@@ -24,23 +24,23 @@
         <form [formGroup]="employeeForm" (validSubmit)="onSubmit()">
           <div class="form-group">
             <label>Прізвище</label>
-            <input type="text" placeholder="*Введіть прізвище" class="form-control" formControlName="lastName" />
+            <input type="text" placeholder="Введіть прізвище" class="form-control" formControlName="lastName" />
           </div>
           <div class="form-group">
             <label>Ім'я</label>
-            <input type="text" placeholder="*Введіть ім'я" class="form-control" formControlName="firstName" />
+            <input type="text" placeholder="Введіть ім'я" class="form-control" formControlName="firstName" />
           </div>
           <div class="form-group">
             <label>По батькові</label>
-            <input type="text" placeholder="*Введіть ім'я батька" class="form-control" formControlName="middleName" />
+            <input type="text" placeholder="Введіть ім'я батька" class="form-control" formControlName="middleName" />
           </div>
           <div class="form-group">
             <label>Коротке ім'я</label>
-            <input type="text" placeholder="*Введіть коротке ім'я" class="form-control" formControlName="shortName" />
+            <input type="text" placeholder="Введіть коротке ім'я" class="form-control" formControlName="shortName" />
           </div>
           <label>Посада</label>
           <select class="form-control" formControlName="post">
-            <option value="" selected>Виберіть посаду</option>
+            <option value="" selected>*Виберіть посаду</option>
             <option *ngFor="let post of posts" [ngValue]="post">{{ post.name }}</option>
           </select>
           <button hidden type="submit" #submit data-toggle="modal" data-target="#createEmployee"></button>

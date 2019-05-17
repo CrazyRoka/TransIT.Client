@@ -8,3 +8,7 @@
 .table {
   width: 100% !important;
 }
+
+:host ::ng-deep .dataTables_empty {
+  display: none;
+}
