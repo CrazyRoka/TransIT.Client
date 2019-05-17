@@ -21,7 +21,26 @@ export class DocumentsComponent implements OnInit {
   private readonly tableConfig: DataTables.Settings = {
     responsive: true,
 
-    columns: [{ title: 'Назва' }, { title: 'Опис' }, { title: 'Змінено' }, { title: 'Дії⠀', orderable: false }],
+    columns: [
+      { title: 'Назва', data: 'name', defaultContent: '' },
+      { title: 'Опис', data: 'description', defaultContent: '' },
+      { title: 'Змінено', data: 'modDate', defaultContent: '' },
+      { data: 'id', visible: false },
+      { title: 'Дії⠀', orderable: false },
+
+    ],
+    processing: true,
+    serverSide: true,
+    ajax: this.ajaxCallback.bind(this),
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent: `<button class="btn" data-toggle="modal" data-target="#editDocument"><i class="fas fa-edit"></i></button>
+         <button class="btn" data-toggle="modal" data-target="#deleteDocument"><i class="fas fas fa-trash-alt"></i></button>
+         <button class="btn" data-toggle="modal"><i class="fas fa-info-circle"></i></button>`
+      }
+    ],
     paging: true,
     scrollX: true,
     language: {
@@ -30,67 +49,26 @@ export class DocumentsComponent implements OnInit {
   };
 
   ngOnInit() {
+    
     this.tableDocument = $('#document-table').DataTable(this.tableConfig);
-    this.documentService.getEntities().subscribe(decuments => {
-      this.addTableData(decuments);
-    });
+    console.dir(this.tableDocument);
+
+    this.addTableData();
   }
 
-  addTableData(newDocument: Documents[]) {
-    this.documents = [...newDocument];
-    const view = newDocument.map(document => this.vehicleToRow(document));
-    this.tableDocument.clear();
-    this.tableDocument.rows.add(view).draw();
-
-    $('#document-table tbody')
-      .off('click')
-      .on('click', 'button[id^="document"]', event => {
-        const idTokens = event.currentTarget.id.split('-');
-        const id = parseInt(idTokens[idTokens.length - 1], 10);
-        console.log(id);
-        this.selectedDocument = new Documents(this.documents.find(i => i.id === id));
-        console.dir(this.selectedDocument);
-        console.dir(this.selectedDocument.issueLog);
-      })
-      .on('click', 'button[id^="issueLog"]', event => {
-        const idTokens = event.currentTarget.id.split('-');
-        const id = parseInt(idTokens[idTokens.length - 1], 10);
-        console.log(id);
-        this.selectedDocument = this.documents.find(i => i.id === id);
-        if (!this.selectedDocument.issueLog) {
-          this.toast.error('У даного документа відсутня історія заявок', 'Помилка', {
-            timeOut: 2500
-          });
-        }
-        if (this.selectedDocument.issueLog) {
-          this.documentService.selectedDocument = new Documents(this.selectedDocument);
-          this.router.navigate(['/admin/issue-log']);
-        }
-      });
+  private ajaxCallback(dataTablesParameters: any, callback): void {
+    this.documentService.getFilteredEntities(dataTablesParameters).subscribe(callback);
   }
 
-  // private ajaxCallback(dataTablesParameters: any, callback): void {
-  //   this.documentService.getFilteredEntities(dataTablesParameters).subscribe(callback);
-  // }
-
-  vehicleToRow(document: Documents): any[] {
-    return [
-      document.name,
-      document.description,
-      document.modDate,
-      `<button id="document-${
-        document.id
-      }" class="btn" data-toggle="modal" data-target="#editDocument"><i class="fas fa-edit"></i></button>
-       <button id="document-${
-         document.id
-       }" class="btn" data-toggle="modal" data-target="#deleteDocument"><i class="fas fas fa-trash-alt"></i></button>
-       <button id="issueLog-${document.id}" class="btn" data-toggle="modal"><i class="fas fa-info-circle"></i></button>`
-    ];
+  addTableData() {
+    $('#document-table tbody').on('click', 'button', function() {
+      const index = this.tableDocument.row( $(this).parents('tr') ).data();
+      console.log(index);
+    }.bind(this));
   }
 
   addDocument(document: Documents) {
     this.documents.push(document);
-    this.tableDocument.row.add(this.vehicleToRow(document)).draw();
   }
 
   deleteDocument(document: Documents) {
@@ -104,7 +82,7 @@ export class DocumentsComponent implements OnInit {
   editDocument(document: Documents) {
     this.documents[this.documents.findIndex(i => i.id === document.id)] = document;
     this.documentService.getEntities().subscribe(vehicles => {
-      this.addTableData(vehicles);
+      // this.addTableData(vehicles);
     });
   }
 }

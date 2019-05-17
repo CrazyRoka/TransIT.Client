@@ -9,6 +9,7 @@ import { Documents } from '../models/document/document';
 
 export class DocumentService extends CrudService<Documents> {
   protected readonly serviceUrl = `${environment.apiUrl}/document`;
+  protected readonly datatableUrl = `${environment.apiUrl}/datatable/document`;
 
   selectedDocument: Documents = null;
 
