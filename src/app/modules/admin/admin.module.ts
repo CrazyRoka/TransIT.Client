@@ -50,11 +50,17 @@ import { DeleteVehicleTypeComponent } from './component/delete-vehicle-type/dele
 
 import { DocumentsComponent } from './component/documents/documents.component';
 import { IssueLogComponent } from './component/issue-log/issue-log.component';
-import { CreateDocumentComponent} from './component/documents/create-document/create-document.component';
+import { CreateDocumentComponent } from './component/documents/create-document/create-document.component';
 import { DeleteDocumentComponent } from './component/documents/delete-document/delete-document.component';
 import { EditDocumentComponent } from './component/documents/edit-document/edit-document.component';
 import { NestedDocumentComponent } from './component/documents/nested-document/nested-document.component';
 import { SharedModule } from '../shared/shared.module';
+import { PostsComponent } from './component/posts/posts.component';
+import { CreatePostComponent } from './component/posts/create-post/create-post.component';
+import { EditPostComponent } from './component/posts/edit-post/edit-post.component';
+import { DeletePostComponent } from './component/posts/delete-post/delete-post.component';
+import { EmployeeService } from './services/employee.service';
+import { PostService } from './services/post.service';
 
 @NgModule({
   declarations: [
@@ -99,7 +105,11 @@ import { SharedModule } from '../shared/shared.module';
     CreateDocumentComponent,
     DeleteDocumentComponent,
     EditDocumentComponent,
-    NestedDocumentComponent
+    NestedDocumentComponent,
+    PostsComponent,
+    CreatePostComponent,
+    EditPostComponent,
+    DeletePostComponent
   ],
   exports: [AdminComponent],
   imports: [
@@ -114,6 +124,6 @@ import { SharedModule } from '../shared/shared.module';
     NgxMaskModule.forRoot(),
     NgBootstrapFormValidationModule
   ],
-  providers: [RoleService, UserService]
+  providers: [RoleService, UserService, PostService, EmployeeService]
 })
 export class AdminModule {}
