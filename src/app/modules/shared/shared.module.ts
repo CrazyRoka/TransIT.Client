@@ -24,6 +24,6 @@ import { FiltersTabsComponent } from './components/filters-tabs/filters-tabs.com
     FiltersTabsComponent
   ],
   imports: [CommonModule, ReactiveFormsModule],
-  exports: [GlobalIssueComponent]
+  exports: [GlobalIssueComponent, FiltersTabsComponent]
 })
 export class SharedModule {}

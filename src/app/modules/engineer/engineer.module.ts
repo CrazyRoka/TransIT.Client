@@ -62,7 +62,8 @@ export class EngineerRoutingModule {}
     CoreModule,
     EngineerRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [IssueService, IssuelogService, StateService, ActionTypeService, SupplierService, DocumentService]
 })
