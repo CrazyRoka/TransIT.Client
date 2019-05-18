@@ -67,10 +67,9 @@ export class FiltersTabsComponent implements OnInit {
     );
     this.VechicleTypeValue.next(this.selectedType);
     this.StateValue.next(this.selectedState);
+    this.PriorityValue.next(this.selectedPriority);
   }
   selectPriority(value) {
     this.selectedPriority = value;
-
-    console.log('    this.selectedPriority = value;');
   }
 }
