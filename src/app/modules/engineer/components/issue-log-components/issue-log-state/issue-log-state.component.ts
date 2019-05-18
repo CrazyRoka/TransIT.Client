@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { StateService } from 'src/app/modules/admin/services/state.service';
-import { State } from '../../models/state';
+import { State } from '../../../models/state';
 
 @Component({
   selector: 'app-issue-log-state',

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { User } from '../../models/user';
-import { Supplier } from '../../models/supplier';
-import { SupplierService } from '../../services/supplier.service';
+import { Supplier } from '../../../models/supplier';
+import { SupplierService } from '../../../services/supplier.service';
 
 declare const $;
 

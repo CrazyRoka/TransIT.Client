@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActionType } from '../../models/actionType';
-import { ActionTypeService } from '../../services/action-type.service';
+import { ActionType } from '../../../models/actionType';
+import { ActionTypeService } from '../../../services/action-type.service';
 
 @Component({
   selector: 'app-issue-log-action-type',

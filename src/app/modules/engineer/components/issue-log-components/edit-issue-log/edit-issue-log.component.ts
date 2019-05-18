@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { IssueLog } from '../../models/issuelog';
+import { IssueLog } from '../../../models/issuelog';
 import { Router } from '@angular/router';
-import { IssuelogService } from '../../services/issuelog.service';
-import { ActionType } from '../../models/actionType';
-import { Document } from '../../models/document';
-import { ActionTypeService } from '../../services/action-type.service';
-import { StateService } from '../../services/state.service';
-import { State } from '../../models/state';
-import { Supplier } from '../../models/supplier';
-import { SupplierService } from '../../services/supplier.service';
+import { IssuelogService } from '../../../services/issuelog.service';
+import { ActionType } from '../../../models/actionType';
+import { Document } from '../../../models/document';
+import { ActionTypeService } from '../../../services/action-type.service';
+import { StateService } from '../../../services/state.service';
+import { State } from '../../../models/state';
+import { Supplier } from '../../../models/supplier';
+import { SupplierService } from '../../../services/supplier.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DocumentService } from '../../services/document.service';
-import { IssueService } from '../../../shared/services/issue.service';
-import { Employee } from '../../models/employee';
+import { DocumentService } from '../../../services/document.service';
+import { IssueService } from '../../../../shared/services/issue.service';
+import { Employee } from '../../../models/employee';
 
 @Component({
   selector: 'app-edit-issue-log',
