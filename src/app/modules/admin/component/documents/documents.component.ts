@@ -15,6 +15,7 @@ export class DocumentsComponent implements OnInit {
   documents: Documents[] = [];
   tableDocument: DataTables.Api;
   selectedDocument: Documents;
+  tost: ToastrService;
 
   constructor(private documentService: DocumentService, private router: Router, private toast: ToastrService) {}
 
@@ -26,8 +27,7 @@ export class DocumentsComponent implements OnInit {
       { title: 'Опис', data: 'description', defaultContent: '' },
       { title: 'Змінено', data: 'modDate', defaultContent: '' },
       { data: 'id', visible: false },
-      { title: 'Дії⠀', orderable: false },
-
+      { title: 'Дії⠀', orderable: false }
     ],
     processing: true,
     serverSide: true,
@@ -36,9 +36,9 @@ export class DocumentsComponent implements OnInit {
       {
         targets: -1,
         data: null,
-        defaultContent: `<button class="btn" data-toggle="modal" data-target="#editDocument"><i class="fas fa-edit"></i></button>
-         <button class="btn" data-toggle="modal" data-target="#deleteDocument"><i class="fas fas fa-trash-alt"></i></button>
-         <button class="btn" data-toggle="modal"><i class="fas fa-info-circle"></i></button>`
+        defaultContent: `<button id="first" class="btn" data-toggle="modal" data-target="#editDocument"><i class="fas fa-edit"></i></button>
+         <button id="second" class="btn" data-toggle="modal" data-target="#deleteDocument"><i class="fas fas fa-trash-alt"></i></button>
+         <button id="third" class="btn" data-toggle="modal"><i class="fas fa-info-circle"></i></button>`
       }
     ],
     paging: true,
@@ -49,40 +49,60 @@ export class DocumentsComponent implements OnInit {
   };
 
   ngOnInit() {
-    
     this.tableDocument = $('#document-table').DataTable(this.tableConfig);
-    console.dir(this.tableDocument);
-
-    this.addTableData();
+    $('#document-table tbody').on('click', '#first', this.selectFirstItem(this));
+    $('#document-table tbody').on('click', '#second', this.selectSecondItem(this));
+    $('#document-table tbody').on('click', '#third', this.selectThirdItem(this));
   }
 
   private ajaxCallback(dataTablesParameters: any, callback): void {
     this.documentService.getFilteredEntities(dataTablesParameters).subscribe(callback);
   }
 
-  addTableData() {
-    $('#document-table tbody').on('click', 'button', function() {
-      const index = this.tableDocument.row( $(this).parents('tr') ).data();
-      console.log(index);
-    }.bind(this));
+  selectFirstItem(component: any) {
+    return function() {
+      const data = component.tableDocument.row($(this).parents('tr')).data();
+      component.selectedDocument = data;
+    };
+  }
+
+  selectSecondItem(component: any) {
+    return function() {
+      const data = component.tableDocument.row($(this).parents('tr')).data();
+      component.selectedDocument = data;
+    };
+  }
+
+  selectThirdItem(component: any) {
+    return function() {
+      const data = component.tableDocument.row($(this).parents('tr')).data();
+      this.selectedDocument = data;
+
+
+      if (!this.selectedDocument.issueLog) {
+        component.toast.error('У даного документа відсутня історія заявок', 'Помилка', {
+          timeOut: 2500
+        });
+      }
+      if (this.selectedDocument.issueLog) {
+        component.documentService.selectedItem = new Documents(this.selectedDocument);
+        component.router.navigate(['/admin/issue-log']);
+      }
+    };
   }
 
   addDocument(document: Documents) {
     this.documents.push(document);
+    this.tableDocument.draw();
   }
 
   deleteDocument(document: Documents) {
     this.documents = this.documents.filter(v => v.id !== document.id);
-    this.tableDocument
-      .rows($(`button[id^="document-${document.id}"]`).parents('tr'))
-      .remove()
-      .draw(false);
+    this.tableDocument.draw();
   }
 
   editDocument(document: Documents) {
     this.documents[this.documents.findIndex(i => i.id === document.id)] = document;
-    this.documentService.getEntities().subscribe(vehicles => {
-      // this.addTableData(vehicles);
-    });
+    this.tableDocument.draw();
   }
 }
