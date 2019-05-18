@@ -3,6 +3,7 @@ import { VehicleType } from '../../models/vehicleType';
 import { VehicleTypeService } from 'src/app/modules/admin/services/vehicle-type.service';
 import { State } from '../../models/state';
 import { StateService } from 'src/app/modules/admin/services/state.service';
+import { Priority } from 'src/app/modules/core/models/priority';
 
 @Component({
   selector: 'app-filters-tabs',
@@ -12,15 +13,22 @@ import { StateService } from 'src/app/modules/admin/services/state.service';
 export class FiltersTabsComponent implements OnInit {
   vehicleTypeList: VehicleType[] = [];
   stateList: State[] = [];
+  priorityList = Priority;
+  keys = [];
+
   @Output() StartDateValue = new EventEmitter<string>();
   @Output() EndDateValue = new EventEmitter<string>();
   @Output() VechicleTypeValue = new EventEmitter<string>();
   @Output() StateValue = new EventEmitter<string>();
+  @Output() PriorityValue = new EventEmitter<string>();
 
   selectedType: string;
   selectedState: string;
+  selectedPriority: string;
 
-  constructor(private vehicleTypeService: VehicleTypeService, private stateService: StateService) {}
+  constructor(private vehicleTypeService: VehicleTypeService, private stateService: StateService) {
+    this.keys = Object.keys(this.priorityList).filter(f => !isNaN(Number(f)));
+  }
 
   ngOnInit() {
     this.vehicleTypeService.getEntities().subscribe(data => (this.vehicleTypeList = data));
@@ -59,5 +67,10 @@ export class FiltersTabsComponent implements OnInit {
     );
     this.VechicleTypeValue.next(this.selectedType);
     this.StateValue.next(this.selectedState);
+  }
+  selectPriority(value) {
+    this.selectedPriority = value;
+
+    console.log('    this.selectedPriority = value;');
   }
 }

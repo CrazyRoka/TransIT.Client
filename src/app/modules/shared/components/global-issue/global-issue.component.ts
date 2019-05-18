@@ -17,6 +17,7 @@ export class GlobalIssueComponent implements OnInit {
   protected endDate: string;
   protected vehicleType: string;
   protected state: string;
+  protected priority: string;
 
   protected readonly tableConfig: any = {
     scrollX: true,
@@ -105,5 +106,9 @@ export class GlobalIssueComponent implements OnInit {
     });
     console.dir(this);
     this.state = value;
+  }
+  protected getPriorityValue(value) {
+    console.log(value);
+    this.priority = value;
   }
 }
