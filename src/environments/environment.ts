@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://transistr.azurewebsites.net/api/v1'
+  apiUrl: 'https://localhost:8080/api/v1'
 };
 
 /*
