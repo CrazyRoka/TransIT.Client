@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IssueLog } from '../../models/issuelog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IssuelogService } from '../../services/issuelog.service';
 import { ActionType } from '../../models/actionType';
 import { Document } from '../../models/document';
@@ -11,7 +11,7 @@ import { Supplier } from '../../models/supplier';
 import { SupplierService } from '../../services/supplier.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DocumentService } from '../../services/document.service';
-import { IssueService } from '../../services/issue.service';
+import { IssueService } from '../../../shared/services/issue.service';
 import { Employee } from '../../models/employee';
 
 @Component({
@@ -80,11 +80,19 @@ export class EditIssueLogComponent implements OnInit {
   }
 
   assignAssignee(entity: Employee): void {
-    this.assigneeUser = entity;
+    this.issueLog.issue.assignedTo = entity;
   }
 
   assignSupplier(entity: Supplier): void {
-    this.supplier = entity;
+    this.issueLog.supplier = entity;
+  }
+
+  assignActionType(entity: ActionType): void {
+    this.issueLog.actionType = entity;
+  }
+
+  assignState(entity: State): void {
+    this.issueLog.newState = entity;
   }
 
   deleteDocument(entity: Document): void {
@@ -101,11 +109,6 @@ export class EditIssueLogComponent implements OnInit {
     this.issueLog.issue.deadline = this.issueLogForm.value.deadline
       ? this.issueLog.issue.deadline
       : this.issueLogForm.value.deadline;
-    this.issueLog.newState = new State({ id: this.issueLogForm.value.state });
-    this.issueLog.supplier = this.supplier;
-    if (this.assigneeUser) {
-      this.issueLog.issue.assignedTo = this.assigneeUser;
-    }
     this.issueLogService.addEntity(this.issueLog).subscribe(res => {
       if (this.documents.length) {
         this.documents.forEach(d => {

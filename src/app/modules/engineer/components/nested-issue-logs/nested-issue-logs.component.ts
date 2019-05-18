@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IssueLogsComponent } from '../issue-logs/issue-logs.component';
-import { Issue } from '../../models/issue';
-import { environment } from '../../../../../environments/environment';
+import { Issue } from '../../../shared/models/issue';
 
 declare const $;
 

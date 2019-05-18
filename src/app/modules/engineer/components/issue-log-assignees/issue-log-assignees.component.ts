@@ -9,7 +9,7 @@ declare const $;
   templateUrl: './issue-log-assignees.component.html',
   styleUrls: ['./issue-log-assignees.component.scss']
 })
-export class IssueLogAssigneesComponent implements OnInit {
+export class IssueLogAssigneesComponent implements OnInit {;
   currentUser: Employee;
   users: Array<Employee>;
   @Output() selectUser: EventEmitter<Employee>;
@@ -25,5 +25,6 @@ export class IssueLogAssigneesComponent implements OnInit {
   selectItem(item: Employee): void {
     this.currentUser = item;
     this.selectUser.emit(item);
+    console.dir(this.users);
   }
 }
