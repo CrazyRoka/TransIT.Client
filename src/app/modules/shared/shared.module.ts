@@ -18,6 +18,7 @@ import { CreateDocumentComponent } from './components/global-document/document/c
 import { DeleteDocumentComponent } from './components/global-document/document/delete-document/delete-document.component';
 import { EditDocumentComponent } from './components/global-document/document/edit-document/edit-document.component';
 import { NestedDocumentComponent } from './components/global-document/document/nested-document/nested-document.component';
+import { IssueLogComponent } from './components/issue-log/issue-log.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { NestedDocumentComponent } from './components/global-document/document/n
     DeleteDocumentComponent,
     EditDocumentComponent,
     NestedDocumentComponent,
+    IssueLogComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [GlobalIssueComponent, FiltersTabsComponent]

@@ -22,6 +22,8 @@ import { IssueLogAssigneesComponent } from './components/issue-log-assignees/iss
 import { DocumentsComponent } from './components/documents/documents.component';
 import { IssueLogSuppliersComponent } from './components/issue-log-suppliers/issue-log-suppliers.component';
 import { SharedModule } from '../shared/shared.module';
+import { GlobalDocumentComponent } from '../shared/components/global-document/global-document.component';
+import { IssueLogComponent } from '../shared/components/issue-log/issue-log.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,9 @@ const routes: Routes = [
       { path: 'issue-logs', component: IssueLogsComponent },
       { path: 'issue-logs/edit', component: EditIssueLogComponent, data: [{isProd: true}] },
       { path: 'issue-logs/documents', component: DocumentsComponent },
+      { path: 'documents', component: GlobalDocumentComponent },
+      { path: 'issue-log', component: IssueLogComponent },
+      
       { path: '**', redirectTo: 'issues' }
     ]
   }

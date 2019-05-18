@@ -19,8 +19,10 @@ export class DocumentComponent implements OnInit {
   @Input() isVisible: boolean;
 
   constructor(private documentService: DocumentService, private router: Router, private toast: ToastrService) {}
+  _url = this.router.url.substring(1, this.router.url.length - 1);
 
   ngOnInit() {
+    this._url = this._url.substring(0, this._url.indexOf('/'));
     this.tableDocument = $('#document-table').DataTable({
       responsive: true,
 
@@ -84,7 +86,7 @@ export class DocumentComponent implements OnInit {
       }
       if (this.selectedDocument.issueLog) {
         component.documentService.selectedItem = new Documents(this.selectedDocument);
-        component.router.navigate(['/admin/issue-log']);
+        component.router.navigate([`${component._url}/issue-log`]);
       }
     };
   }
