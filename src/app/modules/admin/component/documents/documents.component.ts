@@ -36,9 +36,9 @@ export class DocumentsComponent implements OnInit {
       {
         targets: -1,
         data: null,
-        defaultContent: `<button id="first" class="btn" data-toggle="modal" data-target="#editDocument"><i class="fas fa-edit"></i></button>
-         <button id="second" class="btn" data-toggle="modal" data-target="#deleteDocument"><i class="fas fas fa-trash-alt"></i></button>
-         <button id="third" class="btn" data-toggle="modal"><i class="fas fa-info-circle"></i></button>`
+        defaultContent: `<button class="first btn" data-toggle="modal" data-target="#editDocument"><i class="fas fa-edit"></i></button>
+         <button class="second btn" data-toggle="modal" data-target="#deleteDocument"><i class="fas fas fa-trash-alt"></i></button>
+         <button class="third btn" data-toggle="modal"><i class="fas fa-info-circle"></i></button>`
       }
     ],
     paging: true,
@@ -50,9 +50,9 @@ export class DocumentsComponent implements OnInit {
 
   ngOnInit() {
     this.tableDocument = $('#document-table').DataTable(this.tableConfig);
-    $('#document-table tbody').on('click', '#first', this.selectFirstItem(this));
-    $('#document-table tbody').on('click', '#second', this.selectSecondItem(this));
-    $('#document-table tbody').on('click', '#third', this.selectThirdItem(this));
+    $('#document-table tbody').on('click', '.first', this.selectFirstItem(this));
+    $('#document-table tbody').on('click', '.second', this.selectSecondItem(this));
+    $('#document-table tbody').on('click', '.third', this.selectThirdItem(this));
   }
 
   private ajaxCallback(dataTablesParameters: any, callback): void {
