@@ -1,21 +1,22 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Documents } from '../../models/document/document';
-import { DocumentService } from '../../services/document.service';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Documents } from 'src/app/modules/admin/models/document/document';
+import { DocumentService } from 'src/app/modules/admin/services/document.service';
 
 declare const $;
 
 @Component({
-  selector: 'app-documents',
-  templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.scss']
+  selector: 'app-document',
+  templateUrl: './document.component.html',
+  styleUrls: ['./document.component.scss']
 })
-export class DocumentsComponent implements OnInit {
+export class DocumentComponent implements OnInit {
   documents: Documents[] = [];
   tableDocument: DataTables.Api;
   selectedDocument: Documents;
   tost: ToastrService;
+  @Input() isVisible: boolean;
 
   constructor(private documentService: DocumentService, private router: Router, private toast: ToastrService) {}
 
@@ -27,7 +28,7 @@ export class DocumentsComponent implements OnInit {
       { title: 'Опис', data: 'description', defaultContent: '' },
       { title: 'Змінено', data: 'modDate', defaultContent: '' },
       { data: 'id', visible: false },
-      { title: 'Дії⠀', orderable: false }
+      { title: 'Дії⠀', orderable: false, visible: this.isVisible }
     ],
     processing: true,
     serverSide: true,
