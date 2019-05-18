@@ -20,3 +20,7 @@
 .priority-high {
   background-color: #ffcccc;
 }
+
+:host ::ng-deep .dataTables_empty {
+  display: none;
+}
