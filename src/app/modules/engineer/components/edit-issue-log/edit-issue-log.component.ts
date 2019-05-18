@@ -10,10 +10,9 @@ import { State } from '../../models/state';
 import { Supplier } from '../../models/supplier';
 import { SupplierService } from '../../services/supplier.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Issue } from '../../models/issue';
 import { DocumentService } from '../../services/document.service';
-import { User } from '../../models/user';
 import { IssueService } from '../../services/issue.service';
+import { Employee } from '../../models/employee';
 
 @Component({
   selector: 'app-edit-issue-log',
@@ -22,7 +21,7 @@ import { IssueService } from '../../services/issue.service';
 })
 export class EditIssueLogComponent implements OnInit {
   issueLog: IssueLog;
-  assigneeUser: User;
+  assigneeUser: Employee;
   supplier: Supplier;
   actionTypes: Array<ActionType>;
   states: Array<State>;
@@ -31,7 +30,6 @@ export class EditIssueLogComponent implements OnInit {
   documents: Array<Document>;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private issueService: IssueService,
     private issueLogService: IssuelogService,
@@ -51,21 +49,7 @@ export class EditIssueLogComponent implements OnInit {
     });
   }
 
-  private createIssueLog(): IssueLog {
-    return new IssueLog({
-      id: 0,
-      description: '',
-      expenses: 0,
-      actionType: new ActionType(),
-      issue: new Issue(),
-      oldState: new State(),
-      newState: new State(),
-      supplier: new Supplier()
-    });
-  }
-
   ngOnInit() {
-    // this.issueLog = this.createIssueLog();
     const selectedIssue = this.issueService.selectedItem;
     this.issueLog = new IssueLog({
       id: 0,
@@ -95,7 +79,7 @@ export class EditIssueLogComponent implements OnInit {
     this.documents.push(entity);
   }
 
-  assignAssignee(entity: User): void {
+  assignAssignee(entity: Employee): void {
     this.assigneeUser = entity;
   }
 

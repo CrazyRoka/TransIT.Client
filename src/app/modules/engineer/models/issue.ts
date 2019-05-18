@@ -3,6 +3,7 @@ import { Vehicle } from './vehicle';
 import { Malfunction } from './malfunction';
 import { User } from './user';
 import { TEntity } from '../../core/models/entity/entity';
+import { Employee } from './employee';
 
 export class Issue extends TEntity<Issue> {
   number?: number;
@@ -10,7 +11,7 @@ export class Issue extends TEntity<Issue> {
   malfunction?: Malfunction;
   warranty?: number;
   vehicle?: Vehicle;
-  assignedTo?: User;
+  assignedTo?: Employee;
   deadline?: Date;
   summary?: string;
   createDate?: Date;

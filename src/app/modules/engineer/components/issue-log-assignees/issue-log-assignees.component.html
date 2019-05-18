@@ -1,16 +1,11 @@
-<div class="form-group dropdown">
-  <label for="userInput">Відповідальний</label>
-  <input
-    id="userInput"
-    type="text"
-    class="dropdown-toggle form-control"
-    placeholder="Введіть працівника"
-    [(ngModel)]="searchString"
-    (ngModelChange)="onSearchChange()"
-  />
-  <div class="dropdown-menu">
-    <button class="dropdown-item" type="button" *ngFor="let item of users" (click)="selectItem(item)">
-      {{ item.login + ' ' + item.firstName + ' ' + item.lastName + ' ' }}
-    </button>
-  </div>
+<div class="form-group">
+    <label>Відповідальний</label>
+    <ng-select
+      [items]="users"
+      (ngModelChange)="selectItem(event)"
+      [(ngModel)]="currentUser"
+      bindLabel="shortName"
+      placeholder="Виберіть працівника"
+      notFoundText="Не знайдено"
+    ></ng-select>
 </div>
