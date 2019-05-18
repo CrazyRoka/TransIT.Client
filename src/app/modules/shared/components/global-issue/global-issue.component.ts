@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IssueService } from '../../services/issue.service';
 import { Router } from '@angular/router';
+import { IssueService } from '../../services/issue.service';
 
 declare const $;
 
@@ -13,10 +13,10 @@ export class GlobalIssueComponent implements OnInit {
   readonly priorityColors = Object.freeze(['#FFCCCC', '#FFFFCC', '#CCFFCC']);
 
   protected table: any;
-  private startDate: string;
-  private endDate: string;
-  private vehicleType: string;
-  private state: string;
+  protected startDate: string;
+  protected endDate: string;
+  protected vehicleType: string;
+  protected state: string;
 
   protected readonly tableConfig: any = {
     scrollX: true,
@@ -51,12 +51,12 @@ export class GlobalIssueComponent implements OnInit {
     }
   };
 
-  constructor(private issueService: IssueService, private router: Router) {}
+  constructor(protected issueService: IssueService, protected router: Router) {}
 
   ngOnInit() {
     this.initTable();
   }
-  private ajaxCallback(dataTablesParameters: any, callback): void {
+  protected ajaxCallback(dataTablesParameters: any, callback): void {
     dataTablesParameters.filters = [];
     if (this.state) {
       dataTablesParameters.filters.push({
@@ -85,19 +85,19 @@ export class GlobalIssueComponent implements OnInit {
   protected initTable(): void {
     this.table = $('#issue-table').DataTable(this.tableConfig);
   }
-  getStartDateValue(value) {
+  protected getStartDateValue(value) {
     console.log(value);
     this.startDate = value;
   }
-  getEndDateValue(value) {
+  protected getEndDateValue(value) {
     console.log(value);
     this.endDate = value;
   }
-  getVechicleTypeValue(value) {
+  protected getVechicleTypeValue(value) {
     this.vehicleType = value;
     console.log(value);
   }
-  getStateValue(value) {
+  protected getStateValue(value) {
     console.log(value);
     this.table = $('#issue-table').DataTable({
       ...this.tableConfig,

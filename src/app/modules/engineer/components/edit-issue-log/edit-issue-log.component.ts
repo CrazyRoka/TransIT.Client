@@ -13,7 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Issue } from '../../models/issue';
 import { DocumentService } from '../../services/document.service';
 import { User } from '../../models/user';
-import { IssueService } from '../../services/issue.service';
+import { IssueService } from 'src/app/modules/shared/services/issue.service';
 
 @Component({
   selector: 'app-edit-issue-log',

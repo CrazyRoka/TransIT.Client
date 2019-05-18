@@ -14,4 +14,6 @@ export class Issue extends TEntity<Issue> {
   summary?: string;
   createDate?: Date;
   modDate?: Date;
+  priority: number;
+  number: number;
 }

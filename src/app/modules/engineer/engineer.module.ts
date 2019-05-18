@@ -11,7 +11,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { ActionTypeService } from './services/action-type.service';
 import { StateService } from './services/state.service';
 import { IssuelogService } from './services/issuelog.service';
-import { IssueService } from './services/issue.service';
 import { EditIssueComponent } from './components/edit-issue/edit-issue.component';
 import { EditIssueLogComponent } from './components/edit-issue-log/edit-issue-log.component';
 import { NestedIssueLogsComponent } from './components/nested-issue-logs/nested-issue-logs.component';
@@ -22,6 +21,7 @@ import { IssueLogAssigneesComponent } from './components/issue-log-assignees/iss
 import { DocumentsComponent } from './components/documents/documents.component';
 import { IssueLogSuppliersComponent } from './components/issue-log-suppliers/issue-log-suppliers.component';
 import { SharedModule } from '../shared/shared.module';
+import { IssueService } from '../shared/services/issue.service';
 
 const routes: Routes = [
   {
