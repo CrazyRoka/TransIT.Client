@@ -18,10 +18,10 @@ export class IssuesComponent extends GlobalIssueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initTable2();
+    this.initTable();
   }
 
-  protected initTable2(): void {
+  protected initTable(): void {
     this.table = $('#issue-table').DataTable(this.tableConfig);
     this.table.on('select', this.selectRow.bind(this));
   }
