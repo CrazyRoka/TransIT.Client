@@ -13,8 +13,6 @@ import { IssuelogService } from './services/issuelog.service';
 import { EditIssueComponent } from './components/edit-issue/edit-issue.component';
 import { SupplierService } from './services/supplier.service';
 import { DocumentService } from './services/document.service';
-import { CreateDocumentComponent } from './components/create-document/create-document.component';
-import { DocumentsComponent } from './components/documents/documents.component';
 import { SharedModule } from '../shared/shared.module';
 import { GlobalDocumentComponent } from '../shared/components/global-document/global-document.component';
 import { IssueLogComponent } from '../shared/components/issue-log/issue-log.component';
@@ -27,6 +25,8 @@ import { IssueLogAssigneesComponent } from './components/issue-log-components/is
 import { IssueLogSuppliersComponent } from './components/issue-log-components/issue-log-suppliers/issue-log-suppliers.component';
 import { IssueLogActionTypeComponent } from './components/issue-log-components/issue-log-action-type/issue-log-action-type.component';
 import { IssueLogStateComponent } from './components/issue-log-components/issue-log-state/issue-log-state.component';
+import { IssueLogDocumentsComponent } from './components/issue-log-components/issue-log-documents/issue-log-documents.component';
+import { DocumentComponent } from '../shared/components/global-document/document/document.component';
 
 const routes: Routes = [
   {
@@ -36,11 +36,11 @@ const routes: Routes = [
       { path: 'issues', component: IssuesComponent },
       { path: 'issues/edit', component: EditIssueComponent },
       { path: 'issue-logs', component: IssueLogsComponent },
-      { path: 'issue-logs/edit', component: EditIssueLogComponent, data: [{isProd: true}] },
-      { path: 'issue-logs/documents', component: DocumentsComponent },
+      { path: 'issue-logs/edit', component: EditIssueLogComponent },
+      { path: 'issue-logs/documents', component: DocumentComponent },
       { path: 'documents', component: GlobalDocumentComponent },
       { path: 'issue-log', component: IssueLogComponent },
-      
+
       { path: '**', redirectTo: 'issues' }
     ]
   }
@@ -48,7 +48,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes), 
+    RouterModule.forChild(routes),
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
@@ -60,12 +60,11 @@ const routes: Routes = [
     EditIssueComponent,
     EditIssueLogComponent,
     NestedIssueLogsComponent,
-    CreateDocumentComponent,
     IssueLogAssigneesComponent,
-    DocumentsComponent,
     IssueLogSuppliersComponent,
     IssueLogActionTypeComponent,
-    IssueLogStateComponent
+    IssueLogStateComponent,
+    IssueLogDocumentsComponent
   ]
 })
 export class EngineerRoutingModule {}

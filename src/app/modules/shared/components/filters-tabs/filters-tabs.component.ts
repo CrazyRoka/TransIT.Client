@@ -9,6 +9,7 @@ import { MalfunSubgroup } from 'src/app/modules/admin/models/malfun-subgroup/mal
 import { MalfunSubgroupService } from 'src/app/modules/admin/services/malfun-subgroup.service';
 import { Malfunction } from 'src/app/modules/admin/models/malfunc/malfunc';
 import { MalfuncService } from 'src/app/modules/admin/services/malfunc.service';
+import { Priority } from 'src/app/modules/core/models/priority';
 
 @Component({
   selector: 'app-filters-tabs',
@@ -21,14 +22,19 @@ export class FiltersTabsComponent implements OnInit {
   malfunctionGroupList: MalfuncGroup[] = [];
   malfunctionSubGroupList: MalfunSubgroup[] = [];
   malfunctionList: Malfunction[] = [];
+  priorityList = Priority;
+  keys = [];
+
   @Output() StartDateValue = new EventEmitter<string>();
   @Output() EndDateValue = new EventEmitter<string>();
   @Output() VechicleTypeValue = new EventEmitter<string>();
   @Output() StateValue = new EventEmitter<string>();
   @Output() Filter = new EventEmitter();
+  @Output() PriorityValue = new EventEmitter<string>();
 
   selectedType: string;
   selectedState: string;
+  selectedPriority: string;
 
   constructor(
     private vehicleTypeService: VehicleTypeService,
@@ -36,7 +42,9 @@ export class FiltersTabsComponent implements OnInit {
     private malfunctionGropService: MalfuncGroupService,
     private malfunctionSubGropService: MalfunSubgroupService,
     private malfunctionService: MalfuncService
-  ) {}
+  ) {
+    this.keys = Object.keys(this.priorityList).filter(f => !isNaN(Number(f)));
+  }
 
   ngOnInit() {
     this.vehicleTypeService.getEntities().subscribe(data => (this.vehicleTypeList = data));
@@ -65,6 +73,9 @@ export class FiltersTabsComponent implements OnInit {
   selectState(state) {
     this.selectedState = state;
   }
+  selectPriority(value) {
+    this.selectedPriority = value;
+  }
   selectFilter() {
     this.EndDateValue.next(
       $('#endDate')
@@ -78,6 +89,7 @@ export class FiltersTabsComponent implements OnInit {
     );
     this.VechicleTypeValue.next(this.selectedType);
     this.StateValue.next(this.selectedState);
+    this.PriorityValue.next(this.selectedPriority);
     this.Filter.next();
   }
 }

@@ -49,6 +49,14 @@ import { CoreModule } from '../core/core.module';
     NgSelectModule,
     FormsModule
   ],
-  exports: [GlobalIssueComponent, FiltersTabsComponent]
+  exports: [
+    NestedDocumentComponent,
+    GlobalIssueComponent,
+    FiltersTabsComponent,
+    GlobalIssueComponent,
+    FiltersTabsComponent,
+    CreateDocumentComponent,
+    DocumentComponent    
+  ]
 })
 export class SharedModule {}
