@@ -15,6 +15,7 @@ import { IssueLogComponent } from './component/issue-log/issue-log.component';
 import { DictionaryComponent } from '../shared/components/dictionaries/dictionary.component';
 import { PostsComponent } from './component/posts/posts.component';
 import { EmployeesComponent } from './component/employees/employees.component';
+import { ActionStateDictionaryComponent } from './component/action-state-dictionary/action-state-dictionary.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,7 @@ const routes: Routes = [
           { path: 'malfunc', component: MalfuncComponent }
         ]
       },
-      { path: 'actions', component: ActionComponent },
+      { path: 'actions', component: ActionStateDictionaryComponent },
       { path: 'supplier', component: SupplierComponent },
       { path: 'vehicle-types', component: VehicleTypeComponent },
       { path: 'documents', component: DocumentsComponent },
