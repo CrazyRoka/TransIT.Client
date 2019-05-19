@@ -57,7 +57,6 @@ export class StateDictionaryComponent implements OnInit {
 
   selectFirstItem(component: any) {
     return function() {
-      console.log('hello');
       const data = component.tableState.row($(this).parents('tr')).data();
       component.selectedState = data;
       console.dir(data);
