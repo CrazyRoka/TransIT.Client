@@ -78,7 +78,6 @@ export class DocumentsComponent implements OnInit {
       const data = component.tableDocument.row($(this).parents('tr')).data();
       this.selectedDocument = data;
 
-
       if (!this.selectedDocument.issueLog) {
         component.toast.error('У даного документа відсутня історія заявок', 'Помилка', {
           timeOut: 2500

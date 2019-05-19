@@ -75,6 +75,8 @@ import { EditStateComponent } from './component/action-state-dictionary/state-di
 import { CreateActionComponent } from './component/action-state-dictionary/action-dictionary/create-action/create-action.component';
 import { EditActionComponent } from './component/action-state-dictionary/action-dictionary/edit-action/edit-action.component';
 import { DeleteActionComponent } from './component/action-state-dictionary/action-dictionary/delete-action/delete-action.component';
+import { DocumentComponent } from '../shared/components/global-document/document/document.component';
+
 
 @NgModule({
   declarations: [
@@ -144,7 +146,7 @@ import { DeleteActionComponent } from './component/action-state-dictionary/actio
     EditActionComponent,
     DeleteActionComponent
   ],
-  exports: [AdminComponent],
+  exports: [AdminComponent, DocumentComponent],
   imports: [
     CommonModule,
     CoreModule,
