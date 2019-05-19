@@ -47,21 +47,18 @@ import { EditVehicleTypeComponent } from './component/edit-vehicle-type/edit-veh
 import { DeleteVehicleTypeComponent } from './component/delete-vehicle-type/delete-vehicle-type.component';
 
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
+
 import { IssueLogComponent } from './component/issue-log/issue-log.component';
 
-import { DocumentsComponent } from './component/documents/documents.component';
-import { CreateDocumentComponent } from './component/documents/create-document/create-document.component';
-import { DeleteDocumentComponent } from './component/documents/delete-document/delete-document.component';
-import { EditDocumentComponent } from './component/documents/edit-document/edit-document.component';
-import { NestedDocumentComponent } from './component/documents/nested-document/nested-document.component';
-
 import { SharedModule } from '../shared/shared.module';
+
 import { PostsComponent } from './component/posts/posts.component';
 import { CreatePostComponent } from './component/posts/create-post/create-post.component';
 import { EditPostComponent } from './component/posts/edit-post/edit-post.component';
 import { DeletePostComponent } from './component/posts/delete-post/delete-post.component';
-import { EmployeeService } from './services/employee.service';
 import { PostService } from './services/post.service';
+
+import { EmployeeService } from './services/employee.service';
 import { EmployeesComponent } from './component/employees/employees.component';
 import { CreateEmployeeComponent } from './component/employees/create-employee/create-employee.component';
 import { EditEmployeeComponent } from './component/employees/edit-employee/edit-employee.component';
@@ -122,12 +119,7 @@ import { DocumentComponent } from '../shared/components/global-document/document
     DeleteSupplierComponent,
     //====Issue===
     IssueLogComponent,
-    //====Document===
-    DocumentsComponent,
-    CreateDocumentComponent,
-    DeleteDocumentComponent,
-    EditDocumentComponent,
-    NestedDocumentComponent,
+    //====Post===
     PostsComponent,
     CreatePostComponent,
     EditPostComponent,
@@ -146,7 +138,7 @@ import { DocumentComponent } from '../shared/components/global-document/document
     EditActionComponent,
     DeleteActionComponent
   ],
-  exports: [AdminComponent, DocumentComponent],
+  exports: [AdminComponent],
   imports: [
     CommonModule,
     CoreModule,
