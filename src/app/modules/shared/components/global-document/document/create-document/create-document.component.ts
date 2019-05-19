@@ -4,6 +4,7 @@ import { Documents } from 'src/app/modules/admin/models/document/document';
 import { IssueLog } from 'src/app/modules/admin/models/issueLog/IssueLog';
 import { IssueLogService } from 'src/app/modules/admin/services/issue-log.service';
 import { DocumentService } from 'src/app/modules/admin/services/document.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-document',
@@ -14,17 +15,24 @@ export class CreateDocumentComponent implements OnInit {
   @ViewChild('close') closeDiv: ElementRef;
   @Output() createDocument = new EventEmitter<Documents>();
   documentForm: FormGroup;
-  issueLogList : IssueLog[];
+  issueLogList: IssueLog[];
 
-  constructor(private serviceIssueLog: IssueLogService, private serviceDocument: DocumentService, private formBuilder: FormBuilder) { }
+  constructor(
+    private serviceIssueLog: IssueLogService,
+    private serviceDocument: DocumentService,
+    private formBuilder: FormBuilder,
+    private toast: ToastrService
+  ) {}
 
   ngOnInit() {
     $('#createDocument').on('hidden.bs.modal', function() {
-      $(this).find('form').trigger('reset');
+      $(this)
+        .find('form')
+        .trigger('reset');
     });
     this.documentForm = this.formBuilder.group({
       name: ['', Validators.required],
-      description : ['', Validators.required],
+      description: ['', Validators.required]
     });
     this.serviceIssueLog.getEntities().subscribe(issuelog => {
       this.issueLogList = issuelog;
@@ -38,11 +46,11 @@ export class CreateDocumentComponent implements OnInit {
     const document: Documents = {
       id: 0,
       name: form.name as string,
-      description : form.description as string,
+      description: form.description as string
     };
-    
+
     this.serviceDocument.addEntity(document).subscribe(newGroup => this.createDocument.next(newGroup));
     this.closeDiv.nativeElement.click();
+    this.toast.success('', 'Документ створено');
   }
-
 }
