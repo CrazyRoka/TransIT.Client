@@ -8,9 +8,7 @@
       <select class="form-control" width="200" (change)="selectVechicleType($event.target.value)">
         <option value="" selected class="grey"> Виберіть тип транспорту</option>
         <option *ngFor="let vehicleType of vehicleTypeList" [value]="">{{ vehicleType.name }}</option>
-      </select>
-    </div>
-    <div>
+      </select>    
       <select class="form-control" width="200" (change)="selectState($event.target.value)">
         <option value="" selected class="grey"> Виберіть статус</option>
         <option *ngFor="let state of stateList" [value]="">{{ state.transName }}</option>
@@ -35,6 +33,7 @@
         placeholder="*Несправність"
         notFoundText="Не знайдено"
       ></ng-select>
+    </div>
     <div>
       <select class="form-control" width="200" (change)="selectPriority($event.target.value)">
         <option value="" selected class="grey"> Виберіть пріорітет</option>
