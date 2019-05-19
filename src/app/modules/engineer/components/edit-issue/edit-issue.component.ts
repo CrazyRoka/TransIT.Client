@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Issue } from '../../models/issue';
-import { IssueService } from 'src/app/modules/shared/services/issue.service';
+import { Issue } from '../../../shared/models/issue';
+import { IssueService } from '../../../shared/services/issue.service';
 
 @Component({
   selector: 'app-edit-issue',
@@ -13,6 +13,10 @@ export class EditIssueComponent implements OnInit {
   constructor(private issueService: IssueService) {}
 
   ngOnInit() {
-    this.issue = this.issueService.selectedIssue;
+    this.issue = this.issueService.selectedItem;
+  }
+
+  createHandler(): void {
+    this.issueService.selectedItem = this.issue;
   }
 }

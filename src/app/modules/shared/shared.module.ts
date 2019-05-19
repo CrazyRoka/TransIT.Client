@@ -10,6 +10,15 @@ import { CommonModule } from '@angular/common';
 import { CreateCountryComponent } from './components/dictionaries/country/create-country/create-country.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FiltersTabsComponent } from './components/filters-tabs/filters-tabs.component';
+import { FilterMalfunctionsComponent } from './components/filter-malfunctions/filter-malfunctions.component';
+import { GlobalMalfunctionsComponent } from './components/global-malfunctions/global-malfunctions.component';
+import { GlobalDocumentComponent } from './components/global-document/global-document.component';
+import { DocumentComponent } from './components/global-document/document/document.component';
+import { CreateDocumentComponent } from './components/global-document/document/create-document/create-document.component';
+import { DeleteDocumentComponent } from './components/global-document/document/delete-document/delete-document.component';
+import { EditDocumentComponent } from './components/global-document/document/edit-document/edit-document.component';
+import { NestedDocumentComponent } from './components/global-document/document/nested-document/nested-document.component';
+import { IssueLogComponent } from './components/issue-log/issue-log.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +30,24 @@ import { FiltersTabsComponent } from './components/filters-tabs/filters-tabs.com
     DeleteCountryComponent,
     CreateCurrencyComponent,
     DeleteCurrencyComponent,
-    FiltersTabsComponent
+    FiltersTabsComponent,
+    FilterMalfunctionsComponent,
+    GlobalMalfunctionsComponent,
+    GlobalDocumentComponent,
+    DocumentComponent,
+    CreateDocumentComponent,
+    DeleteDocumentComponent,
+    EditDocumentComponent,
+    NestedDocumentComponent,
+    IssueLogComponent
   ],
   imports: [CommonModule, ReactiveFormsModule],
-  exports: [GlobalIssueComponent, FiltersTabsComponent]
+  exports: [
+    GlobalIssueComponent,
+    FiltersTabsComponent,
+    CreateDocumentComponent,
+    DocumentComponent,
+    NestedDocumentComponent
+  ]
 })
 export class SharedModule {}

@@ -1,33 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { Issue } from '../../models/issue';
+import { Component } from '@angular/core';
+import { IssueService } from '../../../shared/services/issue.service';
 import { Router } from '@angular/router';
+import { priorityColors } from '../../../shared/declarations';
 import { GlobalIssueComponent } from 'src/app/modules/shared/components/global-issue/global-issue.component';
-import { IssueService } from 'src/app/modules/shared/services/issue.service';
+
 declare const $;
 
 @Component({
   selector: 'app-issues',
-  templateUrl: './issues.component.html',
-  styleUrls: ['./issues.component.scss']
+  templateUrl: '../../../shared/components/global-issue/global-issue.component.html',
+  styleUrls: ['../../../shared/components/global-issue/global-issue.component.scss']
 })
-export class IssuesComponent extends GlobalIssueComponent implements OnInit {
-  protected table: any;
-
-  constructor(protected issueService: IssueService, protected router: Router) {
-    super(issueService, router);
+export class IssuesComponent extends GlobalIssueComponent {
+  constructor(issueService: IssueService) {
+    super(issueService);
+    this.tableConfig.columns = [
+      ...this.tableConfig.columns,
+      {
+        title: 'Дія',
+        data: null,
+        defaultContent: '<button class="btn"><i class="fas fa-info-circle"></i></button>'
+      }
+    ];
   }
 
   ngOnInit() {
     this.initTable();
+    $('#issue-table tbody').on('click', 'button', this.selectItem(this));
   }
 
-  protected initTable(): void {
-    this.table = $('#issue-table').DataTable(this.tableConfig);
-    this.table.on('select', this.selectRow.bind(this));
+  protected createRow(row: any, data: any, dataIndex: any) {
+    $(row).css('background-color', priorityColors[data.priority]);
   }
 
-  protected selectRow(e: any, dt: any, type: any, indexes: any): void {
-    this.issueService.selectedIssue = new Issue(this.table.rows(indexes).data()[0]);
-    this.router.navigate(['/engineer/issues/edit']);
+  protected selectItem(component: any) {
+    return function() {
+      component.issueService.selectedItem = component.table.row($(this).parents('tr')).data();
+      component.router.navigate(['/engineer/issues/edit']);
+    };
   }
 }

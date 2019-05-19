@@ -20,6 +20,7 @@ export class FiltersTabsComponent implements OnInit {
   @Output() EndDateValue = new EventEmitter<string>();
   @Output() VechicleTypeValue = new EventEmitter<string>();
   @Output() StateValue = new EventEmitter<string>();
+  @Output() Filter = new EventEmitter();
   @Output() PriorityValue = new EventEmitter<string>();
 
   selectedType: string;
@@ -54,6 +55,9 @@ export class FiltersTabsComponent implements OnInit {
   selectState(state) {
     this.selectedState = state;
   }
+  selectPriority(value) {
+    this.selectedPriority = value;
+  }
   selectFilter() {
     this.EndDateValue.next(
       $('#endDate')
@@ -68,8 +72,6 @@ export class FiltersTabsComponent implements OnInit {
     this.VechicleTypeValue.next(this.selectedType);
     this.StateValue.next(this.selectedState);
     this.PriorityValue.next(this.selectedPriority);
-  }
-  selectPriority(value) {
-    this.selectedPriority = value;
+    this.Filter.next();
   }
 }
