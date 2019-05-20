@@ -15,6 +15,14 @@ export const CUSTOM_ERRORS: ErrorMessage[] = [
     format: maxLengthFormat
   },
   {
+    error: 'min',
+    format: minFormat
+  },
+  {
+    error: 'max',
+    format: maxFormat
+  },
+  {
     error: 'matchPassword',
     format: matchPasswordFormat
   },
@@ -39,6 +47,14 @@ export const NAME_ERRORS: ErrorMessage[] = [
   }
 ];
 
+export const STRING_FIELD_ERRORS: ErrorMessage[] = [
+  ...CUSTOM_ERRORS,
+  {
+    error: 'pattern',
+    format: stringFieldFormat
+  }
+];
+
 export function requiredFormat(label: string, error: any): string {
   return `Поле "${label}" є обов'язковим`;
 }
@@ -49,6 +65,14 @@ export function minLengthFormat(label: string, error: any): string {
 
 export function maxLengthFormat(label: string, error: any): string {
   return `Максимальна довжина поля - ${error.requiredLength}`;
+}
+
+export function minFormat(label: string, error: any): string {
+  return `Мінімальне значення поля - ${error.min}`;
+}
+
+export function maxFormat(label: string, error: any): string {
+  return `Максимальне значення поля - ${error.max}`;
 }
 
 export function matchPasswordFormat(label: string, error: any): string {
@@ -65,6 +89,10 @@ export function loginPatternFormat(label: string, error: any): string {
 
 export function namePatternFormat(label: string, error: any): string {
   return 'Дозволено тільки букви, дефіс та апостроф.';
+}
+
+export function stringFieldFormat(label: string, error: any): string {
+  return `Дозволено тільки літери, і спецстмволи ("-" та " ' ")`;
 }
 
 export function emailFormat(label: string, error: any): string {

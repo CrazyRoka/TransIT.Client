@@ -1,46 +1,43 @@
-import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
+import { TransitionService } from '../../../services/transition.service';
 import { DataTableDirective } from 'angular-datatables';
-import { Employee } from '../../models/employee/employee';
-import { EmployeeService } from '../../services/employee.service';
+import { Subject } from 'rxjs';
+import { Transition } from '../../../models/transition/transition';
 
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.scss']
+  selector: 'app-transition-dictionary',
+  templateUrl: './transition-dictionary.component.html',
+  styleUrls: ['./transition-dictionary.component.scss']
 })
-export class EmployeesComponent implements AfterViewInit, OnDestroy {
+export class TransitionDictionaryComponent implements OnDestroy, AfterViewInit {
   options: DataTables.Settings = {
     pagingType: 'full_numbers',
     pageLength: 10,
     serverSide: true,
     processing: true,
     ajax: (dataTablesParameters: any, callback) => {
-      this.employeeService.getFilteredEntities(dataTablesParameters).subscribe(response => {
-        this.employees = response.data;
+      this.transitionService.getFilteredEntities(dataTablesParameters).subscribe(response => {
+        this.transitions = response.data;
         callback({ ...response, data: [] });
         this.adjustColumns();
       });
     },
     columns: [
-      { data: 'boardNumber' },
-      { data: 'lastName' },
-      { data: 'firstName' },
-      { data: 'middleName' },
-      { data: 'shortName' },
-      { data: 'post.name' },
+      { data: 'fromState.name' },
+      { data: 'toState.name' },
+      { data: 'actionType.name' },
       { data: null, orderable: false }
     ],
     language: { url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json' },
     scrollX: true
   };
 
-  employees: Employee[] = [];
-  selectedEmployee: Employee;
+  transitions: Transition[] = [];
+  selectedTransition: Transition;
   renderTrigger: Subject<any> = new Subject();
   @ViewChild(DataTableDirective) datatableElement: DataTableDirective;
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private transitionService: TransitionService) {}
 
   ngAfterViewInit(): void {
     this.renderTrigger.next();
@@ -57,8 +54,8 @@ export class EmployeesComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  selectPost(employee: Employee) {
-    this.selectedEmployee = { ...employee };
+  selectTransition(transition: Transition) {
+    this.selectedTransition = { ...transition };
   }
 
   private adjustColumns() {
