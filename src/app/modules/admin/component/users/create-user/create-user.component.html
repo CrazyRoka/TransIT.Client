@@ -67,7 +67,7 @@
 
           <div class="form-group">
             <label class="required-field">Роль</label>
-            <select class="form-control" formControlName="role" ng-option="items in item.$orderBy('asc')">
+            <select class="form-control" formControlName="role">
               <option hidden value="" disabled selected>Виберіть роль для користувача</option>
               <option *ngFor="let role of roleList" [value]="">{{ role.transName }}</option>
             </select>
