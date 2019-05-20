@@ -50,7 +50,7 @@ export function patternFormat(label: string, error: any): string {
 }
 
 export function emailFormat(label: string, error: any): string {
-  return ' Введвть правильний формат пошти. Наприклад: "post@gmail.com"';
+  return ' Введіть правильний формат пошти. Наприклад: "post@gmail.com"';
 }
 
 export function matchPassword(form: FormGroup) {
