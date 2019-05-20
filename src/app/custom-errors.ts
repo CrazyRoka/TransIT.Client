@@ -15,6 +15,14 @@ export const CUSTOM_ERRORS: ErrorMessage[] = [
     format: maxLengthFormat
   },
   {
+    error: 'min',
+    format: minFormat
+  },
+  {
+    error: 'max',
+    format: maxFormat
+  },
+  {
     error: 'matchPassword',
     format: matchPasswordFormat
   },
@@ -52,10 +60,25 @@ export function maxLengthFormat(label: string, error: any): string {
   return `Максимальна довжина поля - ${error.requiredLength}`;
 }
 
+export function minFormat(label: string, error: any): string {
+  return `Мінімальне значення поля - ${error.min}`;
+}
+
+export function maxFormat(label: string, error: any): string {
+  return `Максимальне значення поля - ${error.max}`;
+}
+
 export function matchPasswordFormat(label: string, error: any): string {
   return 'Паролі не співпадають';
 }
 
+export function patternFormat(label: string, error: any): string {
+  return 'Дозволено тільки букви, дефіс та апостроф';
+}
+
+export function loginFormat(label: string, error: any): string {
+  return 'Дозволено тільки латинські букви та числа';
+}
 export function loginPatternFormat(label: string, error: any): string {
   return 'Дозволено тільки букви латинського алфавіту та цифри';
 }
@@ -65,7 +88,7 @@ export function stringFieldFormat(label: string, error: any): string {
 }
 
 export function emailFormat(label: string, error: any): string {
-  return 'Вимагається "post@post.post"';
+  return ' Введіть правильний формат пошти. Наприклад: "post@gmail.com"';
 }
 
 export function matchPassword(form: FormGroup) {
