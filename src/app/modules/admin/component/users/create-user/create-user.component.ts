@@ -6,7 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Role } from '../../../models/role/role';
 import { User } from '../../../models/user/user';
-import { matchPassword } from 'src/app/custom-errors';
+import { matchPassword, LOGIN_ERRORS } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-create-user',
@@ -19,6 +19,7 @@ export class CreateUserComponent implements OnInit {
   userForm: FormGroup;
   //sort acs
   roleList: Role[] = [];
+  CustomLoginErrorMessages = LOGIN_ERRORS;
 
   constructor(
     private serviceRole: RoleService,
@@ -51,8 +52,7 @@ export class CreateUserComponent implements OnInit {
         phoneNumber: new FormControl('', Validators.minLength(12)),
         login: new FormControl(
           '',
-          Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])
-          //add valid
+          Validators.compose([Validators.required, Validators.minLength(3), Validators.pattern('^[A-Za-z0-9]+$')])
         ),
         password: new FormControl(
           '',
