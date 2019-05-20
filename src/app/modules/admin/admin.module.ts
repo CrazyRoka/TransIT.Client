@@ -73,6 +73,7 @@ import { CreateActionComponent } from './component/action-state-dictionary/actio
 import { EditActionComponent } from './component/action-state-dictionary/action-dictionary/edit-action/edit-action.component';
 import { DeleteActionComponent } from './component/action-state-dictionary/action-dictionary/delete-action/delete-action.component';
 import { DocumentComponent } from '../shared/components/global-document/document/document.component';
+import { TransitionDictionaryComponent } from './component/action-state-dictionary/transition-dictionary/transition-dictionary.component';
 
 
 @NgModule({
@@ -136,7 +137,8 @@ import { DocumentComponent } from '../shared/components/global-document/document
     EditStateComponent,
     CreateActionComponent,
     EditActionComponent,
-    DeleteActionComponent
+    DeleteActionComponent,
+    TransitionDictionaryComponent
   ],
   exports: [AdminComponent],
   imports: [
