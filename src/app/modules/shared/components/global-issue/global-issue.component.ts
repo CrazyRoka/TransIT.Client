@@ -91,6 +91,13 @@ export class GlobalIssueComponent implements OnInit {
         operator: '=='
       });
     }
+    if (this.priority) {
+      filters.push({
+        entityPropertyPath: 'priority',
+        value: this.priority,
+        operator: '=='
+      });
+    }
     if (this.startDate) {
       filters.push({
         entityPropertyPath: 'createDate',

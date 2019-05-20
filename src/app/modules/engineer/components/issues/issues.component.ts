@@ -12,14 +12,16 @@ declare const $;
   styleUrls: ['../../../shared/components/global-issue/global-issue.component.scss']
 })
 export class IssuesComponent extends GlobalIssueComponent {
-  constructor(issueService: IssueService) {
+  constructor(issueService: IssueService, private router: Router) {
     super(issueService);
     this.tableConfig.columns = [
       ...this.tableConfig.columns,
       {
         title: 'Дія',
         data: null,
-        defaultContent: '<button class="btn"><i class="fas fa-info-circle"></i></button>'
+        defaultContent: `
+        <button class="btn"><i class="fas fa-info-circle"></i></button>
+        `
       }
     ];
   }
