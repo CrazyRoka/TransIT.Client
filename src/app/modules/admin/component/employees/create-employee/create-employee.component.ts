@@ -47,9 +47,9 @@ export class CreateEmployeeComponent implements OnInit {
 
   private setUpForm() {
     this.employeeForm = this.fb.group({
-      lastName: [undefined, Validators.required],
-      firstName: [undefined, Validators.required],
-      middleName: [undefined, Validators.required],
+      lastName: [undefined],
+      firstName: [undefined],
+      middleName: [undefined],
       shortName: [undefined, Validators.required],
       post: ['', Validators.required]
     });
@@ -61,8 +61,6 @@ export class CreateEmployeeComponent implements OnInit {
 
   private createEmployee() {
     const employee = new Employee(this.formValue);
-    console.log(employee);
-    console.log(this.formValue);
     this.employeeService
       .addEntity(employee)
       .subscribe(

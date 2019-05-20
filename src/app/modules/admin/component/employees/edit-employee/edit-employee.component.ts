@@ -16,7 +16,6 @@ export class EditEmployeeComponent implements OnInit {
   @Input()
   set employee(employee: Employee) {
     this._employee = employee;
-    console.log(this._employee);
     this.setUpForm();
   }
 
@@ -64,9 +63,9 @@ export class EditEmployeeComponent implements OnInit {
 
   private setUpForm() {
     this.employeeForm = this.fb.group({
-      lastName: [this._employee && this._employee.lastName, Validators.required],
-      firstName: [this._employee && this._employee.firstName, Validators.required],
-      middleName: [this._employee && this._employee.middleName, Validators.required],
+      lastName: [this._employee && this._employee.lastName],
+      firstName: [this._employee && this._employee.firstName],
+      middleName: [this._employee && this._employee.middleName],
       shortName: [this._employee && this._employee.shortName, Validators.required],
       post: [this._employee && this._employee.post, Validators.required]
     });
