@@ -31,6 +31,13 @@ export const LOGIN_ERRORS: ErrorMessage[] = [
     format: loginPatternFormat
   }
 ];
+export const NAME_ERRORS: ErrorMessage[] = [
+  ...CUSTOM_ERRORS,
+  {
+    error: 'pattern',
+    format: namePatternFormat
+  }
+];
 
 export function requiredFormat(label: string, error: any): string {
   return `Поле "${label}" є обов'язковим`;
@@ -49,18 +56,19 @@ export function matchPasswordFormat(label: string, error: any): string {
 }
 
 export function patternFormat(label: string, error: any): string {
-  return 'Дозволено тільки букви, дефіс та апостроф';
+  return 'Не правильний формат вводу';
 }
 
-export function loginFormat(label: string, error: any): string {
-  return 'Дозволено тільки латинські букви та числа';
-}
 export function loginPatternFormat(label: string, error: any): string {
   return 'Дозволено тільки букви латинського алфавіту та цифри';
 }
 
+export function namePatternFormat(label: string, error: any): string {
+  return 'Дозволено тільки букви, дефіс та апостроф.';
+}
+
 export function emailFormat(label: string, error: any): string {
-  return ' Введіть правильний формат пошти. Наприклад: "post@gmail.com"';
+  return 'Невірний формат email адреси. Введіть вірний формат, наприклад email@gmail.com.';
 }
 
 export function matchPassword(form: FormGroup) {

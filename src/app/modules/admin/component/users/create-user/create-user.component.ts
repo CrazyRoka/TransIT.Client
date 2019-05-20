@@ -6,7 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Role } from '../../../models/role/role';
 import { User } from '../../../models/user/user';
-import { matchPassword, LOGIN_ERRORS } from 'src/app/custom-errors';
+import { matchPassword, LOGIN_ERRORS, NAME_ERRORS } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-create-user',
@@ -17,9 +17,9 @@ export class CreateUserComponent implements OnInit {
   @ViewChild('close') closeCreateModal: ElementRef;
   @Output() createUser = new EventEmitter<User>();
   userForm: FormGroup;
-  //sort acs
   roleList: Role[] = [];
   CustomLoginErrorMessages = LOGIN_ERRORS;
+  CustomNameErrorMessages = NAME_ERRORS;
 
   constructor(
     private serviceRole: RoleService,
@@ -67,7 +67,9 @@ export class CreateUserComponent implements OnInit {
       },
       { validators: matchPassword }
     );
-    this.serviceRole.getEntities().subscribe(data => (this.roleList = data));
+    this.serviceRole
+      .getEntities()
+      .subscribe(data => (this.roleList = data.sort((a, b) => a.transName.localeCompare(b.transName))));
   }
 
   clickSubmit() {

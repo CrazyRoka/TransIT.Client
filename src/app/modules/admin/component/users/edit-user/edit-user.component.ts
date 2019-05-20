@@ -61,7 +61,9 @@ export class EditUserComponent implements OnInit {
       role: ['', Validators.required],
       isActive: true
     });
-    this.serviceRole.getEntities().subscribe(data => (this.roles = data));
+    this.serviceRole
+      .getEntities()
+      .subscribe(data => (this.roles = data.sort((a, b) => a.transName.localeCompare(b.transName))));
   }
 
   updateData() {
