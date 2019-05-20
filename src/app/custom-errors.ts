@@ -46,7 +46,11 @@ export function matchPasswordFormat(label: string, error: any): string {
 }
 
 export function patternFormat(label: string, error: any): string {
-  return 'Дозволено тільки букви, дефіс та апостроф всередині слова';
+  return 'Дозволено тільки букви, дефіс та апостроф';
+}
+
+export function loginFormat(label: string, error: any): string {
+  return 'Дозволено тільки латинські букви та числа';
 }
 
 export function emailFormat(label: string, error: any): string {
