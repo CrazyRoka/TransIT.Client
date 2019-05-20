@@ -5,6 +5,7 @@ import { PostService } from '../../../services/post.service';
 import { ToastrService } from 'ngx-toastr';
 import { Employee } from '../../../models/employee/employee';
 import { EmployeeService } from '../../../services/employee.service';
+import { STRING_FIELD_ERRORS } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-edit-employee',
@@ -12,6 +13,13 @@ import { EmployeeService } from '../../../services/employee.service';
   styleUrls: ['./edit-employee.component.scss']
 })
 export class EditEmployeeComponent implements OnInit {
+  private readonly stringFieldValidators: Validators[] = [
+    Validators.minLength(0),
+    Validators.maxLength(30),
+    Validators.pattern(/^[A-Za-zА-Яа-яЄєІіЇїҐґ\-\']+$/)
+  ];
+  readonly customFieldErrors = STRING_FIELD_ERRORS;
+
   @Output() editEmployee = new EventEmitter<Employee>();
   @Input()
   set employee(employee: Employee) {
@@ -53,7 +61,6 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   comparePosts(post: Post, otherPost: Post): boolean {
-    console.log(post, otherPost);
     return post && otherPost ? post.id === otherPost.id : post === otherPost;
   }
 
@@ -63,10 +70,10 @@ export class EditEmployeeComponent implements OnInit {
 
   private setUpForm() {
     this.employeeForm = this.fb.group({
-      lastName: [this._employee && this._employee.lastName],
-      firstName: [this._employee && this._employee.firstName],
-      middleName: [this._employee && this._employee.middleName],
-      shortName: [this._employee && this._employee.shortName, Validators.required],
+      lastName: [this._employee && this._employee.lastName, this.stringFieldValidators],
+      firstName: [this._employee && this._employee.firstName, this.stringFieldValidators],
+      middleName: [this._employee && this._employee.middleName, this.stringFieldValidators],
+      shortName: [this._employee && this._employee.shortName, [...this.stringFieldValidators, Validators.required]],
       post: [this._employee && this._employee.post, Validators.required]
     });
   }
