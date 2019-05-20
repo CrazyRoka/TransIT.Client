@@ -18,14 +18,17 @@ export const CUSTOM_ERRORS: ErrorMessage[] = [
     error: 'matchPassword',
     format: matchPasswordFormat
   },
-
-  {
-    error: 'pattern',
-    format: patternFormat
-  },
   {
     error: 'email',
     format: emailFormat
+  }
+];
+
+export const LOGIN_ERRORS: ErrorMessage[] = [
+  ...CUSTOM_ERRORS,
+  {
+    error: 'pattern',
+    format: loginPatternFormat
   }
 ];
 
@@ -51,6 +54,9 @@ export function patternFormat(label: string, error: any): string {
 
 export function loginFormat(label: string, error: any): string {
   return 'Дозволено тільки латинські букви та числа';
+}
+export function loginPatternFormat(label: string, error: any): string {
+  return 'Дозволено тільки букви латинського алфавіту та цифри';
 }
 
 export function emailFormat(label: string, error: any): string {

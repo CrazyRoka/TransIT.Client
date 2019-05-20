@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GlobalMalfunctionsComponent } from './global-malfunctions.component';
+import { ActionDictionaryComponent } from './action-dictionary.component';
 
-describe('GlobalMalfunctionsComponent', () => {
-  let component: GlobalMalfunctionsComponent;
-  let fixture: ComponentFixture<GlobalMalfunctionsComponent>;
+describe('ActionDictionaryComponent', () => {
+  let component: ActionDictionaryComponent;
+  let fixture: ComponentFixture<ActionDictionaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GlobalMalfunctionsComponent ]
+      declarations: [ ActionDictionaryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GlobalMalfunctionsComponent);
+    fixture = TestBed.createComponent(ActionDictionaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

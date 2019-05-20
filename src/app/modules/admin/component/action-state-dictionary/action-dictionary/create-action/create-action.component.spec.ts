@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FilterMalfunctionsComponent } from './filter-malfunctions.component';
+import { CreateActionComponent } from './create-action.component';
 
-describe('FilterMalfunctionsComponent', () => {
-  let component: FilterMalfunctionsComponent;
-  let fixture: ComponentFixture<FilterMalfunctionsComponent>;
+describe('CreateActionComponent', () => {
+  let component: CreateActionComponent;
+  let fixture: ComponentFixture<CreateActionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilterMalfunctionsComponent ]
+      declarations: [ CreateActionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FilterMalfunctionsComponent);
+    fixture = TestBed.createComponent(CreateActionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
