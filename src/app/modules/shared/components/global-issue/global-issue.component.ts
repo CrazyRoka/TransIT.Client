@@ -50,7 +50,21 @@ export class GlobalIssueComponent implements OnInit {
     },
     createdRow: this.createRow,
     dom: 'Bfrtip',
-    buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5', 'csvHtml5']
+    buttons: [
+      { extend: 'copy', text: 'Скопіювати' },
+      { extend: 'csv' },
+      { extend: 'excel' },
+      { extend: 'pdf' },
+      { extend: 'print', text: 'Друк' }
+    ],
+    exportOptions: {
+      modifier: {
+        // DataTables core
+        order: 'current', // 'current', 'applied', 'index',  'original'
+        page: 'all', // 'all',     'current'
+        search: 'applied' // 'none',    'applied', 'removed'
+      }
+    }
   };
 
   constructor(private issueService: IssueService) {}
