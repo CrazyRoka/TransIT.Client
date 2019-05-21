@@ -14,7 +14,7 @@ export class UsersComponent implements OnInit {
   user: User;
   dataTable: any;
 
-  private readonly tableParams: DataTables.Settings = {
+  private readonly tableParams: any = {
     scrollX: true,
     language: {
       url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
@@ -43,7 +43,9 @@ export class UsersComponent implements OnInit {
         title: 'Дії',
         orderable: false
       }
-    ]
+    ],
+    dom: 'Bfrtip',
+    buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5', 'csvHtml5']
   };
 
   constructor(
