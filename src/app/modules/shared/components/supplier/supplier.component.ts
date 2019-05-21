@@ -72,10 +72,9 @@ export class SupplierComponent implements OnInit {
       i.country,
       i.currency,
       i.edrpou,
-      `<button id="find-supplier-${
-        i.id
-      }" class="btn" data-toggle="modal" data-target="#deleteSupplier"><i class="fas fa-trash-alt" style="color: darkred"></i>
-      </button>`
+      `<button id="supplier-${i.id}" class="btn" data-toggle="modal" data-target="#editSupplier"><i class="fas fa-edit"></i></button>
+     <button id="supplier-${i.id}" class="btn" data-toggle="modal" data-target="#deleteSupplier"><i class="fas fas fa-trash-alt"></i></button>`
+  
     ]);
 
     this.dataTable = $('#supplier-table')
@@ -101,6 +100,13 @@ export class SupplierComponent implements OnInit {
   deleteSupplier(supplier: Supplier) {
     this.suppliers.splice(this.suppliers.findIndex(i => i.id === supplier.id), 1);
     this.addTableData(this.suppliers);
+  }
+
+  updateSupplier(supplier: Supplier) {
+    this.suppliers[this.suppliers.findIndex(i => i.id === supplier.id)] = supplier;
+    this.service.getEntities().subscribe(suppliers => {
+      this.addTableData(suppliers);
+    });
   }
 
   isVisibleCheck() {
