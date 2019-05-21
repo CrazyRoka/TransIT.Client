@@ -5,7 +5,7 @@ import { PostService } from '../../../services/post.service';
 import { ToastrService } from 'ngx-toastr';
 import { Employee } from '../../../models/employee/employee';
 import { EmployeeService } from '../../../services/employee.service';
-import { STRING_FIELD_ERRORS } from 'src/app/custom-errors';
+import { NAME_FIELD_ERRORS } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-edit-employee',
@@ -18,7 +18,7 @@ export class EditEmployeeComponent implements OnInit {
     Validators.maxLength(30),
     Validators.pattern(/^[A-Za-zА-Яа-яЄєІіЇїҐґ\-\']+$/)
   ];
-  readonly customFieldErrors = STRING_FIELD_ERRORS;
+  readonly customFieldErrors = NAME_FIELD_ERRORS;
 
   @Output() editEmployee = new EventEmitter<Employee>();
   @Input()

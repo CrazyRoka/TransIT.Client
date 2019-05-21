@@ -6,7 +6,7 @@ import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Role } from '../../../models/role/role';
 import { User } from '../../../models/user/user';
-import { matchPassword, LOGIN_ERRORS, NAME_ERRORS } from 'src/app/custom-errors';
+import { matchPassword, LOGIN_ERRORS, NAME_FIELD_ERRORS } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-create-user',
@@ -19,7 +19,7 @@ export class CreateUserComponent implements OnInit {
   userForm: FormGroup;
   roleList: Role[] = [];
   CustomLoginErrorMessages = LOGIN_ERRORS;
-  CustomNameErrorMessages = NAME_ERRORS;
+  CustomNameErrorMessages = NAME_FIELD_ERRORS;
 
   constructor(
     private serviceRole: RoleService,
