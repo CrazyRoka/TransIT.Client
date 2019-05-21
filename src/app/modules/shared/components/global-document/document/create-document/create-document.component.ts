@@ -45,7 +45,7 @@ export class CreateDocumentComponent implements OnInit {
       return;
     }
     const form = this.documentForm.value;
-    const document: Document = new Document({
+    const document: Document = ({
       id: 0,
       name: form.name as string,
       description: form.description as string,
