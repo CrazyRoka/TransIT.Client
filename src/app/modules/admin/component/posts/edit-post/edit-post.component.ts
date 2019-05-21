@@ -1,9 +1,9 @@
 import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
-import { Post } from '../../../models/post/post';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PostService } from '../../../services/post.service';
 import { ToastrService } from 'ngx-toastr';
 import { NAME_FIELD_ERRORS } from 'src/app/custom-errors';
+import { Post } from 'src/app/modules/shared/models/post';
+import { PostService } from 'src/app/modules/shared/services/post.service';
 
 @Component({
   selector: 'app-edit-post',

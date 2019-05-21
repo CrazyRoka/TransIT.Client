@@ -1,12 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { RoleService } from '../../../services/role.service';
-import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { Role } from '../../../models/role/role';
-import { User } from '../../../models/user/user';
 import { matchPassword, LOGIN_ERRORS, NAME_FIELD_ERRORS } from 'src/app/custom-errors';
+import { UserService } from 'src/app/modules/shared/services/user.service';
+import { User } from 'src/app/modules/shared/models/user';
+import { Role } from 'src/app/modules/shared/models/role';
+import { RoleService } from 'src/app/modules/shared/services/role.service';
 
 @Component({
   selector: 'app-create-user',

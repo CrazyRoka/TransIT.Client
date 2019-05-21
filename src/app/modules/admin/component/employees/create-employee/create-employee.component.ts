@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Employee } from '../../../models/employee/employee';
-import { EmployeeService } from '../../../services/employee.service';
-import { Post } from '../../../models/post/post';
-import { PostService } from '../../../services/post.service';
 import { NAME_FIELD_ERRORS } from 'src/app/custom-errors';
+import { Employee } from 'src/app/modules/shared/models/employee';
+import { Post } from 'src/app/modules/shared/models/post';
+import { EmployeeService } from 'src/app/modules/shared/services/employee.service';
+import { PostService } from 'src/app/modules/shared/services/post.service';
 
 @Component({
   selector: 'app-create-employee',
