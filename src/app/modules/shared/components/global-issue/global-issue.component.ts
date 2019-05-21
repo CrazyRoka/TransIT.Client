@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IssueService } from '../../services/issue.service';
 import { priorityColors } from '../../declarations';
+import { ExportExelService } from '../../services/export-exel.service';
+import { IssueService } from '../../services/issue.service';
+import { Issue } from '../../models/issue';
 
 declare const $;
 
@@ -11,6 +13,7 @@ declare const $;
 })
 export class GlobalIssueComponent implements OnInit {
   protected table: any;
+  protected date: Issue[];
   protected startDate: string;
   protected endDate: string;
   protected vehicleType: string;
@@ -55,7 +58,17 @@ export class GlobalIssueComponent implements OnInit {
       { extend: 'csv' },
       { extend: 'excel' },
       { extend: 'pdf' },
-      { extend: 'print', text: 'Друк' }
+      { extend: 'print', text: 'Друк' },
+      {
+        text: 'Export all',
+        action: _ => {
+          this.issueService.getEntities().subscribe(issues => {
+            this.date = issues;
+            console.log(this.date);
+            this.excelService.exportAsExcelFile(this.date, 'Заявки');
+          });
+        }
+      }
     ],
     exportOptions: {
       modifier: {
@@ -67,7 +80,7 @@ export class GlobalIssueComponent implements OnInit {
     }
   };
 
-  constructor(private issueService: IssueService) {}
+  constructor(private issueService: IssueService, private excelService: ExportExelService) {}
 
   ngOnInit() {
     this.initTable();
