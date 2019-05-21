@@ -7,16 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
-import { ActionTypeService } from './services/action-type.service';
-import { StateService } from './services/state.service';
-import { IssuelogService } from './services/issuelog.service';
 import { EditIssueComponent } from './components/edit-issue/edit-issue.component';
-import { SupplierService } from './services/supplier.service';
-import { DocumentService } from './services/document.service';
 import { SharedModule } from '../shared/shared.module';
 import { GlobalDocumentComponent } from '../shared/components/global-document/global-document.component';
 import { IssueLogComponent } from '../shared/components/issue-log/issue-log.component';
-import { IssueService } from '../shared/services/issue.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { IssueLogsComponent } from './components/issue-log-components/issue-logs/issue-logs.component';
 import { EditIssueLogComponent } from './components/issue-log-components/edit-issue-log/edit-issue-log.component';
@@ -82,14 +76,6 @@ export class EngineerRoutingModule {}
     ReactiveFormsModule,
     SharedModule,
     EngineerRoutingModule
-  ],
-  providers: [
-    IssueService,
-    IssuelogService,
-    StateService,
-    ActionTypeService,
-    SupplierService,
-    DocumentService
   ]
 })
 export class EngineerModule {}

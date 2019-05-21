@@ -1,9 +1,9 @@
 import { Component, OnInit, ElementRef, EventEmitter, Output, Input, ViewChild } from '@angular/core';
-import { IssuelogService } from '../../services/issuelog.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { IssueLog } from 'src/app/modules/shared/models/issuelog';
-import { Document } from '../../models/document';
+import { Document } from 'src/app/modules/shared/models/document';
+import { IssuelogService } from 'src/app/modules/shared/services/issuelog.service';
 
 @Component({
   selector: 'app-add-document',
