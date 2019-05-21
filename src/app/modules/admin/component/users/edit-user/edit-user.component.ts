@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { Role } from '../../../models/role/role';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../../../models/user/user';
+import { NAME_ERRORS } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-edit-user',
@@ -25,6 +26,8 @@ export class EditUserComponent implements OnInit {
   selectedUser = new User();
   userForm: FormGroup;
   roles: Role[] = [];
+  CustomNameErrorMessages = NAME_ERRORS;
+
   constructor(
     private formBuilder: FormBuilder,
     private serviceRole: RoleService,
@@ -56,6 +59,7 @@ export class EditUserComponent implements OnInit {
           Validators.pattern("^[A-Za-zА-Яа-яїієЇІЯЄ/'/`-]+[A-Za-zА-Яа-яїієЇІЯЄ]$")
         ])
       ),
+      login: new FormControl({ value: '', disabled: true }),
       phoneNumber: new FormControl('', Validators.minLength(12)),
       email: new FormControl('', Validators.compose([Validators.email, Validators.maxLength(30)])),
       role: ['', Validators.required],
