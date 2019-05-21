@@ -48,7 +48,9 @@ export class GlobalIssueComponent implements OnInit {
     language: {
       url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
     },
-    createdRow: this.createRow
+    createdRow: this.createRow,
+    dom: 'Bfrtip',
+    buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5', 'csvHtml5']
   };
 
   constructor(private issueService: IssueService) {}
@@ -77,14 +79,14 @@ export class GlobalIssueComponent implements OnInit {
         operator: '=='
       });
     }
-    if(this.malfunctionSubGroup){
+    if (this.malfunctionSubGroup) {
       filters.push({
         entityPropertyPath: 'malfunction.malfunctionSubgroup.name',
         value: this.malfunctionSubGroup,
         operator: '=='
       });
     }
-    if(this.malfunction){
+    if (this.malfunction) {
       filters.push({
         entityPropertyPath: 'malfunction.name',
         value: this.malfunction,
@@ -136,14 +138,14 @@ export class GlobalIssueComponent implements OnInit {
     });
   }
 
-  setMalfunctionGroupValue(value){
+  setMalfunctionGroupValue(value) {
     this.malfunctionGroup = value;
   }
 
-  setMalfunctionSubGroupValue(value){
+  setMalfunctionSubGroupValue(value) {
     this.malfunctionSubGroup = value;
   }
-  setMalfunctionValue(value){
+  setMalfunctionValue(value) {
     this.malfunction = value;
   }
 

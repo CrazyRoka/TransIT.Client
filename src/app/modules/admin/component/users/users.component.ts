@@ -43,9 +43,7 @@ export class UsersComponent implements OnInit {
         title: 'Дії',
         orderable: false
       }
-    ],
-    dom: 'Bfrtip',
-    buttons: ['copyHtml5', 'excelHtml5', 'pdfHtml5', 'csvHtml5']
+    ]
   };
 
   constructor(
