@@ -9,6 +9,8 @@ import { MalfuncGroupService } from 'src/app/modules/admin/services/malfunc-grou
 import { MalfunSubgroupService } from 'src/app/modules/admin/services/malfun-subgroup.service';
 import { MalfuncService } from 'src/app/modules/admin/services/malfunc.service';
 import { ResourceLoader } from '@angular/compiler';
+import { Priority } from 'src/app/modules/core/models/priority';
+import { keyframes } from '@angular/animations';
 
 
 @Component({
@@ -29,6 +31,8 @@ export class EditIssueComponent implements OnInit {
   currentMalfunctionSubgroup: MalfunctionSubgroup;
   currentMalfunctionGroup: MalfunctionGroup;
 
+  priorityList = Object.values(Priority).filter(n => typeof n === typeof '');
+
   constructor(
     private issueService: IssueService,
     private toastr: ToastrService,
@@ -45,6 +49,10 @@ export class EditIssueComponent implements OnInit {
     this.currentMalfunction = this.issue.malfunction;
     this.currentMalfunctionSubgroup = this.currentMalfunction.malfunctionSubgroup;
     this.currentMalfunctionGroup = this.currentMalfunctionSubgroup.malfunctionGroup;
+  }
+
+  selectPriority(item) {
+    this.issue.priority = parseInt(Priority[item]);
   }
 
   editIssue() {
@@ -74,7 +82,6 @@ export class EditIssueComponent implements OnInit {
     this.currentMalfunction = null;
     if (this.currentMalfunctionSubgroup) {
       this.malfunctionFilteredList = this.getBySubgroup(this.currentMalfunctionSubgroup);
-      console.dir(this.malfunctionFilteredList);
     }
   }
 

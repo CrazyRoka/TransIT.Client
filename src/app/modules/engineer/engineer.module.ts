@@ -27,6 +27,7 @@ import { IssueLogActionTypeComponent } from './components/issue-log-components/i
 import { IssueLogStateComponent } from './components/issue-log-components/issue-log-state/issue-log-state.component';
 import { IssueLogDocumentsComponent } from './components/issue-log-components/issue-log-documents/issue-log-documents.component';
 import { DocumentComponent } from '../shared/components/global-document/document/document.component';
+import { CreateDocumentComponent } from './components/create-document/create-document.component';
 
 const routes: Routes = [
   {
@@ -64,7 +65,8 @@ const routes: Routes = [
     IssueLogSuppliersComponent,
     IssueLogActionTypeComponent,
     IssueLogStateComponent,
-    IssueLogDocumentsComponent
+    IssueLogDocumentsComponent,
+    CreateDocumentComponent
   ]
 })
 export class EngineerRoutingModule {}
@@ -81,6 +83,13 @@ export class EngineerRoutingModule {}
     SharedModule,
     EngineerRoutingModule
   ],
-  providers: [IssueService, IssuelogService, StateService, ActionTypeService, SupplierService, DocumentService]
+  providers: [
+    IssueService,
+    IssuelogService,
+    StateService,
+    ActionTypeService,
+    SupplierService,
+    DocumentService
+  ]
 })
 export class EngineerModule {}

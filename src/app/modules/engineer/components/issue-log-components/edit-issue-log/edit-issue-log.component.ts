@@ -28,7 +28,10 @@ export class EditIssueLogComponent implements OnInit {
   states: Array<State>;
   suppliers: Array<Supplier>;
   issueLogForm: FormGroup;
-  documents: Array<Document>;
+
+  documents: Array<Document> = new Array<Document>();
+  existingDocuments: Array<Document> = new Array<Document>();
+  shownDocuments: Array<Document> = new Array<Document>();
 
   constructor(
     private router: Router,
@@ -72,12 +75,32 @@ export class EditIssueLogComponent implements OnInit {
   }
 
   assignDocument(entity: Document): void {
-    if (this.documents.some(value => value.name === entity.name)) {
+    if (this.documents
+      && this.documents.some(value => value.name === entity.name)
+      || this.existingDocuments
+      && this.existingDocuments.some(value => value.name === entity.name)) {
       this.toast.error("Документ з таки самим ім'ям вже існує", 'Дублювання');
       return;
     }
     entity.issueLog = this.issueLog;
     this.documents.push(entity);
+    this.shownDocuments.push(entity);
+  }
+
+  assignExistingDocument(entity: Document): void {
+    if (this.shownDocuments && this.shownDocuments.length >= 5) {
+      this.toast.warning("Дозволено 5 документів", 'Забагато документів');
+      return;
+    } else if (this.documents
+      && this.documents.some(value => value.name === entity.name)
+      || this.existingDocuments
+      && this.existingDocuments.some(value => value.name === entity.name)) {
+      this.toast.error("Документ з таки самим ім'ям вже існує", 'Дублювання');
+      return;
+    }
+    entity.issueLog = this.issueLog;
+    this.existingDocuments.push(entity);
+    this.shownDocuments.push(entity);
   }
 
   assignAssignee(entity: Employee): void {
@@ -97,7 +120,11 @@ export class EditIssueLogComponent implements OnInit {
   }
 
   deleteDocument(entity: Document): void {
-    this.documents = this.documents.filter(x => x.name !== entity.name);
+    const expression = x => x.name !== entity.name;
+
+    this.documents = this.documents.filter(expression);
+    this.existingDocuments = this.existingDocuments.filter(expression);
+    this.shownDocuments = this.shownDocuments.filter(expression);
   }
 
   onSubmit(): void {
@@ -116,6 +143,11 @@ export class EditIssueLogComponent implements OnInit {
           d.issueLog = res;
           this.documentService.addEntity(d).subscribe();
         });
+      }
+      if (this.existingDocuments.length) {
+        this.existingDocuments.forEach(d =>
+          this.documentService.addEntity(d).subscribe()
+          );
       }
       this.router.navigate(['/engineer/issue-logs']).then(_ => this.toast.success('', 'Обробку зроблено'));
     });

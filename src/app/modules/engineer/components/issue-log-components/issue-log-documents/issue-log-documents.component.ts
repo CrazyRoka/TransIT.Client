@@ -22,7 +22,6 @@ export class IssueLogDocumentsComponent implements OnInit {
   }
 
   selectItem(item: Document): void {
-    this.currentDocument = item;
     this.selectDocument.emit(item);
   }
 }
