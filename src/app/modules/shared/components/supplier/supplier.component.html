@@ -1,0 +1,9 @@
+<div class="table-background border">
+  <app-create-supplier (createSupplier)="addItem($event)" *ngIf="isVisible"></app-create-supplier>
+  <app-delete-supplier [supplier]="supplier" (deleteSupplier)="deleteSupplier($event)" *ngIf="isVisible"></app-delete-supplier>
+  <p></p>
+  <div>
+    <table id="supplier-table" class="table table-bordered  table-hover" style="width:100%;"></table>
+  </div>
+</div>
+
