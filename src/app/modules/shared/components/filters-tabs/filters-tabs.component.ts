@@ -80,7 +80,8 @@ export class FiltersTabsComponent implements OnInit {
       iconsLibrary: 'fontawesome',
       minDate() {
         return $('#startDate').val();
-      }
+      },
+      maxDate: new Date()
     });
   }
 

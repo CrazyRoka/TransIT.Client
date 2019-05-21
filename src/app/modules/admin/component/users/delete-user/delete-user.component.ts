@@ -10,7 +10,14 @@ import { UserService } from 'src/app/modules/shared/services/user.service';
 })
 export class DeleteUserComponent implements OnInit {
   @ViewChild('close') closeDeleteModal: ElementRef;
-  @Input() user: User;
+  @Input() set user(user: User) {
+    if (!user) {
+      return;
+    }
+    this.login = user.login;
+  }
+
+  login: string = '';
   @Output() deleteUser = new EventEmitter<User>();
 
   constructor(private service: UserService, private toast: ToastrService) {}

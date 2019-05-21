@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/modules/shared/models/user';
 import { UserService } from 'src/app/modules/shared/services/user.service';
+import { AuthenticationService } from 'src/app/modules/core/services/authentication.service';
+import { RoleService } from 'src/app/modules/shared/services/role.service';
 
 @Component({
   selector: 'app-users',
@@ -12,7 +14,7 @@ export class UsersComponent implements OnInit {
   user: User;
   dataTable: any;
 
-  private readonly tableParams: DataTables.Settings = {
+  private readonly tableParams: any = {
     scrollX: true,
     language: {
       url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
@@ -44,13 +46,21 @@ export class UsersComponent implements OnInit {
     ]
   };
 
-  constructor(private service: UserService) {}
+  constructor(
+    private service: UserService,
+    private serviceRole: RoleService,
+    private authService: AuthenticationService
+  ) {}
 
   ngOnInit() {
     $('#userTable').DataTable(this.tableParams);
     this.service.getEntities().subscribe(users => {
       this.addTableData(users);
     });
+  }
+
+  get userLogin(): string {
+    return this.authService.getLogin();
   }
 
   addTableData(newUsers: User[]) {
@@ -62,13 +72,19 @@ export class UsersComponent implements OnInit {
       i.phoneNumber,
       i.role.transName,
       i.isActive ? 'активний' : 'неактивний',
-      `<button id="find-user-${
-        i.id
-      }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>
+      i.login !== this.userLogin
+        ? `<button id="find-user-${
+            i.id
+          }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>
       <button id="find-user-${
         i.id
       }" class="btn" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt" style="color: darkred"></i>
       </button>`
+        : `<button id="find-user-${
+            i.id
+          }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>
+    <button  class="btn"><i class="fas fa-trash-alt"></i>
+    </button>`
     ]);
 
     this.dataTable = $('#userTable')
