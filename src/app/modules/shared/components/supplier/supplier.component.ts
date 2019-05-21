@@ -13,7 +13,7 @@ declare const $;
 export class SupplierComponent implements OnInit {
   suppliers: Supplier[];
   supplier: Supplier;
-  dataTable: any;
+  dataTable: DataTables.Api;
   @Input() isVisible: boolean;
 
   constructor(private service: SupplierService, private router: Router) {}
@@ -94,7 +94,7 @@ export class SupplierComponent implements OnInit {
 
   addItem(supplier: Supplier) {
     this.suppliers.push(supplier);
-    this.addTableData(this.suppliers);
+    this.dataTable.draw();
     console.log(supplier);
   }
 
