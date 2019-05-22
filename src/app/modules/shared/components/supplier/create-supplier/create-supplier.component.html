@@ -92,7 +92,7 @@
             <label>Країна</label>
             <select class="form-control" formControlName="country">
               <option value="" selected>Виберіть Країну</option>
-              <option *ngFor="let country of countries" [value]="country">{{ country.name }}</option>
+              <option *ngFor="let country of countries" [ngValue]="country">{{ country.name }}</option>
             </select>
           </div>
           <div class="form-group">

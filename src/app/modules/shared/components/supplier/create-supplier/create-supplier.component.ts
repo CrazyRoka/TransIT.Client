@@ -69,8 +69,8 @@ export class CreateSupplierComponent implements OnInit {
       name: form.name,
       fullName: form.fullName,
       edrpou: form.edrpou,
-      country: this.countries[this.Countries.findIndex(f => f === form.country)],
-      currency: this.currencies[this.Currencies.findIndex(f => f === form.currency)]
+      country: form.country,
+      currency: form.currency
     };
     console.dir(supplier);
 
