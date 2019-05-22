@@ -9,7 +9,6 @@ import { MalfunctionService } from 'src/app/modules/shared/services/malfunction.
 })
 export class ReportComponent implements OnInit {
   private tableMalfunction: DataTables.Api;
-
   malfunction: Malfunction;
   malfunctions: Array<Malfunction>;
 
@@ -32,30 +31,71 @@ export class ReportComponent implements OnInit {
       }
     });
 
-    $('.datatables tbody').on('click', 'td.details-control', function() {
-      var tr = $(this).closest('tr'),
-        row = this.tableMalfunction.row(tr);
-
-      if (row.child.isShown()) {
-        tr.next('tr').removeClass('details-row');
-        row.child.hide();
-        tr.removeClass('shown');
-      } else {
-        row.child(format(row.data())).show();
-        tr.next('tr').addClass('details-row');
-        tr.addClass('shown');
-      }
-    });
-
     this.malfuncService.getEntities().subscribe(malfunctions => {
       this.malfunctions = malfunctions;
       this.tableMalfunction.rows.add(this.malfunctions);
       this.tableMalfunction.draw();
     });
+
+    function format(d) {
+      return (
+        '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+        '<tr>' +
+        '<td>Full name:</td>' +
+        '<td>' +
+        d.description +
+        '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Extension number:</td>' +
+        '<td>' +
+        d.title +
+        '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Extra info:</td>' +
+        '<td>And any further details here (images etc)...</td>' +
+        '</tr>' +
+        '</table>'
+      );
+    }
+
+    $(document).ready(function() {
+      var table = $('#example').DataTable({
+        ajax: {
+          url: 'https://ghibliapi.herokuapp.com/films',
+          dataSrc: ''
+        },
+        columns: [
+          {
+            className: 'details-control',
+            orderable: false,
+            data: null,
+            defaultContent: ''
+          },
+          { data: 'title' },
+          { data: 'producer' }
+        ],
+        order: [[1, 'asc']]
+      });
+
+      // Add event listener for opening and closing details
+      $('#example tbody').on('click', 'td.details-control', function() {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+
+        if (row.child.isShown()) {
+          // This row is already open - close it
+          row.child.hide();
+          tr.removeClass('shown');
+        } else {
+          // Open this row
+          row.child(format(row.data())).show();
+          tr.addClass('shown');
+        }
+      });
+    });
   }
 
   constructor(private malfuncService: MalfunctionService) {}
-}
-function format(data) {
-  return '<div> rthesth</div>';
 }

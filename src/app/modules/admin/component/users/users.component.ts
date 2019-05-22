@@ -82,9 +82,7 @@ export class UsersComponent implements OnInit {
       </button>`
         : `<button id="find-user-${
             i.id
-          }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>
-    <button  class="btn"><i class="fas fa-trash-alt"></i>
-    </button>`
+          }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>`
     ]);
 
     this.dataTable = $('#userTable')

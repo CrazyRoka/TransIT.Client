@@ -49,10 +49,17 @@ export class GlobalIssueComponent implements OnInit {
     ajax: this.ajaxCallback.bind(this),
     paging: true,
     language: {
-      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json',
+      buttons: {
+        pageLength: {
+          _: 'Показати %d записів',
+          '-1': 'Показати всі'
+        }
+      }
     },
     createdRow: this.createRow,
     dom: 'Bfrtip',
+    lengthMenu: [[10, 25, 50, 1000], ['10 записів', '25 записів', '50 записів', 'Показати всі']],
     buttons: [
       { extend: 'copy', text: 'Скопіювати' },
       { extend: 'csv' },
@@ -60,19 +67,18 @@ export class GlobalIssueComponent implements OnInit {
       { extend: 'pdf' },
       { extend: 'print', text: 'Друк' },
       {
-        text: 'Export all',
+        text: 'Всі записи в Exel',
         action: _ => {
           this.issueService.getEntities().subscribe(issues => {
             this.date = issues;
-            console.log(this.date);
             this.excelService.exportAsExcelFile(this.date, 'Заявки');
           });
         }
-      }
+      },
+      'pageLength'
     ],
     exportOptions: {
       modifier: {
-        // DataTables core
         order: 'current', // 'current', 'applied', 'index',  'original'
         page: 'all', // 'all',     'current'
         search: 'applied' // 'none',    'applied', 'removed'
