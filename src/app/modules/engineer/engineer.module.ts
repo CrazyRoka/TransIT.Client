@@ -18,7 +18,6 @@ import { NestedIssueLogsComponent } from './components/issue-log-components/nest
 import { IssueLogAssigneesComponent } from './components/issue-log-components/issue-log-assignees/issue-log-assignees.component';
 import { IssueLogSuppliersComponent } from './components/issue-log-components/issue-log-suppliers/issue-log-suppliers.component';
 import { IssueLogActionTypeComponent } from './components/issue-log-components/issue-log-action-type/issue-log-action-type.component';
-import { IssueLogStateComponent } from './components/issue-log-components/issue-log-state/issue-log-state.component';
 import { IssueLogDocumentsComponent } from './components/issue-log-components/issue-log-documents/issue-log-documents.component';
 import { DocumentComponent } from '../shared/components/global-document/document/document.component';
 import { CreateDocumentComponent } from './components/create-document/create-document.component';
@@ -58,7 +57,6 @@ const routes: Routes = [
     IssueLogAssigneesComponent,
     IssueLogSuppliersComponent,
     IssueLogActionTypeComponent,
-    IssueLogStateComponent,
     IssueLogDocumentsComponent,
     CreateDocumentComponent
   ]
