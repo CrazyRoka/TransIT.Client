@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MalfunctionGroup } from 'src/app/modules/shared/models/malfunction-group';
 import { MalfunctionGroupService } from 'src/app/modules/shared/services/malfunction-group.service';
+import { MalfunctionSubgroup } from 'src/app/modules/shared/models/malfunction-subgroup';
+import { MalfunctionSubgroupService } from 'src/app/modules/shared/services/malfunction-subgroup.service';
 
 @Component({
   selector: 'app-report',
@@ -9,40 +11,24 @@ import { MalfunctionGroupService } from 'src/app/modules/shared/services/malfunc
 })
 export class ReportComponent implements OnInit {
   malfuncGroups: Array<MalfunctionGroup>;
-  tableGroup: any;
+  malfuncSubgroups: Array<MalfunctionSubgroup>;
+
   selectedMalfunctionGroup: MalfunctionGroup;
 
-  ngOnInit() {
-    function format(d) {
-      return (
-        '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-        '<tr>' +
-        '<td>Full name:</td>' +
-        '<td>' +
-        'd.name' +
-        '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td>Extension number:</td>' +
-        '<td>' +
-        'd.name' +
-        '</td>' +
-        '</tr>' +
-        '<tr>' +
-        '<td>Extra info:</td>' +
-        '<td>And any further details here (images etc)...</td>' +
-        '</tr>' +
-        '</table>'
-      );
-    }
+  tableGroup: any;
 
+  constructor(
+    private malfuncGroupService: MalfunctionGroupService,
+    private malfuncSubGroupService: MalfunctionSubgroupService
+  ) {}
+
+  ngOnInit() {
     this.tableGroup = $('#example').DataTable({
       responsive: true,
       columns: [
         {
-          title: '',
+          title: 'Група',
           className: 'details-control',
-          orderable: false,
           data: 'name',
           defaultContent: ''
         },
@@ -67,6 +53,9 @@ export class ReportComponent implements OnInit {
           defaultContent: '3'
         }
       ],
+      select: {
+        style: 'single'
+      },
       paging: true,
       language: {
         url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
@@ -76,6 +65,7 @@ export class ReportComponent implements OnInit {
     this.tableGroup.on('select', (e, dt, type, index) => {
       const item = this.tableGroup.rows(index).data()[0];
       this.selectedMalfunctionGroup = item;
+      console.dir(this.selectedMalfunctionGroup);
     });
 
     this.malfuncGroupService.getEntities().subscribe(malfuncGroups => {
@@ -84,58 +74,62 @@ export class ReportComponent implements OnInit {
       this.tableGroup.draw();
     });
 
-    $('#example tbody').on('click', 'td.details-control', this.showRow(this));
-    // function() {
-    //   var tr = $(this);
-    //   var row = this.tableGroup.row(tr);
-    //   if (row.child.isShown()) {
-    //     row.child.hide();
-    //     tr.removeClass('shown');
-    //   } else {
-    //     row.child(format(row.data())).show();
-    //     console.dir(row);
-    //     console.dir();
-    //     tr.addClass('shown');
-    //   }
-    // });
-  }
+    this.malfuncSubGroupService.getEntities().subscribe(malfuncSubgroups => {
+      this.malfuncSubgroups = malfuncSubgroups;
+    });
 
-  format(d) {
+    $('#example tbody').on('click', 'td.details-control', this.showRow(this));
+  }
+  format(group) {
+    let b = '';
+    for (let i = 0; i < group.length; i++) {
+      b +=
+        `<tr>
+        <td>` +
+        group[i].name +
+        `</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+      </tr>`;
+    }
+
     return (
-      '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-      '<tr>' +
-      '<td>Full name:</td>' +
-      '<td>' +
-      'd.name' +
-      '</td>' +
-      '</tr>' +
-      '<tr>' +
-      '<td>Extension number:</td>' +
-      '<td>' +
-      'd.name' +
-      '</td>' +
-      '</tr>' +
-      '<tr>' +
-      '<td>Extra info:</td>' +
-      '<td>And any further details here (images etc)...</td>' +
-      '</tr>' +
-      '</table>'
+      `<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">
+          <thead>
+              <tr>
+                <th></th>
+                <th>Автобус</th>
+                <th>Трамвай</th>
+                <th>Тролейбус</th>
+                <th>Електробус</th>
+              </tr>
+          </thead>
+    <tbody>` +
+      b +
+      `</tbody> </table>`
     );
   }
 
   private showRow(component: any) {
     return function() {
-      var tr = $(this).closest('tr');
-      var row = component.tableGroup.row(tr);
+      const tr = $(this).closest('tr');
+      const row = component.tableGroup.row(tr);
+
       if (row.child.isShown()) {
         row.child.hide();
         tr.removeClass('shown');
       } else {
-        row.child(component.format(row.data())).show();
+        row.child(component.format(component.filterMalfunctionSubGroup)).show();
         tr.addClass('shown');
       }
     };
   }
 
-  constructor(private malfuncGroupService: MalfunctionGroupService) {}
+  get filterMalfunctionSubGroup(): Array<MalfunctionSubgroup> {
+    return this.malfuncSubgroups.filter(x => {
+      return x.malfunctionGroup !== null && x.malfunctionGroup.id === this.selectedMalfunctionGroup.id;
+    });
+  }
 }
