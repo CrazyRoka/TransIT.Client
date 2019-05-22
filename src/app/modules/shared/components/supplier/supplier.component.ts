@@ -13,97 +13,104 @@ declare const $;
 export class SupplierComponent implements OnInit {
   suppliers: Supplier[];
   supplier: Supplier;
-  dataTable: DataTables.Api;
-  protected name: string;
-  protected fullName: string;
+  dataTable: any;
   protected country: string;
   protected currency: string;
-  protected edrpou: string;  
   @Input() isVisible: boolean;
 
   constructor(private service: SupplierService, private router: Router) {}
   _url = this.router.url.substring(1, this.router.url.length - 1);
 
+  private readonly tableConfig: DataTables.Settings = {
+    responsive: true,
+      columns: [
+            {
+              title: 'Коротка назва', data: 'name', defaultContent:''
+            },
+            {
+              title: 'Повна назва', data: 'fullName', defaultContent:''
+            },
+            {
+              title: 'Країна', data: 'country.name', defaultContent:''
+            },
+            {
+              title: 'Валюта', data: 'currency.fullName', defaultContent:''
+            },
+            {
+              title: 'ЄДРПОУ', data: 'edrpou', defaultContent:''
+            },
+            {
+              title: 'Дії',
+              orderable: false,
+              visible: this.isVisible,
+              data: null,
+        defaultContent:`<button class="first btn" data-toggle="modal" data-target="#editSupplier"><i class="fas fa-edit"></i></button>
+        <button class="second btn" data-toggle="modal" data-target="#deleteSupplier"><i class="fas fas fa-trash-alt"></i></button>`
+     },
+            { 
+              data: 'id', visible: false 
+            }
+          ],
+    processing: true,
+    serverSide: true,
+    ajax: this.ajaxCallback.bind(this),
+    paging: true,
+    scrollX: true,
+    language: {
+      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+    }
+  };
+
   ngOnInit() {
 
+    this.dataTable = $('#supplier-table').DataTable(this.tableConfig);
     this._url = this._url.substring(0, this._url.indexOf('/'));
     this.isVisibleCheck();
+    $('#supplier-table tbody').on('click', '.first', this.selectFirstItem(this));
+    $('#supplier-table tbody').on('click', '.second', this.selectSecondItem(this));
+  
+  }
 
-    $('#supplier-table').DataTable({
-      scrollX: true,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
-      },
-      columns: [
-        {
-          title: 'Коротка назва'
-        },
-        {
-          title: 'Повна назва'
-        },
-        {
-          title: 'Країна'
-        },
-        {
-          title: 'Валюта'
-        },
-        {
-          title: 'ЄДРПОУ'
-        },
-        {
-          title: 'Дії',
-          orderable: false,
-          visible: this.isVisible
-        }
-      ],
-    });
-    this.service.getEntities().subscribe(suppliers => {
-      this.addTableData(suppliers);
-    });
+  private ajaxCallback(dataTablesParameters: any, callback): void {
+    this.service.getFilteredEntities(dataTablesParameters).subscribe(callback);
   }
   
-  addTableData(newSuppliers: Supplier[]) {
-    this.suppliers = [...newSuppliers];
-    const view = newSuppliers.map(i => [
-      i.name,
-      i.fullName,
-      i.country,
-      i.currency,
-      i.edrpou,
-      `<button id="supplier-${i.id}" class="btn" data-toggle="modal" data-target="#editSupplier"><i class="fas fa-edit"></i></button>
-     <button id="supplier-${i.id}" class="btn" data-toggle="modal" data-target="#deleteSupplier"><i class="fas fas fa-trash-alt"></i></button>`
-  
-    ]);
-
-    this.dataTable = $('#supplier-table')
-      .dataTable()
-      .api()
-      .clear()
-      .rows.add(view)
-      .draw();
-
-    $('#supplier-table tbody').on('click', 'button', event => {
-      const idTokens = event.currentTarget.id.split('-');
-      const id = parseInt(idTokens[idTokens.length - 1], 10);
-      this.supplier = this.suppliers.find(i => i.id === id);
-    });
+  selectFirstItem(component: any) {
+    return function() {
+      const data = component.dataTable.row($(this).parents('tr')).data();
+      component.supplier = data;
+    };
   }
+
+  selectSecondItem(component: any) {
+    return function() {
+      const data = component.dataTable.row($(this).parents('tr')).data();
+      component.supplier = data;
+    };
+  }
+  
 
   addItem(supplier: Supplier) {
-    this.suppliers.push(supplier);
     this.dataTable.draw();
   }
 
   deleteSupplier(supplier: Supplier) {
-    this.suppliers.splice(this.suppliers.findIndex(i => i.id === supplier.id), 1);
-    this.addTableData(this.suppliers);
+    this.dataTable = $('#supplier-table').DataTable({
+      ...this.tableConfig,
+      destroy: true
+    });    
   }
 
+  // updateSupplier(supplier: Supplier) {
+  //   this.suppliers[this.suppliers.findIndex(i => i.id === supplier.id)] = supplier;
+  //   this.service.getEntities().subscribe(suppliers => {
+  //     this.addTableData(suppliers);
+  //   });
+  // }
+
+
   updateSupplier(supplier: Supplier) {
-    this.suppliers[this.suppliers.findIndex(i => i.id === supplier.id)] = supplier;
-    this.service.getEntities().subscribe(suppliers => {
-      this.addTableData(suppliers);
-    });
+    this.dataTable.draw();
   }
 
   isVisibleCheck() {

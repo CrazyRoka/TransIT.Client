@@ -38,11 +38,11 @@ export class CreateSupplierComponent implements OnInit {
         .trigger('reset');
     });
     this.supplierForm = this.formBuilder.group({
-      name: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(10)])),
-      fullName: new FormControl('', Validators.required),
-      edrpou: new FormControl(''),
-      country: new FormControl(''),
-      currency: new FormControl('')
+      name: ['', Validators.required],
+      fullName: ['', Validators.required],
+      edrpou: [''],
+      country: [''],
+      currency: [''],
     });
     this.countryService.getEntities().subscribe(data => {
       this.countries = data;
@@ -64,23 +64,16 @@ export class CreateSupplierComponent implements OnInit {
       return;
     }
     const form = this.supplierForm.value;
-    const supplier: Supplier={
-      id:0,
-      name: form.name,
-      fullName: form.fullName,
-      edrpou: form.edrpou,
-      country: form.country,
-      currency: form.currency
+    const supplier: Supplier = {
+      id: 0,
+      name: form.name as string,
+      fullName: form.fullName as string,
+      edrpou: form.edrpou as string,
+      currency: form.currency as Currency,
+      country: form.country as Country,
     };
-    console.dir(supplier);
-
-    this.service.addEntity(supplier).subscribe(
-      newSupplier => {
-        this.createSupplier.next(newSupplier);
-        this.toast.success('', 'Додано');
-      },
-      error => this.toast.error('Отакої', 'Щось пішло не так')
-    );
+    
+    this.service.addEntity(supplier).subscribe(newGroup => this.createSupplier.next(newGroup));
     this.closeCreateModal.nativeElement.click();
   }
 }
