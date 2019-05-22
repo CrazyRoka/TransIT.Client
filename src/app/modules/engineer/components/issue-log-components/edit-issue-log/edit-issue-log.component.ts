@@ -9,11 +9,11 @@ import { ActionType } from 'src/app/modules/shared/models/action-type';
 import { State } from 'src/app/modules/shared/models/state';
 import { IssueService } from 'src/app/modules/shared/services/issue.service';
 import { IssuelogService } from 'src/app/modules/shared/services/issuelog.service';
-import { ActionTypeService } from 'src/app/modules/shared/services/action-type.service';
-import { StateService } from 'src/app/modules/shared/services/state.service';
 import { SupplierService } from 'src/app/modules/shared/services/supplier.service';
 import { DocumentService } from 'src/app/modules/shared/services/document.service';
 import { Document } from 'src/app/modules/shared/models/document';
+import { TransitionService } from 'src/app/modules/shared/services/transition.service';
+import { Issue } from 'src/app/modules/shared/models/issue';
 
 @Component({
   selector: 'app-edit-issue-log',
@@ -33,12 +33,24 @@ export class EditIssueLogComponent implements OnInit {
   existingDocuments: Array<Document> = new Array<Document>();
   shownDocuments: Array<Document> = new Array<Document>();
 
+  private selectedIssue: Issue;
+
+  componentState: any = {
+    isDisabled: true,
+    states: []
+  };
+
+  get isStatesDisabled(): boolean {
+    return !this.issueLog.actionType
+      || !this.states
+      || !this.states.length;
+  }
+
   constructor(
     private router: Router,
     private issueService: IssueService,
     private issueLogService: IssuelogService,
-    private actionTypeService: ActionTypeService,
-    private stateService: StateService,
+    private transitionService: TransitionService,
     private supplierService: SupplierService,
     private documentService: DocumentService,
     private toast: ToastrService
@@ -55,23 +67,65 @@ export class EditIssueLogComponent implements OnInit {
   }
 
   ngOnInit() {
-    const selectedIssue = this.issueService.selectedItem;
+    this.selectedIssue = this.issueService.selectedItem;
     this.issueLog = new IssueLog({
       id: 0,
       description: '',
       expenses: 0,
-      actionType: new ActionType({}),
-      supplier: new Supplier({}),
-      issue: selectedIssue,
-      oldState: selectedIssue.state,
-      newState: selectedIssue.state
+      actionType: null,
+      supplier: null,
+      issue: this.selectedIssue,
+      oldState: this.selectedIssue.state,
+      newState: this.selectedIssue.state
     });
     if (!this.issueLog.issue) {
       this.router.navigate(['/engineer/issues']);
     }
-    this.actionTypeService.getEntities().subscribe(actions => (this.actionTypes = actions));
-    this.stateService.getEntities().subscribe(states => (this.states = states));
-    this.supplierService.getEntities().subscribe(suppliers => (this.suppliers = suppliers));
+    this.issueLog.newState = this.selectedIssue.state;
+    this.supplierService.getEntities().subscribe(suppliers => this.suppliers = suppliers);
+    this.loadActionTypes();
+  }
+
+  private loadActionTypes(): void {
+    this.transitionService.getFilteredEntities({
+      filters: [
+      {
+        entityPropertyPath: 'fromState.id',
+        value: this.selectedIssue.state.id,
+        operator: '=='
+      }
+    ]
+    }).subscribe(transitions => {
+      this.actionTypes = this.distinct(transitions.data.map(t => t.actionType));
+      this.issueLog.newState = this.distinct(transitions.data.map(t => t.toState))[0];
+    });
+  }
+
+  private loadNewStates(): void {
+    if (this.issueLog.actionType) {
+      this.transitionService.getFilteredEntities({
+        filters: [
+        {
+          entityPropertyPath: 'actionType.id',
+          value: this.issueLog.actionType.id,
+          operator: '=='
+        }
+      ]
+      }).subscribe(transitions => {
+        this.states = this.distinct(transitions.data.map(t => t.toState));
+        this.issueLog.newState = this.states[0];
+      });
+    }
+  }
+
+  private distinct(array: Array<any>): Array<any> {
+    const res = [];
+    array.forEach(x => {
+      if (!res.find(i => i.id === x.id)) {
+        res.push(x);
+      }
+    });
+    return res;
   }
 
   assignDocument(entity: Document): void {
@@ -113,6 +167,8 @@ export class EditIssueLogComponent implements OnInit {
 
   assignActionType(entity: ActionType): void {
     this.issueLog.actionType = entity;
+    this.loadNewStates();
+    this.componentState.isDisabled = false;
   }
 
   assignState(entity: State): void {
