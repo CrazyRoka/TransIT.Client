@@ -14,6 +14,11 @@ export class SupplierComponent implements OnInit {
   suppliers: Supplier[];
   supplier: Supplier;
   dataTable: DataTables.Api;
+  protected name: string;
+  protected fullName: string;
+  protected country: string;
+  protected currency: string;
+  protected edrpou: string;  
   @Input() isVisible: boolean;
 
   constructor(private service: SupplierService, private router: Router) {}
@@ -51,19 +56,12 @@ export class SupplierComponent implements OnInit {
           visible: this.isVisible
         }
       ],
-      // processing: true,
-      // serverSide: true,
-      // ajax: this.ajaxCallback.bind(this),
     });
     this.service.getEntities().subscribe(suppliers => {
       this.addTableData(suppliers);
     });
   }
-
-  // private ajaxCallback(dataTablesParameters: any, callback): void {
-  //   this.service.getFilteredEntities(dataTablesParameters).subscribe(callback);
-  // }
-
+  
   addTableData(newSuppliers: Supplier[]) {
     this.suppliers = [...newSuppliers];
     const view = newSuppliers.map(i => [
@@ -94,7 +92,6 @@ export class SupplierComponent implements OnInit {
   addItem(supplier: Supplier) {
     this.suppliers.push(supplier);
     this.dataTable.draw();
-    console.log(supplier);
   }
 
   deleteSupplier(supplier: Supplier) {
