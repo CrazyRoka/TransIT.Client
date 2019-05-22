@@ -24,7 +24,6 @@ export class ReportComponent implements OnInit {
         },
         { title: 'Помилки', data: 'name', defaultContent: '' }
       ],
-
       paging: true,
       language: {
         url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
@@ -78,7 +77,10 @@ export class ReportComponent implements OnInit {
           { data: 'title' },
           { data: 'producer' }
         ],
-        order: [[1, 'asc']]
+        paging: true,
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+        }
       });
 
       // Add event listener for opening and closing details
