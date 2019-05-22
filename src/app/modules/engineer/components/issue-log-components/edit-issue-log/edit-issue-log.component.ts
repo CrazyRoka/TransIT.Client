@@ -57,11 +57,8 @@ export class EditIssueLogComponent implements OnInit {
   ) {
     this.documents = new Array<Document>();
     this.issueLogForm = new FormGroup({
-      // newState: new FormControl('', Validators.compose([Validators.required, Validators.nullValidator])),
-      // actionType: new FormControl('', Validators.compose([Validators.required, Validators.nullValidator])),
       expenses: new FormControl('', Validators.nullValidator),
       summary: new FormControl('', Validators.compose([Validators.nullValidator, Validators.maxLength(512)])),
-      // supplier: new FormControl(''),
       deadLine: new FormControl('')
     });
   }
