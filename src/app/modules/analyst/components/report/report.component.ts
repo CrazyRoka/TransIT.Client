@@ -74,6 +74,8 @@ export class ReportComponent implements OnInit {
             defaultContent: ''
           },
           { data: 'title' },
+          { data: 'producer' },
+          { data: 'title' },
           { data: 'producer' }
         ],
         order: [[1, 'asc']]
