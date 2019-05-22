@@ -53,9 +53,7 @@ export class ReportComponent implements OnInit {
           defaultContent: '3'
         }
       ],
-      select: {
-        style: 'single'
-      },
+
       paging: true,
       language: {
         url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'

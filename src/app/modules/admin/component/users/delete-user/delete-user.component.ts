@@ -14,10 +14,10 @@ export class DeleteUserComponent implements OnInit {
     if (!user) {
       return;
     }
-    this.login = user.login;
+    this.userSelected = user;
   }
 
-  login: string = '';
+  userSelected: User = new User({ login: '' });
   @Output() deleteUser = new EventEmitter<User>();
 
   constructor(private service: UserService, private toast: ToastrService) {}
@@ -26,9 +26,10 @@ export class DeleteUserComponent implements OnInit {
 
   delete() {
     this.closeDeleteModal.nativeElement.click();
-    this.service.deleteEntity(this.user.id).subscribe(
+
+    this.service.deleteEntity(this.userSelected.id).subscribe(
       data => {
-        this.deleteUser.next(this.user);
+        this.deleteUser.next(this.userSelected);
         this.toast.success('', 'Користувача видалено');
       },
       error => this.toast.error('Помилка', 'Користувач містить записи')

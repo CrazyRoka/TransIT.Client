@@ -76,11 +76,11 @@ export class UsersComponent implements OnInit {
         ? `<button id="find-user-${
             i.id
           }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>
-      <button id="find-user-${
+      <button id="edit-user-${
         i.id
       }" class="btn" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt" style="color: darkred"></i>
       </button>`
-        : `<button id="find-user-${
+        : `<button id="find2-user-${
             i.id
           }" class="btn" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>`
     ]);
@@ -96,6 +96,7 @@ export class UsersComponent implements OnInit {
       const idTokens = event.currentTarget.id.split('-');
       const id = parseInt(idTokens[idTokens.length - 1], 10);
       this.user = this.users.find(i => i.id === id);
+      console.log(this.user);
     });
   }
 
