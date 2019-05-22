@@ -25,6 +25,24 @@ import { SupplierComponent } from './components/supplier/supplier.component';
 import { CreateSupplierComponent } from './components/supplier/create-supplier/create-supplier.component';
 import { EditSupplierComponent } from './components/supplier/edit-supplier/edit-supplier.component';
 import { DeleteSupplierComponent } from './components/supplier/delete-supplier/delete-supplier.component';
+import { ActionTypeService } from './services/action-type.service';
+import { CurrencyService } from './services/currency.service';
+import { DocumentService } from './services/document.service';
+import { EmployeeService } from './services/employee.service';
+import { IssueService } from './services/issue.service';
+import { MalfunctionGroupService } from './services/malfunction-group.service';
+import { MalfunctionSubgroupService } from './services/malfunction-subgroup.service';
+import { MalfunctionService } from './services/malfunction.service';
+import { IssuelogService } from './services/issuelog.service';
+import { PostService } from './services/post.service';
+import { RoleService } from './services/role.service';
+import { StateService } from './services/state.service';
+import { UserService } from './services/user.service';
+import { VehicleTypeService } from './services/vehicle-type.service';
+import { VehicleService } from './services/vehicle.service';
+import { SupplierService } from './services/supplier.service';
+import { TransitionService } from './services/transition.service';
+import { CountryService } from './services/country.service';
 
 @NgModule({
   declarations: [
@@ -71,6 +89,26 @@ import { DeleteSupplierComponent } from './components/supplier/delete-supplier/d
     FiltersTabsComponent,
     CreateDocumentComponent,
     DocumentComponent
+  ],
+  providers: [
+    ActionTypeService,
+    CountryService,
+    CurrencyService,
+    DocumentService,
+    EmployeeService,
+    IssueService,
+    IssuelogService,
+    MalfunctionGroupService,
+    MalfunctionSubgroupService,
+    MalfunctionService,
+    PostService,
+    RoleService,
+    StateService,
+    SupplierService,
+    TransitionService,
+    UserService,
+    VehicleTypeService,
+    VehicleService
   ]
 })
 export class SharedModule {}

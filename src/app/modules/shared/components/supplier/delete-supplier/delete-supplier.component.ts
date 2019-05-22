@@ -8,7 +8,7 @@ import { SupplierService } from 'src/app/modules/shared/services/supplier.servic
   templateUrl: './delete-supplier.component.html',
   styleUrls: ['./delete-supplier.component.scss']
 })
-export class DeleteSupplierComponent  {
+export class DeleteSupplierComponent {
   @ViewChild('close') closeDeleteModal: ElementRef;
   @Input() supplier: Supplier;
   @Output() deleteSupplier = new EventEmitter<Supplier>();

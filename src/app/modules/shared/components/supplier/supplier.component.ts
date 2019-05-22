@@ -101,14 +101,6 @@ export class SupplierComponent implements OnInit {
     });    
   }
 
-  // updateSupplier(supplier: Supplier) {
-  //   this.suppliers[this.suppliers.findIndex(i => i.id === supplier.id)] = supplier;
-  //   this.service.getEntities().subscribe(suppliers => {
-  //     this.addTableData(suppliers);
-  //   });
-  // }
-
-
   updateSupplier(supplier: Supplier) {
     this.dataTable.draw();
   }

@@ -1,7 +1,7 @@
-import { User } from '../../admin/models/user/user';
 import { TEntity } from '../../core/models/entity/entity';
 import { Country } from './country';
 import { Currency } from './currency';
+import { User } from './user';
 
 export class Supplier extends TEntity<Supplier> {
   public name?: string;

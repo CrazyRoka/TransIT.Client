@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Documents } from 'src/app/modules/admin/models/document/document';
-import { DocumentService } from 'src/app/modules/admin/services/document.service';
+import { Document } from '../../../models/document';
+import { DocumentService } from '../../../services/document.service';
 
 declare const $;
 
@@ -12,9 +12,9 @@ declare const $;
   styleUrls: ['./document.component.scss']
 })
 export class DocumentComponent implements OnInit {
-  documents: Documents[] = [];
+  documents: Document[] = [];
   tableDocument: DataTables.Api;
-  selectedDocument: Documents;
+  selectedDocument: Document;
   tost: ToastrService;
   @Input() isVisible: boolean;
 
@@ -42,7 +42,8 @@ export class DocumentComponent implements OnInit {
           data: null,
           defaultContent: `<button class="first btn" data-toggle="modal" data-target="#editDocument"><i class="fas fa-edit"></i></button>
            <button class="second btn" data-toggle="modal" data-target="#deleteDocument"><i class="fas fas fa-trash-alt"></i></button>
-           <button class="third btn" data-toggle="modal"><i class="fas fa-info-circle"></i></button>`
+           <button class="third btn" data-toggle="modal"><i class="fas fa-info-circle"></i></button>
+           <button class="fourth btn btn-info">Копіювати шлях документа</button>`
         }
       ],
       paging: true,
@@ -54,6 +55,7 @@ export class DocumentComponent implements OnInit {
     $('#document-table tbody').on('click', '.first', this.selectFirstItem(this));
     $('#document-table tbody').on('click', '.second', this.selectSecondItem(this));
     $('#document-table tbody').on('click', '.third', this.selectThirdItem(this));
+    $('#document-table tbody').on('click', '.fourth', this.copyMessage(this));
   }
 
   private ajaxCallback(dataTablesParameters: any, callback): void {
@@ -85,23 +87,43 @@ export class DocumentComponent implements OnInit {
         });
       }
       if (this.selectedDocument.issueLog) {
-        component.documentService.selectedItem = new Documents(this.selectedDocument);
+        component.documentService.selectedItem = new Document(this.selectedDocument);
         component.router.navigate([`${component._url}/issue-log`]);
       }
     };
   }
 
-  addDocument(document: Documents) {
+  copyMessage(component: any) {
+    return function() {
+      const data = component.tableDocument.row($(this).parents('tr')).data();
+      let selBox = document.createElement('textarea');
+      selBox.style.position = 'fixed';
+      selBox.style.left = '0';
+      selBox.style.top = '0';
+      selBox.style.opacity = '0';
+      selBox.value = data.path;
+      document.body.appendChild(selBox);
+      selBox.focus();
+      selBox.select();
+      document.execCommand('copy');
+      document.body.removeChild(selBox);
+      component.toast.success(`шлях документа "${data.name}" скопійований`,  'Скопійовано', {
+        timeOut: 3000
+      });
+    };
+  }
+
+  addDocument(document: Document) {
     this.documents.push(document);
     this.tableDocument.draw();
   }
 
-  deleteDocument(document: Documents) {
+  deleteDocument(document: Document) {
     this.documents = this.documents.filter(v => v.id !== document.id);
     this.tableDocument.draw();
   }
 
-  editDocument(document: Documents) {
+  editDocument(document: Document) {
     this.documents[this.documents.findIndex(i => i.id === document.id)] = document;
     this.tableDocument.draw();
   }

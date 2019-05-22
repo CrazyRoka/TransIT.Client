@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
-import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../../../models/user/user';
+import { User } from 'src/app/modules/shared/models/user';
+import { UserService } from 'src/app/modules/shared/services/user.service';
 
 @Component({
   selector: 'app-delete-user',
@@ -10,7 +10,14 @@ import { User } from '../../../models/user/user';
 })
 export class DeleteUserComponent implements OnInit {
   @ViewChild('close') closeDeleteModal: ElementRef;
-  @Input() user: User;
+  @Input() set user(user: User) {
+    if (!user) {
+      return;
+    }
+    this.login = user.login;
+  }
+
+  login: string = '';
   @Output() deleteUser = new EventEmitter<User>();
 
   constructor(private service: UserService, private toast: ToastrService) {}
