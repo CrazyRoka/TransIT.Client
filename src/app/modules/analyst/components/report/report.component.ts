@@ -75,8 +75,7 @@ export class ReportComponent implements OnInit {
     this.malfuncSubGroupService.getEntities().subscribe(malfuncSubgroups => {
       this.malfuncSubgroups = malfuncSubgroups;
     });
-
-    $('#example tbody').on('click', 'td', this.showRow(this));
+    $('#example tbody').on('dblclick', 'td', this.showRow(this));
   }
   format(group) {
     let b = '';
@@ -96,7 +95,7 @@ export class ReportComponent implements OnInit {
       `<table  class="table table-bordered table-hover" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">
           <thead>
               <tr>
-                <th></th>
+                <th>Підгрупа</th>
                 <th>Автобус</th>
                 <th>Трамвай</th>
                 <th>Тролейбус</th>
