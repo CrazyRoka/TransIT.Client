@@ -21,49 +21,49 @@ export class ReportComponent implements OnInit {
     private malfuncGroupService: MalfunctionGroupService,
     private malfuncSubGroupService: MalfunctionSubgroupService
   ) {}
-
-  ngOnInit() {
-    this.tableGroup = $('#example').DataTable({
-      responsive: true,
-      columns: [
-        {
-          title: 'Група',
-          className: 'details-control',
-          data: 'name',
-          defaultContent: ''
-        },
-        {
-          title: 'Автобус',
-          data: null,
-          defaultContent: '0'
-        },
-        {
-          title: 'Трамвай',
-          data: null,
-          defaultContent: '1'
-        },
-        {
-          title: 'Тролейбус',
-          data: null,
-          defaultContent: '2'
-        },
-        {
-          title: 'Електробус',
-          data: null,
-          defaultContent: '3'
-        }
-      ],
-
-      paging: true,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+  tdOption: any = {
+    responsive: true,
+    select: {},
+    columns: [
+      {
+        title: 'Група',
+        className: 'details-control',
+        data: 'name',
+        defaultContent: ''
+      },
+      {
+        title: 'Автобус',
+        data: null,
+        defaultContent: '0'
+      },
+      {
+        title: 'Трамвай',
+        data: null,
+        defaultContent: '1'
+      },
+      {
+        title: 'Тролейбус',
+        data: null,
+        defaultContent: '2'
+      },
+      {
+        title: 'Електробус',
+        data: null,
+        defaultContent: '3'
       }
-    });
+    ],
+
+    paging: true,
+    language: {
+      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+    }
+  };
+  ngOnInit() {
+    this.tableGroup = $('#example').DataTable(this.tdOption);
 
     this.tableGroup.on('select', (e, dt, type, index) => {
       const item = this.tableGroup.rows(index).data()[0];
       this.selectedMalfunctionGroup = item;
-      console.dir(this.selectedMalfunctionGroup);
     });
 
     this.malfuncGroupService.getEntities().subscribe(malfuncGroups => {
@@ -76,7 +76,7 @@ export class ReportComponent implements OnInit {
       this.malfuncSubgroups = malfuncSubgroups;
     });
 
-    $('#example tbody').on('click', 'td.details-control', this.showRow(this));
+    $('#example tbody').on('click', 'td', this.showRow(this));
   }
   format(group) {
     let b = '';
@@ -92,9 +92,8 @@ export class ReportComponent implements OnInit {
         <td>4</td>
       </tr>`;
     }
-
     return (
-      `<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">
+      `<table  class="table table-bordered table-hover" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">
           <thead>
               <tr>
                 <th></th>
@@ -114,7 +113,6 @@ export class ReportComponent implements OnInit {
     return function() {
       const tr = $(this).closest('tr');
       const row = component.tableGroup.row(tr);
-
       if (row.child.isShown()) {
         row.child.hide();
         tr.removeClass('shown');
