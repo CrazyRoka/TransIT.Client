@@ -86,7 +86,9 @@ export class EditUserComponent implements OnInit {
         this.updateUser.next(user);
         this.toast.success('', 'Користувача змінено');
       },
-      error => this.toast.error('Помилка', error)
+      error => {
+        this.toast.error('Помилка', 'Користувача не змінено');
+      }
     );
   }
   updateUserChangeActive(user: User) {
