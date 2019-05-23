@@ -25,6 +25,8 @@ export class VehiclesComponent implements OnInit {
       { title: 'Реєстраційний номер' },
       { title: 'Бренд' },
       { title: 'Модель' },
+      { title: 'Дата введення в експлуатацію' },
+      { title: 'Дата закінчення гарантії' },
       { title: 'Дії', orderable: false }
     ],
     paging: true,
@@ -63,7 +65,7 @@ export class VehiclesComponent implements OnInit {
     this.table.row.add(this.vehicleToRow(vehicle)).draw();
   }
 
-  vehicleToRow(vehicle: Vehicle): string[] {
+  vehicleToRow(vehicle: Vehicle): any[] {
     return [
       vehicle.vehicleType.name,
       vehicle.vincode,
@@ -71,6 +73,8 @@ export class VehiclesComponent implements OnInit {
       vehicle.regNum,
       vehicle.brand,
       vehicle.model,
+      vehicle.commissioningDate,
+      vehicle.warrantyEndDate,
       `<button id="vehicle-${
         vehicle.id
       }" class="btn" data-toggle="modal" data-target="#editVehicle"><i class="fas fa-edit"></i></button>
