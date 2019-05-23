@@ -38,7 +38,7 @@ export class VehiclesComponent implements OnInit {
           targets: -1,
           data: null,
           defaultContent: `<button class="edit btn" data-toggle="modal" data-target="#editVehicle"><i class="fas fa-edit"></i></button>
-           <button class="delete btn" data-toggle="modal" data-target="#deleteVehicle"><i class="fas fas fa-trash-alt"></i></button>`
+           <button class="delete btn" data-toggle="modal" data-target="#deleteVehicle"><i class="fas fas fa-trash-alt" style="color: darkred"></i></button>`
         }
       ],
       paging: true,
