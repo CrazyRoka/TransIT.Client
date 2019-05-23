@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter }
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { State } from 'src/app/modules/shared/models/state';
 import { StateService } from 'src/app/modules/shared/services/state.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-state',
@@ -24,7 +25,7 @@ export class EditStateComponent implements OnInit {
 
   stateFrom: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private serviceState: StateService) {}
+  constructor(private formBuilder: FormBuilder, private serviceState: StateService,private toast: ToastrService) {}
 
   ngOnInit() {
     this.stateFrom = this.formBuilder.group({
@@ -45,6 +46,10 @@ export class EditStateComponent implements OnInit {
       transName: form.transName as string,
       name: this.selectedState.name as string
     };
-    this.serviceState.updateEntity(state).subscribe(_ => this.editState.next(state));
+    this.serviceState.updateEntity(state).subscribe(
+      _ => {this.editState.next(state);
+      },
+      error => this.toast.error('Даний стан неможливо змінити', 'Помилка')
+      );
   }
 }
