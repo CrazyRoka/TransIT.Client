@@ -10,6 +10,8 @@ import { UserService } from 'src/app/modules/shared/services/user.service';
 })
 export class DeleteUserComponent implements OnInit {
   @ViewChild('close') closeDeleteModal: ElementRef;
+  @Output() deleteUser = new EventEmitter<User>();
+
   @Input() set user(user: User) {
     if (!user) {
       return;
@@ -18,7 +20,6 @@ export class DeleteUserComponent implements OnInit {
   }
 
   userSelected: User = new User({ login: '' });
-  @Output() deleteUser = new EventEmitter<User>();
 
   constructor(private service: UserService, private toast: ToastrService) {}
 

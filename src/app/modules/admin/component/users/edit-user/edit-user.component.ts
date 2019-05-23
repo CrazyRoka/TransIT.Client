@@ -69,30 +69,27 @@ export class EditUserComponent implements OnInit {
     this.closeEditModal.nativeElement.click();
     const form = this.userForm.value;
     const user: User = new User({
-      id: form.id,
+      id: this.selectedUser.id,
       firstName: form.firstName,
       lastName: form.lastName,
       middleName: form.middleName,
       phoneNumber: form.phoneNumber,
       login: this.selectedUser.login,
       email: form.email,
+      password: this.selectedUser.password,
       role: this.roles.find(r => r.transName === form.role),
-      isActive: form.isActive
+      isActive: this.selectedUser.isActive
     });
+    console.log(user);
     this.serviceUser.updateEntity(user).subscribe(
       _ => {
         this.updateUser.next(user);
         this.toast.success('', 'Користувача змінено');
       },
-      error => this.toast.error('Помилка', 'Користувач з таким логіном існує')
+      error => this.toast.error('Помилка', error)
     );
   }
   updateUserChangeActive(user: User) {
     this.updateUser.next(user);
   }
-}
-function resetForm() {
-  $('#editUser')
-    .find('form')
-    .trigger('reset');
 }

@@ -96,7 +96,6 @@ export class UsersComponent implements OnInit {
       const idTokens = event.currentTarget.id.split('-');
       const id = parseInt(idTokens[idTokens.length - 1], 10);
       this.user = this.users.find(i => i.id === id);
-      console.log(this.user);
     });
   }
 
