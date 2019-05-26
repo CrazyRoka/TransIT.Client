@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Employee } from 'src/app/modules/shared/models/employee';
-import { IssueLog } from 'src/app/modules/shared/models/issuelog';
 import { Supplier } from 'src/app/modules/shared/models/supplier';
 import { ActionType } from 'src/app/modules/shared/models/action-type';
 import { State } from 'src/app/modules/shared/models/state';
@@ -98,9 +97,12 @@ export class EditIssueLogComponent implements OnInit {
           'Заявку неможливо перевести в інший стан'
           );
       }
-      this.issueLogForm.value.newState = this.distinct(transitions.data.map(t => t.toState))[0];
-      console.dir(transitions.data);
-      console.dir(this.issueLogForm.value);
+      this.states = this.distinct(transitions.data.map(t => t.toState));
+      this.issueLogForm.patchValue({
+        ...this.issueLogForm.value,
+        actionType: this.actionTypes[0],
+        newState: this.states[0]
+      });
     });
   }
 
