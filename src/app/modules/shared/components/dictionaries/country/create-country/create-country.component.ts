@@ -31,7 +31,7 @@ export class CreateCountryComponent implements OnInit {
         Validators.compose([
           Validators.maxLength(30),
           Validators.required,
-          Validators.pattern("^[A-Za-zА-Яа-яїієЇІЯЄ/'/`-]+$")
+          Validators.pattern("^[A-Za-zА-Яа-яїієЇІЯЄ /'/`-]+$")
         ])
       )
     });

@@ -34,7 +34,7 @@ export class CreateCurrencyComponent implements OnInit {
       ),
       fullName: new FormControl(
         '',
-        Validators.compose([Validators.required, Validators.pattern("^[A-Za-zА-Яа-яїієЇІЯЄ/'/`-]+$")])
+        Validators.compose([Validators.required, Validators.pattern("^[A-Za-zА-Яа-яїієЇІЯЄ /'/`-]+$")])
       )
     });
   }
