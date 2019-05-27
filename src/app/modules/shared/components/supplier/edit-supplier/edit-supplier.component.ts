@@ -39,19 +39,14 @@ export class EditSupplierComponent implements OnInit {
     ) {}
   
    ngOnInit() {
-    $('#editSupplier').on('hidden.bs.modal', function() {
-      $(this)
-        .find('form')
-        .trigger('reset');
-    });
-    this.supplierForm = this.formBuilder.group({
+        this.supplierForm = this.formBuilder.group({
       id: [''],
-      name: ['', Validators.required],
-      fullName: ['', Validators.required],
-      edrpou: [''],
+      name: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30)])),
+      fullName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(500)])),
+      edrpou: new FormControl('', [Validators.maxLength(14)]),
       country: [''],
       currency: [''],
-    });    
+   });    
     this.countryService.getEntities().subscribe(data => {
       this.countries = data;
     });
@@ -80,13 +75,13 @@ export class EditSupplierComponent implements OnInit {
       name: form.name as string,
       fullName: form.fullName as string,
       edrpou: form.edrpou as string,
-      country: form.country as Country,
-      currency: form.currency as Currency
+      country: form.country.name as Country,
+      currency: form.currency.fullName as Currency
     };
 
     this.service.updateEntity(supplier).subscribe(_ => 
       {
-        this.toast.success('', 'Постачальника відредаговано');
+        this.toast.success('', 'Постачальника оновлено');
         this.updateSupplier.next(supplier)
       },
       error => this.toast.error('Помилка'));
