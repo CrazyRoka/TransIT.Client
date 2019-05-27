@@ -3,6 +3,7 @@ import { Country } from 'src/app/modules/shared/models/country';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { CountryService } from 'src/app/modules/shared/services/country.service';
 import { ToastrService } from 'ngx-toastr';
+import { NAME_FIELD_ERRORS } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-create-country',
@@ -14,7 +15,7 @@ export class CreateCountryComponent implements OnInit {
 
   @ViewChild('close') closeCreateModal: ElementRef;
   @Output() createCountry = new EventEmitter<Country>();
-
+  CustomNameErrorMessages = NAME_FIELD_ERRORS;
   constructor(private service: CountryService, private formBuilder: FormBuilder, private toast: ToastrService) {}
 
   ngOnInit() {

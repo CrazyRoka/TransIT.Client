@@ -3,6 +3,7 @@ import { Currency } from 'src/app/modules/shared/models/currency';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CurrencyService } from 'src/app/modules/shared/services/currency.service';
 import { ToastrService } from 'ngx-toastr';
+import { NAME_FIELD_ERRORS } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-create-currency',
@@ -13,6 +14,7 @@ export class CreateCurrencyComponent implements OnInit {
   @ViewChild('close') closeCreateModal: ElementRef;
   @Output() createCurrency = new EventEmitter<Currency>();
   currencyForm: FormGroup;
+  CustomNameErrorMessages = NAME_FIELD_ERRORS;
   constructor(private service: CurrencyService, private formBuilder: FormBuilder, private toast: ToastrService) {}
 
   ngOnInit() {
