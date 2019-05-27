@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Malfunction } from 'src/app/modules/shared/models/malfunction';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -22,6 +22,33 @@ export class CreateMalfuncComponent implements OnInit {
   malfunctionGroupList: MalfunctionGroup[];
   malfunctions: Malfunction[];
 
+  malfunctionSubGroup: MalfunctionSubgroup;
+  malfunctionGroup: MalfunctionGroup;
+
+  @Input() set MalfunctionGroup(malfunctionGroup: MalfunctionGroup) {
+    if (!malfunctionGroup) {
+      this.malfunctionGroup = undefined;
+      this.malfunctionForm.patchValue({ group: '' });
+      this.malfunctionForm.controls.group.enable();
+      return;
+    }
+    this.malfunctionGroup = this.malfunctionGroupList.find(g => g.id === malfunctionGroup.id);
+    this.malfunctionForm.patchValue({ group: this.malfunctionGroup });
+    this.malfunctionForm.controls.group.disable();
+  }
+
+  @Input() set MalfunctionSubGroup(malfunctionSub: MalfunctionSubgroup) {
+    if (!malfunctionSub) {
+      this.malfunctionSubGroup = undefined;
+      this.malfunctionForm.patchValue({ subgroup: '' });
+      this.malfunctionForm.controls.subgroup.enable();
+      return;
+    }
+    this.malfunctionSubGroup = this.malfunctionSubgroupList.find(s => s.id === malfunctionSub.id);
+    this.malfunctionForm.patchValue({ subgroup: this.malfunctionSubGroup });
+    this.malfunctionForm.controls.subgroup.disable();
+  }
+
   constructor(
     private serviceMalfunctionGroup: MalfunctionGroupService,
     private serviceMalfunctionSubgroup: MalfunctionSubgroupService,
@@ -35,8 +62,12 @@ export class CreateMalfuncComponent implements OnInit {
     this.loadEntities();
   }
 
+  compareEntity<T>(entity: TEntity<T>, otherEntity: TEntity<T>) {
+    return entity && otherEntity ? entity.id === otherEntity.id : entity === otherEntity;
+  }
+
   private get formValue() {
-    return this.malfunctionForm.value;
+    return this.malfunctionForm.getRawValue();
   }
 
   get malfunctionSubgroupsFilteredByGroup(): MalfunctionSubgroup[] {
@@ -101,12 +132,13 @@ export class CreateMalfuncComponent implements OnInit {
   }
 
   private createMalfunction() {
-    const issue = new Malfunction({
+    console.log(this.formValue);
+    const malfunction = new Malfunction({
       name: this.formValue.name,
       malfunctionSubgroup: this.formValue.subgroup
     });
     this.serviceMalfunction
-      .addEntity(issue)
+      .addEntity(malfunction)
       .subscribe(
         newMalfunction => this.createdMalfunction.next(newMalfunction),
         _ => this.toast.error('Не вдалось створити заявку', 'Помилка створення заявки')

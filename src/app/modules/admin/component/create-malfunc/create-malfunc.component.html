@@ -1,10 +1,4 @@
-<button
-  type="button"
-  class="btn btn-info"
-  (click)="loadEntities()"
-  data-toggle="modal"
-  data-target="#createMalfunction"
->
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#createMalfunction">
   <i class="fas fa-plus fa-2x"></i>
 </button>
 
@@ -28,7 +22,7 @@
         <form [formGroup]="malfunctionForm">
           <div class="form-group">
             <label>Група несправності</label>
-            <select class="form-control" formControlName="group">
+            <select class="form-control" formControlName="group" [compareWith]="compareEntity">
               <option value="" selected>Виберіть групу несправності</option>
               <option *ngFor="let malfunctionGroup of malfunctionGroupList" [ngValue]="malfunctionGroup">{{
                 malfunctionGroup.name
@@ -37,7 +31,7 @@
           </div>
           <div class="form-group">
             <label>Підгрупа несправності</label>
-            <select class="form-control" formControlName="subgroup">
+            <select class="form-control" formControlName="subgroup" [compareWith]="compareEntity">
               <option value="" selected>Виберіть підгрупу несправності</option>
               <option
                 *ngFor="let malfunctionSubgroup of malfunctionSubgroupsFilteredByGroup"

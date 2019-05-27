@@ -60,7 +60,11 @@
       </div>
 
       <span>
-        <app-create-malfunc (createdMalfunction)="addMalfunction($event)"></app-create-malfunc>
+        <app-create-malfunc
+          [MalfunctionGroup]="selectedMalfunctionGroup"
+          [MalfunctionSubGroup]="selectedMalfunctionSubGroup"
+          (createdMalfunction)="addMalfunction($event)"
+        ></app-create-malfunc>
       </span>
 
       <span class="second">

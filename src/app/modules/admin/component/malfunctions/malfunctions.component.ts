@@ -149,6 +149,7 @@ export class MalfunctionsComponent implements OnInit {
     this.tableSubGroup.draw();
     this.tableMalfunction.clear();
     this.tableMalfunction.draw();
+    this.selectedMalfunctionGroup = undefined;
   }
 
   filterMalfunctionSubGroup() {
@@ -188,6 +189,7 @@ export class MalfunctionsComponent implements OnInit {
   unfilterMalfunction() {
     this.tableMalfunction.clear();
     this.tableMalfunction.draw();
+    this.selectedMalfunctionSubGroup = undefined;
   }
 
   filterMalfunctions() {
