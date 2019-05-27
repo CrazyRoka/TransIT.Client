@@ -39,7 +39,6 @@ export class CreateEmployeeComponent implements OnInit {
 
   onSubmit() {
     if (this.employeeForm.invalid) {
-      console.log('here');
       return;
     }
 
