@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Vehicle } from 'src/app/modules/shared/models/vehicle';
 import { VehicleService } from 'src/app/modules/shared/services/vehicle.service';
+import * as moment from 'moment';
 
 declare const $;
 
@@ -16,7 +17,7 @@ export class VehiclesComponent implements OnInit {
 
   constructor(private vehicleService: VehicleService) {}
 
-  private readonly tableConfig: DataTables.Settings = {
+  private readonly tableConfig: any = {
     responsive: true,
     columns: [
       { title: 'Тип транспорту', data: 'vehicleType.name', defaultContent: '' },
@@ -25,8 +26,22 @@ export class VehiclesComponent implements OnInit {
       { title: 'Реєстраційний номер', data: 'regNum', defaultContent: '' },
       { title: 'Бренд', data: 'brand', defaultContent: '' },
       { title: 'Модель', data: 'model', defaultContent: '' },
-      { title: 'Дата введення в експлуатацію', data: 'commissioningDate', defaultContent: '' },
-      { title: 'Дата закінчення гарантії', data: 'warrantyEndDate', defaultContent: '' },
+      {
+        title: 'Дата введення в експлуатацію',
+        data: 'commissioningDate',
+        defaultContent: '',
+        render(data) {
+          return moment(data).format('DD.MM.YYYY');
+        }
+      },
+      {
+        title: 'Дата закінчення гарантії',
+        data: 'warrantyEndDate',
+        defaultContent: '',
+        render(data) {
+          return moment(data).format('DD.MM.YYYY');
+        }
+      },
       { title: 'Дії', orderable: false }
     ],
     processing: true,
