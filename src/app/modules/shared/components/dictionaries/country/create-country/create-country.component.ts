@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CreateCountryComponent implements OnInit {
   countryForm: FormGroup;
+
   @ViewChild('close') closeCreateModal: ElementRef;
   @Output() createCountry = new EventEmitter<Country>();
 
@@ -24,7 +25,14 @@ export class CreateCountryComponent implements OnInit {
     });
 
     this.countryForm = this.formBuilder.group({
-      name: new FormControl('', Validators.required)
+      name: new FormControl(
+        '',
+        Validators.compose([
+          Validators.maxLength(30),
+          Validators.required,
+          Validators.pattern("^[A-Za-zА-Яа-яїієЇІЯЄ/'/`-]+$")
+        ])
+      )
     });
   }
   clickSubmit() {

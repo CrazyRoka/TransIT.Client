@@ -22,8 +22,18 @@ export class CreateCurrencyComponent implements OnInit {
         .trigger('reset');
     });
     this.currencyForm = this.formBuilder.group({
-      shortName: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(5)])),
-      fullName: new FormControl('', Validators.required)
+      shortName: new FormControl(
+        '',
+        Validators.compose([
+          Validators.maxLength(5),
+          Validators.required,
+          Validators.pattern("^[A-Za-zА-Яа-яїієЇІЯЄ/'/`-]+$")
+        ])
+      ),
+      fullName: new FormControl(
+        '',
+        Validators.compose([Validators.required, Validators.pattern("^[A-Za-zА-Яа-яїієЇІЯЄ/'/`-]+$")])
+      )
     });
   }
   clickSubmit() {
