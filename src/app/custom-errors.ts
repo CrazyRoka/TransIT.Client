@@ -29,6 +29,10 @@ export const CUSTOM_ERRORS: ErrorMessage[] = [
   {
     error: 'email',
     format: emailFormat
+  },
+  {
+    error: 'uniqueViolation',
+    format: uniqueViolationFormat
   }
 ];
 
@@ -81,11 +85,15 @@ export function loginPatternFormat(label: string, error: any): string {
 }
 
 export function nameFieldFormat(label: string, error: any): string {
-  return `Дозволено тільки літери, і спецcимволи ("-" та " ' ")`;
+  return `Дозволено тільки літери і спецcимволи ("-" та " ' ")`;
 }
 
 export function emailFormat(label: string, error: any): string {
   return 'Невірний формат email адреси. Введіть вірний формат, наприклад email@gmail.com.';
+}
+
+export function uniqueViolationFormat(label: string, error: any): string {
+  return `Таке значення поля "${label}" вже існує. Спробуйте інше`;
 }
 
 export function matchPassword(form: FormGroup) {
