@@ -3,6 +3,8 @@ import { MalfunctionGroup } from 'src/app/modules/shared/models/malfunction-grou
 import { MalfunctionGroupService } from 'src/app/modules/shared/services/malfunction-group.service';
 import { MalfunctionSubgroup } from 'src/app/modules/shared/models/malfunction-subgroup';
 import { MalfunctionSubgroupService } from 'src/app/modules/shared/services/malfunction-subgroup.service';
+import { VehicleTypeService } from 'src/app/modules/shared/services/vehicle-type.service';
+import { VehicleType } from 'src/app/modules/shared/models/vehicleType';
 
 @Component({
   selector: 'app-report',
@@ -11,7 +13,7 @@ import { MalfunctionSubgroupService } from 'src/app/modules/shared/services/malf
 })
 export class ReportComponent implements OnInit {
   malfuncGroups: Array<MalfunctionGroup>;
-  malfuncSubgroups: Array<MalfunctionSubgroup>;
+  malfuncSubgroups: MalfunctionSubgroup[] = [];
 
   selectedMalfunctionGroup: MalfunctionGroup;
 
@@ -19,46 +21,47 @@ export class ReportComponent implements OnInit {
 
   constructor(
     private malfuncGroupService: MalfunctionGroupService,
-    private malfuncSubGroupService: MalfunctionSubgroupService
+    private malfuncSubGroupService: MalfunctionSubgroupService,
+    private vechicleTypeService: VehicleTypeService
   ) {}
   tdOption: any = {
     responsive: true,
     select: {},
-    columns: [
-      {
-        title: 'Група',
-        className: 'details-control',
-        data: 'name',
-        defaultContent: ''
-      },
-      {
-        title: 'Автобус',
-        data: null,
-        defaultContent: '0'
-      },
-      {
-        title: 'Трамвай',
-        data: null,
-        defaultContent: '1'
-      },
-      {
-        title: 'Тролейбус',
-        data: null,
-        defaultContent: '2'
-      },
-      {
-        title: 'Електробус',
-        data: null,
-        defaultContent: '3'
-      }
-    ],
-
+    columns: [],
     paging: true,
     language: {
       url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
     }
   };
   ngOnInit() {
+    this.malfuncSubGroupService.getEntities().subscribe(malfuncSubgroups => {
+      this.malfuncSubgroups = malfuncSubgroups;
+    });
+
+    this.tdOption.columns = [
+      {
+        title: 'Група',
+        className: 'details-control',
+        data: 'name',
+        defaultContent: ''
+      }
+    ];
+    this.vechicleTypeService.getEntities().subscribe(VehicleType => {
+      console.log('asc');
+
+      VehicleType.forEach(a => {
+        this.tdOption.columns.push({
+          title: a.name,
+          data: null,
+          defaultContent: '0'
+        });
+      });
+      this.tableGroup.destroy();
+      $('#example').empty();
+      this.tableGroup = $('#example').DataTable(this.tdOption);
+      $('#example tbody').on('dblclick', 'td', this.showRow(this));
+    });
+
     this.tableGroup = $('#example').DataTable(this.tdOption);
 
     this.tableGroup.on('select', (e, dt, type, index) => {
@@ -71,12 +74,8 @@ export class ReportComponent implements OnInit {
       this.tableGroup.rows.add(this.malfuncGroups);
       this.tableGroup.draw();
     });
-
-    this.malfuncSubGroupService.getEntities().subscribe(malfuncSubgroups => {
-      this.malfuncSubgroups = malfuncSubgroups;
-    });
-    $('#example tbody').on('dblclick', 'td', this.showRow(this));
   }
+
   format(group) {
     let b = '';
     for (let i = 0; i < group.length; i++) {
