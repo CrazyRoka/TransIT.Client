@@ -4,7 +4,6 @@ import { MalfunctionGroupService } from 'src/app/modules/shared/services/malfunc
 import { MalfunctionSubgroup } from 'src/app/modules/shared/models/malfunction-subgroup';
 import { MalfunctionSubgroupService } from 'src/app/modules/shared/services/malfunction-subgroup.service';
 import { VehicleTypeService } from 'src/app/modules/shared/services/vehicle-type.service';
-import { VehicleType } from 'src/app/modules/shared/models/vehicleType';
 
 @Component({
   selector: 'app-report',
@@ -47,8 +46,6 @@ export class ReportComponent implements OnInit {
       }
     ];
     this.vechicleTypeService.getEntities().subscribe(VehicleType => {
-      console.log('asc');
-
       VehicleType.forEach(a => {
         this.tdOption.columns.push({
           title: a.name,
@@ -59,7 +56,7 @@ export class ReportComponent implements OnInit {
       this.tableGroup.destroy();
       $('#example').empty();
       this.tableGroup = $('#example').DataTable(this.tdOption);
-      $('#example tbody').on('dblclick', 'td', this.showRow(this));
+      $('#example tbody').on('dblclick', 'td', this.showRow(this.tdOption, this));
     });
 
     this.tableGroup = $('#example').DataTable(this.tdOption);
@@ -90,24 +87,11 @@ export class ReportComponent implements OnInit {
         <td>4</td>
       </tr>`;
     }
-    return (
-      `<table  class="table table-bordered table-hover" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">
-          <thead>
-              <tr>
-                <th>Підгрупа</th>
-                <th>Автобус</th>
-                <th>Трамвай</th>
-                <th>Тролейбус</th>
-                <th>Електробус</th>
-              </tr>
-          </thead>
-    <tbody>` +
-      b +
-      `</tbody> </table>`
-    );
+    return `<table id="example2"  class="table table-bordered table-hover" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">
+        </table>`;
   }
 
-  private showRow(component: any) {
+  private showRow(option: any, component: any) {
     return function() {
       const tr = $(this).closest('tr');
       const row = component.tableGroup.row(tr);
@@ -118,6 +102,7 @@ export class ReportComponent implements OnInit {
         row.child(component.format(component.filterMalfunctionSubGroup)).show();
         tr.addClass('shown');
       }
+      $('#example2').DataTable(option);
     };
   }
 
