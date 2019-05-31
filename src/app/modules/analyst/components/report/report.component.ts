@@ -92,7 +92,7 @@ export class ReportComponent implements OnInit {
 
   formatTable() {
     return `
-    <div style ="background-color : #E4FBE2">
+    <div style ="background-color : #E4FBE2;">
     <table id="example2"  class="table table-bordered table-hover table-condensed" style="width:100%; background-color:rgba(0, 0, 0, 0.5);">
         </table>
     </div>`;
@@ -100,7 +100,7 @@ export class ReportComponent implements OnInit {
 
   formatSubTable() {
     return `
-    <div style = "background-color : #D0F4CC">
+    <div style = "background-color : #DFF2FD;">
     <table id="example3"  class="table table-bordered table-hover" style="width:100%; background-color: rgb(221, 195, 220)">
         </table>
       </div>`;
@@ -120,8 +120,10 @@ export class ReportComponent implements OnInit {
           row.child(component.formatTable()).show();
           tr.addClass('shown');
         }
-        (component.tdOption.createdRow = component.createSubRow),
-          (component.tableSubGroup = $('#example2').DataTable(component.tdOption));
+        component.tdOption.retrieve = true;
+        component.tdOption.paging = false;
+        //component.tdOption.searching = false;
+        component.tableSubGroup = $('#example2').DataTable(component.tdOption);
         $('#example2 tbody').on('click', 'td', component.showSubRow(component));
 
         component.tableSubGroup.rows.add(component.filterMalfunctionSubGroup);
@@ -149,6 +151,7 @@ export class ReportComponent implements OnInit {
         row.child(component.formatSubTable()).show();
         tr.addClass('shownsub');
       }
+
       component.tableSubSubGroup = $('#example3').DataTable(component.tdOption);
       component.tableSubSubGroup.rows.add(component.filterMalfunction);
       component.tableSubSubGroup.draw();
