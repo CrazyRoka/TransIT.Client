@@ -73,15 +73,10 @@ export class ReportComponent implements OnInit {
       $('#example').empty();
       this.tableGroup = $('#example').DataTable(this.tdOption);
 
-      $('#example tbody').on('dblclick', 'td', this.showRow(this.tdOption, this));
+      $('#example tbody').on('click', 'td', this.showRow(this.tdOption, this));
     });
 
     this.tableGroup = $('#example').DataTable(this.tdOption);
-
-    this.tableGroup.on('select', (e, dt, type, index) => {
-      const item = this.tableGroup.rows(index).data()[0];
-      this.selectedMalfunctionGroup = item;
-    });
 
     this.malfuncGroupService.getEntities().subscribe(malfuncGroups => {
       this.malfuncGroups = malfuncGroups;
@@ -105,6 +100,8 @@ export class ReportComponent implements OnInit {
       console.log('1');
       const tr = $(this).closest('tr');
       const row = component.tableGroup.row(tr);
+      component.selectedMalfunctionGroup = row.data();
+
       if (row.child.isShown()) {
         row.child.hide();
         tr.removeClass('shown');
