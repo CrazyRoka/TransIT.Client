@@ -43,7 +43,6 @@ export class ReportComponent implements OnInit {
     columns: [],
     scrollX: true,
     paging: true,
-    createdRow: this.createRow,
     language: {
       url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
     }
