@@ -14,7 +14,6 @@ import { Document } from 'src/app/modules/shared/models/document';
 import { TransitionService } from 'src/app/modules/shared/services/transition.service';
 import { Issue } from 'src/app/modules/shared/models/issue';
 import { EmployeeService } from 'src/app/modules/shared/services/employee.service';
-import { IssueLog } from 'src/app/modules/shared/models/issuelog';
 
 @Component({
   selector: 'app-edit-issue-log',
@@ -22,7 +21,6 @@ import { IssueLog } from 'src/app/modules/shared/models/issuelog';
   styleUrls: ['./edit-issue-log.component.scss']
 })
 export class EditIssueLogComponent implements OnInit {
-  assigneeUser: Employee;
   actionTypes: Array<ActionType>;
   states: Array<State>;
   suppliers: Array<Supplier>;
@@ -175,6 +173,16 @@ export class EditIssueLogComponent implements OnInit {
     this.loadNewStates();
   }
 
+  assignAssignee(item: Employee): void {
+    this.issueLogForm.patchValue({
+      ...this.issueLogForm.value,
+      issue: {
+        ...this.issueLogForm.value.issue,
+        assignedTo: item
+      }
+    });
+  }
+
   deleteDocument(entity: Document): void {
     const expression = x => x.name !== entity.name;
 
@@ -201,7 +209,7 @@ export class EditIssueLogComponent implements OnInit {
           this.documentService.addEntity(d).subscribe()
           );
       }
-      this.router.navigate(['/engineer/issue-logs'])
+      this.router.navigate(['/engineer/issues/edit'])
         .then(_ => this.toast.success('', 'Обробку зроблено'))
         .catch(_ => this.toast.error('', 'Обробку не зроблено'));
     });

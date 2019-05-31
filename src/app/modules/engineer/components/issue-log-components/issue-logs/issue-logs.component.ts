@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IssuelogService } from 'src/app/modules/shared/services/issuelog.service';
+import * as moment from 'moment';
+import { DocumentService } from 'src/app/modules/shared/services/document.service';
 
 declare const $;
 
@@ -13,7 +15,7 @@ export class IssueLogsComponent implements OnInit {
   protected table: any;
   protected columns: Array<any> = [
     { title: 'Статус', data: 'issue.state.transName', defaultContent: '', bVisible: false },
-    { title: 'Творець', data: 'create.login', defaultContent: '' },
+    { title: 'Користувач', data: 'create.login', defaultContent: '' },
     { title: 'Витрати', data: 'expenses', defaultContent: '' },
     { title: 'Опис', data: 'description', defaultContent: '' },
     { title: 'Дія', data: 'actionType.name', defaultContent: '' },
@@ -21,8 +23,18 @@ export class IssueLogsComponent implements OnInit {
     { title: 'Новий статус', data: 'newState.transName', defaultContent: '' },
     { title: 'Постачальник', data: 'supplier.name', defaultContent: '', bVisible: false },
     { title: 'Транспорт', data: 'issue.vehicle.inventoryId', defaultContent: '' },
-    { title: 'Створено', data: 'createDate', defaultContent: '' },
+    { title: 'Створено', data: 'createDate', defaultContent: '', render: data => moment(data).format("DD.MM.YYYY") },
     { title: 'Редаговано', data: 'modDate', defaultContent: '', bVisible: false },
+    {
+      orderable: false,
+      title: 'Документи',
+      data: 'documents',
+      defaultContent: '',
+      render: (data, type, row, meta) =>
+        row.documents
+          ? row.documents.map(x => x.name).join('; ')
+          : ''
+    },
     { data: 'id', bVisible: false }
   ];
 
@@ -42,7 +54,11 @@ export class IssueLogsComponent implements OnInit {
     }
   };
 
-  constructor(protected issueLogService: IssuelogService, protected router: Router) {}
+  constructor(
+    protected issueLogService: IssuelogService,
+    protected documentsService: DocumentService,
+    protected router: Router
+    ) {}
 
   ngOnInit() {
     this.initTable(this.tableConfig);
@@ -54,11 +70,5 @@ export class IssueLogsComponent implements OnInit {
 
   protected initTable(tableConfig: any): void {
     this.table = $('#issue-logs-table').DataTable(tableConfig);
-    // this.table.on('select', this.selectRow.bind(this));
   }
-
-  // protected selectRow(e: any, dt: any, type: any, indexes: any): void {
-  //   const item = this.table.rows(indexes).data()[0];
-  //   this.router.navigate(['/engineer/issue-logs/edit', item]);
-  // }
 }
