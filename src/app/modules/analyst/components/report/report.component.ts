@@ -24,13 +24,17 @@ export class ReportComponent implements OnInit {
   tableGroup: any;
   tableSubGroup: any;
   tableSubSubGroup: any;
-
+  clickAllowCheck: boolean;
+  iteratorCheck: boolean;
   constructor(
     private malfuncService: MalfunctionService,
     private malfuncGroupService: MalfunctionGroupService,
     private malfuncSubGroupService: MalfunctionSubgroupService,
     private vechicleTypeService: VehicleTypeService
-  ) {}
+  ) {
+    this.clickAllowCheck = true;
+    this.iteratorCheck = true;
+  }
 
   tdOption: any = {
     responsive: true,
@@ -73,7 +77,7 @@ export class ReportComponent implements OnInit {
       $('#example').empty();
       this.tableGroup = $('#example').DataTable(this.tdOption);
 
-      $('#example tbody').on('click', 'td', this.showRow(this.tdOption, this));
+      $('#example tbody').on('click', 'td', this.showRow(this));
     });
 
     this.tableGroup = $('#example').DataTable(this.tdOption);
@@ -95,40 +99,46 @@ export class ReportComponent implements OnInit {
         </table>`;
   }
 
-  private showRow(option: any, component: any) {
+  private showRow(component: any) {
     return function() {
-      console.log('1');
-      const tr = $(this).closest('tr');
-      const row = component.tableGroup.row(tr);
-      component.selectedMalfunctionGroup = row.data();
+      console.log('1 ' + component.clickAllowCheck);
+      if (component.clickAllowCheck) {
+        console.log('1');
+        const tr = $(this).closest('tr');
+        const row = component.tableGroup.row(tr);
+        component.selectedMalfunctionGroup = row.data();
 
-      if (row.child.isShown()) {
-        row.child.hide();
-        tr.removeClass('shown');
+        if (row.child.isShown()) {
+          row.child.hide();
+          tr.removeClass('shown');
+        } else {
+          row.child(component.format()).show();
+          tr.addClass('shown');
+        }
+
+        component.tableSubGroup = $('#example2').DataTable(component.tdOption);
+        $('#example2 tbody').on('click', 'td', component.showSubRow(component));
+
+        component.tableSubGroup.rows.add(component.filterMalfunctionSubGroup);
+        component.tableSubGroup.draw();
       } else {
-        row.child(component.format()).show();
-        tr.addClass('shown');
+        if (component.iteratorCheck) {
+          component.clickAllowCheck = true;
+        }
+        component.iteratorCheck = true;
       }
-
-      component.tableSubGroup = $('#example2').DataTable(option);
-      $('#example2 tbody').on('dblclick', 'td', component.showSubRow(component));
-
-      component.tableSubGroup.rows.add(component.filterMalfunctionSubGroup);
-      component.tableSubGroup.draw();
-
-      component.tableSubGroup.on('select', (e, dt, type, index) => {
-        const item = component.tableSubGroup.rows(index).data()[0];
-        component.selectedMalfunctionSubGroup = item;
-      });
     };
   }
 
   private showSubRow(component: any) {
     return function() {
       console.log('2');
+      component.clickAllowCheck = false;
+      component.iteratorCheck = false;
+      console.log(component.clickAllowCheck);
       const tr = $(this).closest('tr');
       const row = component.tableSubGroup.row(tr);
-      console.log(tr);
+      component.selectedMalfunctionSubGroup = row.data();
       if (row.child.isShown()) {
         row.child.hide();
         tr.removeClass('shownsub');
@@ -151,7 +161,7 @@ export class ReportComponent implements OnInit {
 
   get filterMalfunction(): Array<Malfunction> {
     return this.malfunc.filter(x => {
-      return x.malfunctionSubgroup !== null && x.malfunctionSubgroup.name === this.selectedMalfunctionSubGroup.name;
+      return x.malfunctionSubgroup !== null && x.malfunctionSubgroup.id === this.selectedMalfunctionSubGroup.id;
     });
   }
 }
