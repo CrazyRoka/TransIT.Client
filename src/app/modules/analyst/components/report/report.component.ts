@@ -24,8 +24,10 @@ export class ReportComponent implements OnInit {
   tableGroup: any;
   tableSubGroup: any;
   tableSubSubGroup: any;
+
   clickAllowCheck: boolean;
   iteratorCheck: boolean;
+
   constructor(
     private malfuncService: MalfunctionService,
     private malfuncGroupService: MalfunctionGroupService,
@@ -38,10 +40,10 @@ export class ReportComponent implements OnInit {
 
   tdOption: any = {
     responsive: true,
-    select: {},
     columns: [],
     scrollX: true,
     paging: true,
+    createdRow: this.createRow,
     language: {
       url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
     }
@@ -59,7 +61,7 @@ export class ReportComponent implements OnInit {
     this.tdOption.columns = [
       {
         title: 'Група',
-        className: 'details-control',
+        className: 'table-cell-edit',
         data: 'name',
         defaultContent: ''
       }
@@ -89,21 +91,25 @@ export class ReportComponent implements OnInit {
     });
   }
 
-  format() {
-    return `<div style="background-color: rgb(216, 202, 202)"><table id="example2"  class="table table-bordered table-hover" style="width:100%;">
-        </table></div>`;
+  formatTable() {
+    return `
+    <div style ="background-color : #E4FBE2">
+    <table id="example2"  class="table table-bordered table-hover table-condensed" style="width:100%; background-color:rgba(0, 0, 0, 0.5);">
+        </table>
+    </div>`;
   }
 
-  formatSub() {
-    return `<table id="example3"  class="table table-bordered table-hover" style="width:100%; background-color: rgb(221, 195, 220)">
-        </table>`;
+  formatSubTable() {
+    return `
+    <div style = "background-color : #D0F4CC">
+    <table id="example3"  class="table table-bordered table-hover" style="width:100%; background-color: rgb(221, 195, 220)">
+        </table>
+      </div>`;
   }
 
   private showRow(component: any) {
     return function() {
-      console.log('1 ' + component.clickAllowCheck);
       if (component.clickAllowCheck) {
-        console.log('1');
         const tr = $(this).closest('tr');
         const row = component.tableGroup.row(tr);
         component.selectedMalfunctionGroup = row.data();
@@ -112,11 +118,11 @@ export class ReportComponent implements OnInit {
           row.child.hide();
           tr.removeClass('shown');
         } else {
-          row.child(component.format()).show();
+          row.child(component.formatTable()).show();
           tr.addClass('shown');
         }
-
-        component.tableSubGroup = $('#example2').DataTable(component.tdOption);
+        (component.tdOption.createdRow = component.createSubRow),
+          (component.tableSubGroup = $('#example2').DataTable(component.tdOption));
         $('#example2 tbody').on('click', 'td', component.showSubRow(component));
 
         component.tableSubGroup.rows.add(component.filterMalfunctionSubGroup);
@@ -132,10 +138,8 @@ export class ReportComponent implements OnInit {
 
   private showSubRow(component: any) {
     return function() {
-      console.log('2');
       component.clickAllowCheck = false;
       component.iteratorCheck = false;
-      console.log(component.clickAllowCheck);
       const tr = $(this).closest('tr');
       const row = component.tableSubGroup.row(tr);
       component.selectedMalfunctionSubGroup = row.data();
@@ -143,10 +147,9 @@ export class ReportComponent implements OnInit {
         row.child.hide();
         tr.removeClass('shownsub');
       } else {
-        row.child(component.formatSub()).show();
+        row.child(component.formatSubTable()).show();
         tr.addClass('shownsub');
       }
-
       component.tableSubSubGroup = $('#example3').DataTable(component.tdOption);
       component.tableSubSubGroup.rows.add(component.filterMalfunction);
       component.tableSubSubGroup.draw();
