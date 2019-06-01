@@ -17,6 +17,8 @@ export class EditSupplierComponent implements OnInit {
   selectedSupplier: Supplier;
   countries: Array<Country>;
   currencies: Array<Currency>;
+  country: Country;
+  currency: Currency;
   supplierForm: FormGroup;
   @ViewChild('close') closeDiv: ElementRef;  
   @Output() updateSupplier = new EventEmitter<Supplier>();
@@ -27,7 +29,7 @@ export class EditSupplierComponent implements OnInit {
     }
     this.selectedSupplier=supplier;
     supplier = new Supplier(supplier);
-    this.supplierForm.patchValue({...supplier, currency: supplier.currency.fullName, country: supplier.country.name});
+    this.supplierForm.patchValue({...supplier, currency: supplier.currency ? supplier.currency.id : null, country: supplier.country ? supplier.country.id : null});
   };
 
   constructor(
@@ -70,15 +72,30 @@ export class EditSupplierComponent implements OnInit {
     this.closeDiv.nativeElement.click();
     const form = this.supplierForm.value;
 
+    let currentCurrency = null;
+    this.currencies.forEach(element => {
+      if(element.id== form.currency){
+        currentCurrency = element;
+      }
+      
+    });
+
+    let currentCountry = null;
+    this.countries.forEach(element => {
+      if(element.id== form.country){
+        currentCountry = element;
+      }
+      
+    });
+
     const supplier: Supplier = {
       id: form.id as number,
       name: form.name as string,
       fullName: form.fullName as string,
       edrpou: form.edrpou as string,
-      country: form.country.name as Country,
-      currency: form.currency.fullName as Currency
+      country: currentCountry as Country,
+      currency: currentCurrency as Currency
     };
-
     this.service.updateEntity(supplier).subscribe(_ => 
       {
         this.toast.success('', 'Постачальника оновлено');
