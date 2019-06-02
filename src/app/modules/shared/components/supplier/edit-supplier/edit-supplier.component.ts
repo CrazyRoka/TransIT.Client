@@ -74,7 +74,7 @@ export class EditSupplierComponent implements OnInit {
 
     let currentCurrency = null;
     this.currencies.forEach(element => {
-      if(element.id== form.currency){
+      if(element.id === parseInt(form.currency)){
         currentCurrency = element;
       }
       
@@ -82,7 +82,7 @@ export class EditSupplierComponent implements OnInit {
 
     let currentCountry = null;
     this.countries.forEach(element => {
-      if(element.id== form.country){
+      if(element.id === parseInt(form.country)){
         currentCountry = element;
       }
       
