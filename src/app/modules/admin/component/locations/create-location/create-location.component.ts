@@ -38,11 +38,11 @@ export class CreateLocationComponent implements OnInit {
     }
 
     const form = this.locationForm.value;
-    const location: Location = {
+    const location = new Location({
       id: 0,
       name: form.name as string,
       description: form.description as string
-    };
+    });
     this.serviceLocation
       .addEntity(location)
       .subscribe(

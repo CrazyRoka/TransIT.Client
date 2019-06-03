@@ -19,7 +19,7 @@ export class EditLocationComponent implements OnInit {
     this.locationForm.patchValue({ ...location });
   }
   @Output() updateLocation = new EventEmitter<Location>();
-  
+
   locationForm: FormGroup;
 
   constructor(
@@ -42,11 +42,11 @@ export class EditLocationComponent implements OnInit {
     }
     this.closeDiv.nativeElement.click();
     const form = this.locationForm.value;
-    const location: Location = {
+    const location = new Location({
       id: form.id as number,
       name: form.name as string,
       description: form.description as string
-    };
+    });
     this.serviceLocation
       .updateEntity(location)
       .subscribe(
