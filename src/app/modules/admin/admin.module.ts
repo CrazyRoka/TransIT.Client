@@ -74,6 +74,7 @@ import { CreateTransitionComponent } from './component/action-state-dictionary/t
 import { EditTransitionComponent } from './component/action-state-dictionary/transition-dictionary/edit-transition/edit-transition.component';
 import { DeleteTransitionComponent } from './component/action-state-dictionary/transition-dictionary/delete-transition/delete-transition.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { LocationsComponent } from './component/locations/locations.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +136,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     TransitionDictionaryComponent,
     CreateTransitionComponent,
     EditTransitionComponent,
-    DeleteTransitionComponent
+    DeleteTransitionComponent,
+    LocationsComponent
   ],
   exports: [AdminComponent],
   imports: [
