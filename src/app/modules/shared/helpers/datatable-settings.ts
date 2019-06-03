@@ -1,4 +1,7 @@
 export class DatatableSettings implements DataTables.Settings {
+  constructor(settings: Partial<DataTables.Settings>) {
+    Object.assign(this, settings);
+  }
   pagingType = 'full_numbers';
   pageLength = 10;
   serverSide = true;
@@ -9,8 +12,9 @@ export class DatatableSettings implements DataTables.Settings {
   };
   scrollX = true;
   ajax = () => {};
-
-  constructor(settings: Partial<DataTables.Settings>) {
-    Object.assign(this, settings);
-  }
+  drawCallback = settings => {
+    $(settings.nTableWrapper)
+      .find('.pagination, .dataTables_length')
+      .toggle(settings._iRecordsTotal > 10);
+  };
 }
