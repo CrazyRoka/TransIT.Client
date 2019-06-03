@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationService } from 'src/app/modules/shared/services/location.service';
+import { Location } from 'src/app/modules/shared/models/location';
 
 @Component({
   selector: 'app-locations',
@@ -58,5 +59,20 @@ export class LocationsComponent implements OnInit {
       const data = component.table.row($(this).parents('tr')).data();
       component.selectedLocation = data;
     };
+  }
+
+  addLocation(location: Location) {
+    this.locations.push(location);
+    this.table.draw();
+  }
+
+  deleteLocation(location: Location) {
+    this.locations = this.locations.filter(v => v.id !== location.id);
+    this.table.draw();
+  }
+
+  updateLocation(location: Location) {
+    this.locations[this.locations.findIndex(i => i.id === location.id)] = location;
+    this.table.draw();
   }
 }
