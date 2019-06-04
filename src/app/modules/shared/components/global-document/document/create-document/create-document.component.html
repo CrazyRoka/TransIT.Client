@@ -58,6 +58,9 @@
           </div>
           <button hidden type="submit" #submit></button>
         </form>
+
+        <input type="file" (change)="onFileSelected($event)" />
+
         <!-- <form [formGroup]="documentForm">
         <div class="form-group">
           <label>Історія</label>

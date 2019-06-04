@@ -5,6 +5,7 @@ import { Document } from 'src/app/modules/shared/models/document';
 import { IssueLog } from 'src/app/modules/shared/models/issuelog';
 import { IssuelogService } from 'src/app/modules/shared/services/issuelog.service';
 import { DocumentService } from 'src/app/modules/shared/services/document.service';
+import { updateLocale } from 'moment';
 
 @Component({
   selector: 'app-create-document',
@@ -17,7 +18,7 @@ export class CreateDocumentComponent implements OnInit {
   @Input() issueLog;
   documentForm: FormGroup;
   issueLogList: IssueLog[];
-
+  selectedFile = null;
   constructor(
     private serviceIssueLog: IssuelogService,
     private serviceDocument: DocumentService,
@@ -40,10 +41,15 @@ export class CreateDocumentComponent implements OnInit {
       this.issueLogList = issuelog;
     });
   }
+  onFileSelected(event) {
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);
+  }
   clickSubmit() {
     if (this.documentForm.invalid) {
       return;
     }
+    //uloadFileAdd
     const form = this.documentForm.value;
     const document: Document = {
       id: 0,
