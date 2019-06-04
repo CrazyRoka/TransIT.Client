@@ -77,6 +77,7 @@ export class CreateIssueComponent implements OnInit {
         malfunctionGroup: null,
         malfunctionSubgroup: [{ value: null, disabled: true }],
         malfunction: [{ value: null, disabled: true }],
+        date: [new Date(), Validators.required],
         summary: ['', Validators.required]
       },
       { validators: malfunctionSelectedValidator }
