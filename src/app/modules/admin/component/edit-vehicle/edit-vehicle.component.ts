@@ -44,18 +44,15 @@ export class EditVehicleComponent implements OnInit {
     this.vehicleForm = this.formBuilder.group({
       id: '',
       vehicleType: new FormControl('', Validators.required),
-      vincode: new FormControl(
-        '',
-        Validators.compose([Validators.required, Validators.minLength(17), Validators.maxLength(17)])
-      ),
-      inventoryId: '',
-      regNum: new FormControl('', Validators.minLength(8)),
-      brand: '',
-      model: '',
-      commissioningDate: '',
-      warrantyEndDate: ''
+      vincode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(17), Validators.maxLength(17)])),
+      inventoryId: new FormControl('', Validators.pattern('^[0-9]+$')),
+      regNum: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(15), Validators.pattern("^[A-Z0-9a-zА-Яа-яїієЇІЯЄ]+$")])),
+      brand: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern("^[A-Z0-9a-zА-Яа-яїієЇІЯЄ]+$")])),
+      model: new FormControl('', Validators.compose([Validators.minLength(1), Validators.maxLength(30)])),
+      commissioningDate: new FormControl('', Validators.required),
+      warrantyEndDate: new FormControl('', Validators.required)
     });
-    this.serviceVehicleType.getEntities().subscribe(data => (this.vehicleTypeList = data));
+    this.serviceVehicleType.getEntities().subscribe(data => (this.vehicleTypeList = data.sort((a, b) => a.name.localeCompare(b.name))));
   }
 
   updateData() {
