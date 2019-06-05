@@ -26,6 +26,7 @@ export class VehiclesComponent implements OnInit {
       { title: 'Реєстраційний номер', data: 'regNum', defaultContent: '' },
       { title: 'Бренд', data: 'brand', defaultContent: '' },
       { title: 'Модель', data: 'model', defaultContent: '' },
+      { title: 'Місцезнаходження', data: 'location.name', defaultContent: '' },
       {
         title: 'Дата введення в експлуатацію',
         data: 'commissioningDate',
