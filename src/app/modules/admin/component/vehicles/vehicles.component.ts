@@ -82,8 +82,7 @@ export class VehiclesComponent implements OnInit {
 
   selectDeleteItem(component: any) {
     return function() {
-      const data = component.table.row($(this).parents('tr')).data();
-      component.selectedVehicle = data;
+      component.selectedVehicle = component.table.row($(this).parents('tr')).data();;
     };
   }
 

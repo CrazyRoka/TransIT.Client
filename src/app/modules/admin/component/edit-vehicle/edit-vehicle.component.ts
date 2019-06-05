@@ -25,9 +25,9 @@ export class EditVehicleComponent implements OnInit {
     this.vehicleForm.patchValue({
       ...vehicle,
       vehicleType: vehicle.vehicleType.name,
+      location: vehicle.location && vehicle.location.name,
       commissioningDate: this.datePipe.transform(vehicle.commissioningDate, 'yyyy-MM-dd'),
-      warrantyEndDate: this.datePipe.transform(vehicle.warrantyEndDate, 'yyyy-MM-dd'),
-      location: vehicle.location.name
+      warrantyEndDate: this.datePipe.transform(vehicle.warrantyEndDate, 'yyyy-MM-dd')
     });
   }
 
