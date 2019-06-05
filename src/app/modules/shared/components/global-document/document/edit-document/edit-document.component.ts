@@ -15,7 +15,6 @@ export class EditDocumentComponent implements OnInit {
   @ViewChild('close') closeDiv: ElementRef;
   @Input()
   set document(document: Document) {
-    console.dir(document);
     if (!document) {
       return;
     }

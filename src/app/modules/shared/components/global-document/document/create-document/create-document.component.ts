@@ -14,6 +14,8 @@ import { updateLocale } from 'moment';
 })
 export class CreateDocumentComponent implements OnInit {
   @ViewChild('close') closeDiv: ElementRef;
+  @ViewChild('fileInput') fileInput;
+
   @Output() createDocument = new EventEmitter<Document>();
   @Input() issueLog;
   documentForm: FormGroup;
@@ -41,25 +43,28 @@ export class CreateDocumentComponent implements OnInit {
       this.issueLogList = issuelog;
     });
   }
-  onFileSelected(event) {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
-  }
+
   clickSubmit() {
     if (this.documentForm.invalid) {
       return;
     }
     //uloadFileAdd
+    let fi = this.fileInput.nativeElement;
+    if (!fi.files && !fi.files[0]) return;
+    let fileToUpload = fi.files[0];
+
     const form = this.documentForm.value;
     const document: Document = {
       id: 0,
       name: form.name as string,
       description: form.description as string,
       issueLog: this.issueLog,
-      path: form.path as string
+      path: form.path as string,
+      file: fileToUpload
     };
 
-    this.serviceDocument.addEntity(document).subscribe(
+    console.log(document);
+    this.serviceDocument.addDocument(document).subscribe(
       newGroup => {
         this.createDocument.next(newGroup);
       },
