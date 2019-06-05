@@ -87,7 +87,10 @@ export class EditVehicleComponent implements OnInit {
     this.serviceVehicle
       .updateEntity(vehicle)
       .subscribe(
-        () => this.updateVehicle.next(vehicle),
+        () => {
+          this.updateVehicle.next(vehicle);
+          this.toast.success('Транспорт оновлено');
+        },
         _ => this.toast.error('Не вдалось редагувати дані про транспорт', 'Помилка редагування даних')
       );
   }
