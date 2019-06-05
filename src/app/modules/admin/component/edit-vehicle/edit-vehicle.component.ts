@@ -6,6 +6,7 @@ import { VehicleType } from 'src/app/modules/shared/models/vehicleType';
 import { VehicleTypeService } from 'src/app/modules/shared/services/vehicle-type.service';
 import { VehicleService } from 'src/app/modules/shared/services/vehicle.service';
 import { DatePipe } from '@angular/common';
+import { NUM_FIELD_ERRORS, LET_NUM_FIELD_ERRORS } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-edit-vehicle',
@@ -33,18 +34,21 @@ export class EditVehicleComponent implements OnInit {
     private serviceVehicle: VehicleService,
     private datePipe: DatePipe,
     private toast: ToastrService
-  ) {}
+  ) { }
   @ViewChild('close') closeDiv: ElementRef;
   @Output() updateVehicle = new EventEmitter<Vehicle>();
 
   vehicleForm: FormGroup;
   vehicleTypeList: VehicleType[] = [];
 
+  CustomNumErrorMessages = NUM_FIELD_ERRORS;
+  CustomLetNumErrorMessages = LET_NUM_FIELD_ERRORS;
+
   ngOnInit() {
     this.vehicleForm = this.formBuilder.group({
       id: '',
       vehicleType: new FormControl('', Validators.required),
-      vincode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(17), Validators.maxLength(17)])),
+      vincode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(17), Validators.maxLength(17), Validators.pattern("^[A-Za-z0-9]+$")])),
       inventoryId: new FormControl('', Validators.pattern('^[0-9]+$')),
       regNum: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(15), Validators.pattern("^[A-Z0-9a-zА-Яа-яїієЇІЯЄ]+$")])),
       brand: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern("^[A-Z0-9a-zА-Яа-яїієЇІЯЄ]+$")])),

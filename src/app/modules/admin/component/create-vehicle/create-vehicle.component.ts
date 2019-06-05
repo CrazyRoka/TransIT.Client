@@ -5,6 +5,7 @@ import { Vehicle } from 'src/app/modules/shared/models/vehicle';
 import { VehicleType } from 'src/app/modules/shared/models/vehicleType';
 import { VehicleTypeService } from 'src/app/modules/shared/services/vehicle-type.service';
 import { VehicleService } from 'src/app/modules/shared/services/vehicle.service';
+import { NUM_FIELD_ERRORS, LET_NUM_FIELD_ERRORS } from 'src/app/custom-errors';
 
 @Component({
   selector: 'app-create-vehicle',
@@ -27,6 +28,9 @@ export class CreateVehicleComponent implements OnInit {
   vehicleForm: FormGroup;
   vehicleTypeList: VehicleType[] = [];
 
+  CustomNumErrorMessages = NUM_FIELD_ERRORS;
+  CustomLetNumErrorMessages = LET_NUM_FIELD_ERRORS;
+
   ngOnInit() {
     $('#createVehicle').on('hidden.bs.modal', function () {
       $(this)
@@ -35,7 +39,7 @@ export class CreateVehicleComponent implements OnInit {
     });
     this.vehicleForm = this.formBuilder.group({
       vehicleType: new FormControl('', Validators.required),
-      vincode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(17), Validators.maxLength(17)])),
+      vincode: new FormControl('', Validators.compose([Validators.required, Validators.minLength(17), Validators.maxLength(17), Validators.pattern("^[A-Za-z0-9]+$")])),
       inventoryId: new FormControl('', Validators.pattern('^[0-9]+$')),
       regNum: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(15), Validators.pattern("^[A-Z0-9a-zА-Яа-яїієЇІЯЄ]+$")])),
       brand: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern("^[A-Z0-9a-zА-Яа-яїієЇІЯЄ]+$")])),
