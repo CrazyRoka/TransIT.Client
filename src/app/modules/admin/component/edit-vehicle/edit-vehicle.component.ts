@@ -7,6 +7,8 @@ import { VehicleTypeService } from 'src/app/modules/shared/services/vehicle-type
 import { VehicleService } from 'src/app/modules/shared/services/vehicle.service';
 import { DatePipe } from '@angular/common';
 import { NUM_FIELD_ERRORS, LET_NUM_FIELD_ERRORS } from 'src/app/custom-errors';
+import { LocationService } from 'src/app/modules/shared/services/location.service';
+import { Location } from 'src/app/modules/shared/models/location';
 
 @Component({
   selector: 'app-edit-vehicle',
@@ -24,7 +26,8 @@ export class EditVehicleComponent implements OnInit {
       ...vehicle,
       vehicleType: vehicle.vehicleType.name,
       commissioningDate: this.datePipe.transform(vehicle.commissioningDate, 'yyyy-MM-dd'),
-      warrantyEndDate: this.datePipe.transform(vehicle.warrantyEndDate, 'yyyy-MM-dd')
+      warrantyEndDate: this.datePipe.transform(vehicle.warrantyEndDate, 'yyyy-MM-dd'),
+      location: vehicle.location.name
     });
   }
 
@@ -32,6 +35,7 @@ export class EditVehicleComponent implements OnInit {
     private formBuilder: FormBuilder,
     private serviceVehicleType: VehicleTypeService,
     private serviceVehicle: VehicleService,
+    private serviceLocation: LocationService,
     private datePipe: DatePipe,
     private toast: ToastrService
   ) { }
@@ -40,6 +44,7 @@ export class EditVehicleComponent implements OnInit {
 
   vehicleForm: FormGroup;
   vehicleTypeList: VehicleType[] = [];
+  locationList: Location[] = [];
 
   CustomNumErrorMessages = NUM_FIELD_ERRORS;
   CustomLetNumErrorMessages = LET_NUM_FIELD_ERRORS;
@@ -54,9 +59,11 @@ export class EditVehicleComponent implements OnInit {
       brand: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern("^[A-Z0-9a-zА-Яа-яїієЇІЯЄ]+$")])),
       model: new FormControl('', Validators.compose([Validators.minLength(1), Validators.maxLength(30)])),
       commissioningDate: new FormControl('', Validators.required),
-      warrantyEndDate: new FormControl('', Validators.required)
+      warrantyEndDate: new FormControl('', Validators.required),
+      location: new FormControl('')
     });
     this.serviceVehicleType.getEntities().subscribe(data => (this.vehicleTypeList = data.sort((a, b) => a.name.localeCompare(b.name))));
+    this.serviceLocation.getEntities().subscribe(data => (this.locationList = data));
   }
 
   updateData() {
@@ -74,12 +81,13 @@ export class EditVehicleComponent implements OnInit {
       brand: form.brand as string,
       model: form.model as string,
       commissioningDate: form.commissioningDate as Date,
-      warrantyEndDate: form.warrantyEndDate as Date
+      warrantyEndDate: form.warrantyEndDate as Date, 
+      location: this.locationList.find(t => t.name === form.location)
     });
     this.serviceVehicle
       .updateEntity(vehicle)
       .subscribe(
-        data => this.updateVehicle.next(vehicle),
+        () => this.updateVehicle.next(vehicle),
         _ => this.toast.error('Не вдалось редагувати дані про транспорт', 'Помилка редагування даних')
       );
   }

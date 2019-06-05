@@ -6,6 +6,8 @@ import { VehicleType } from 'src/app/modules/shared/models/vehicleType';
 import { VehicleTypeService } from 'src/app/modules/shared/services/vehicle-type.service';
 import { VehicleService } from 'src/app/modules/shared/services/vehicle.service';
 import { NUM_FIELD_ERRORS, LET_NUM_FIELD_ERRORS } from 'src/app/custom-errors';
+import { Location } from 'src/app/modules/shared/models/location';
+import { LocationService } from 'src/app/modules/shared/services/location.service';
 
 @Component({
   selector: 'app-create-vehicle',
@@ -16,6 +18,7 @@ export class CreateVehicleComponent implements OnInit {
   constructor(
     private serviceVehicleType: VehicleTypeService,
     private serviceVehicle: VehicleService,
+    private serviceLocation: LocationService,
     private formBuilder: FormBuilder,
     private toast: ToastrService
   ) { }
@@ -27,6 +30,7 @@ export class CreateVehicleComponent implements OnInit {
   @Output() createVehicle = new EventEmitter<Vehicle>();
   vehicleForm: FormGroup;
   vehicleTypeList: VehicleType[] = [];
+  locationList: Location[] = [];
 
   CustomNumErrorMessages = NUM_FIELD_ERRORS;
   CustomLetNumErrorMessages = LET_NUM_FIELD_ERRORS;
@@ -45,9 +49,11 @@ export class CreateVehicleComponent implements OnInit {
       brand: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(30), Validators.pattern("^[A-Z0-9a-zА-Яа-яїієЇІЯЄ]+$")])),
       model: new FormControl('', Validators.compose([Validators.minLength(1), Validators.maxLength(30)])),
       commissioningDate: new FormControl('', Validators.required),
-      warrantyEndDate: new FormControl('', Validators.required)
+      warrantyEndDate: new FormControl('', Validators.required),
+      location: new FormControl('')
     });
     this.serviceVehicleType.getEntities().subscribe(data => (this.vehicleTypeList = data.sort((a, b) => a.name.localeCompare(b.name))));
+    this.serviceLocation.getEntities().subscribe(data => (this.locationList = data));
   }
 
   clickSubmit() {
@@ -65,7 +71,8 @@ export class CreateVehicleComponent implements OnInit {
       brand: form.brand as string,
       model: form.model as string,
       commissioningDate: form.commissioningDate as Date,
-      warrantyEndDate: form.warrantyEndDate as Date
+      warrantyEndDate: form.warrantyEndDate as Date,
+      location: this.locationList.find(t => t.name === form.location)
     });
     this.serviceVehicle
       .addEntity(vehicle)

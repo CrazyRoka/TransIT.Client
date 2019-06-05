@@ -18,7 +18,7 @@
             <div class="form-group col-md-6 ">
               <label class="required-field">Тип транспорту:</label>
               <select formControlName="vehicleType" class="form-control">
-                <option hidden value="" disabled selected>--Select--</option>
+                <option hidden value="" disabled selected>Оберіть тип транспорту</option>
                 <option *ngFor="let item of vehicleTypeList" [value]="item.name">{{ item.name }}</option>
               </select>
             </div>
@@ -56,6 +56,14 @@
               <input type="text" class="form-control" formControlName="model" placeholder="Введіть модель"
                 autocomplete="off" />
             </div>
+          </div>
+
+          <div class="form-group ">
+            <label>Місцезнаходження:</label>
+            <select formControlName="location" class="form-control">
+              <option hidden value="" disabled selected>Оберіть місцезнаходження</option>
+              <option *ngFor="let item of locationList" [value]="item.name">{{ item.name }}</option>
+            </select>
           </div>
 
           <div class="row">
