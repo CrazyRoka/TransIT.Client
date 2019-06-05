@@ -36,8 +36,7 @@ export class CreateDocumentComponent implements OnInit {
     });
     this.documentForm = this.formBuilder.group({
       name: ['', Validators.required],
-      description: ['', Validators.required],
-      path: ['', Validators.required]
+      description: ['', Validators.required]
     });
     this.serviceIssueLog.getEntities().subscribe(issuelog => {
       this.issueLogList = issuelog;
@@ -67,6 +66,7 @@ export class CreateDocumentComponent implements OnInit {
     this.serviceDocument.addDocument(document).subscribe(
       newGroup => {
         this.createDocument.next(newGroup);
+        this.toast.success('Документ збеорежено');
       },
       error => this.toast.error('Неможливо додати документ', 'Помилка')
     );

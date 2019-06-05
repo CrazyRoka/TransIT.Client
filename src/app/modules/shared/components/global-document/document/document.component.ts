@@ -19,7 +19,7 @@ export class DocumentComponent implements OnInit {
   tost: ToastrService;
   @Input() isVisible: boolean;
 
-  constructor(private documentService: DocumentService, private router: Router, private toast: ToastrService) { }
+  constructor(private documentService: DocumentService, private router: Router, private toast: ToastrService) {}
   _url = this.router.url.substring(1, this.router.url.length - 1);
 
   ngOnInit() {
@@ -30,7 +30,14 @@ export class DocumentComponent implements OnInit {
       columns: [
         { title: 'Назва', data: 'name', defaultContent: '' },
         { title: 'Опис', data: 'description', defaultContent: '' },
-        { title: 'Змінено', data: 'modDate', defaultContent: '', render: function (data) { return moment(data).format("DD.MM.YYYY"); } },
+        {
+          title: 'Змінено',
+          data: 'modDate',
+          defaultContent: '',
+          render: function(data) {
+            return moment(data).format('DD.MM.YYYY');
+          }
+        },
         { data: 'id', visible: false },
         { title: 'Дії⠀', orderable: false, visible: this.isVisible }
       ],
@@ -44,7 +51,8 @@ export class DocumentComponent implements OnInit {
           defaultContent: `<button class="first btn" data-toggle="modal" data-target="#editDocument"><i class="fas fa-edit"></i></button>
            <button class="second btn" data-toggle="modal" data-target="#deleteDocument"><i class="fas fas fa-trash-alt"></i></button>
            <button class="third btn" data-toggle="modal"><i class="fas fa-info-circle"></i></button>
-           <button class="fourth btn btn-info">Копіювати шлях документа</button>`
+           <button class="fourth btn btn-info">Шлях</button>
+           <button class="five btn "><i class="fas fa-file-download"></i></button>`
         }
       ],
       paging: true,
@@ -57,6 +65,7 @@ export class DocumentComponent implements OnInit {
     $('#document-table tbody').on('click', '.second', this.selectSecondItem(this));
     $('#document-table tbody').on('click', '.third', this.selectThirdItem(this));
     $('#document-table tbody').on('click', '.fourth', this.copyMessage(this));
+    $('#document-table tbody').on('click', '.five', this.downloadFile(this));
   }
 
   private ajaxCallback(dataTablesParameters: any, callback): void {
@@ -64,21 +73,21 @@ export class DocumentComponent implements OnInit {
   }
 
   selectFirstItem(component: any) {
-    return function () {
+    return function() {
       const data = component.tableDocument.row($(this).parents('tr')).data();
       component.selectedDocument = data;
     };
   }
 
   selectSecondItem(component: any) {
-    return function () {
+    return function() {
       const data = component.tableDocument.row($(this).parents('tr')).data();
       component.selectedDocument = data;
     };
   }
 
   selectThirdItem(component: any) {
-    return function () {
+    return function() {
       const data = component.tableDocument.row($(this).parents('tr')).data();
       this.selectedDocument = data;
 
@@ -95,7 +104,7 @@ export class DocumentComponent implements OnInit {
   }
 
   copyMessage(component: any) {
-    return function () {
+    return function() {
       const data = component.tableDocument.row($(this).parents('tr')).data();
       let selBox = document.createElement('textarea');
       selBox.style.position = 'fixed';
@@ -109,6 +118,15 @@ export class DocumentComponent implements OnInit {
       document.execCommand('copy');
       document.body.removeChild(selBox);
       component.toast.success(`шлях документа "${data.name}" скопійований`, 'Скопійовано', {
+        timeOut: 3000
+      });
+    };
+  }
+
+  downloadFile(component: any) {
+    return function() {
+      const data = component.tableDocument.row($(this).parents('tr')).data();
+      component.toast.success(`Документ "${data.name}" скопійований`, 'Загружено', {
         timeOut: 3000
       });
     };
