@@ -17,6 +17,14 @@ export class TransitionDictionaryComponent implements OnDestroy, AfterViewInit {
     processing: true,
     ajax: (dataTablesParameters: any, callback) => {
       this.transitionService.getFilteredEntities(dataTablesParameters).subscribe(response => {
+        if (response.recordsTotal < 11) {
+          $('#transitions_wrapper')
+            .find('.dataTables_paginate')
+            .hide();
+          $('#transitions_wrapper')
+            .find('.dataTables_length')
+            .hide();
+        }
         this.transitions = response.data;
         callback({ ...response, data: [] });
         this.adjustColumns();
@@ -28,7 +36,7 @@ export class TransitionDictionaryComponent implements OnDestroy, AfterViewInit {
       { data: 'actionType.name' },
       { data: null, orderable: false }
     ],
-    language: { url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json' },
+    language: { url: 'assets/language.json' },
     scrollX: true
   };
 

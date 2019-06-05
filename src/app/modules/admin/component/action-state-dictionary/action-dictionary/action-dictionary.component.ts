@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ActionType } from 'src/app/modules/shared/models/action-type';
 import { ActionTypeService } from 'src/app/modules/shared/services/action-type.service';
 
+declare const $;
+
 @Component({
   selector: 'app-action-dictionary',
   templateUrl: './action-dictionary.component.html',
@@ -11,13 +13,13 @@ import { ActionTypeService } from 'src/app/modules/shared/services/action-type.s
 })
 export class ActionDictionaryComponent implements OnInit {
   actions: ActionType[] = [];
-  tableAction: DataTables.Api;
+  tableAction: any;
   selectedAction: ActionType;
   tost: ToastrService;
 
   constructor(private actionService: ActionTypeService, private router: Router, private toast: ToastrService) {}
 
-  private readonly tableConfig: DataTables.Settings = {
+  private readonly tableConfig: any = {
     responsive: true,
 
     columns: [
@@ -39,7 +41,7 @@ export class ActionDictionaryComponent implements OnInit {
     paging: true,
     scrollX: true,
     language: {
-      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+      url: 'assets/language.json'
     }
   };
 
@@ -50,7 +52,18 @@ export class ActionDictionaryComponent implements OnInit {
   }
 
   private ajaxCallback(dataTablesParameters: any, callback): void {
-    this.actionService.getFilteredEntities(dataTablesParameters).subscribe(callback);
+    this.actionService.getFilteredEntities(dataTablesParameters).subscribe(x => {
+      if (x.recordsTotal < 11) {
+        $('#action-table_wrapper')
+          .find('.dataTables_paginate')
+          .hide();
+
+        $('#action-table_wrapper')
+          .find('.dataTables_length')
+          .hide();
+      }
+      callback(x);
+    });
   }
 
   selectFirstItem(component: any) {

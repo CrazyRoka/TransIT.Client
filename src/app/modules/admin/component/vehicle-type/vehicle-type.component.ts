@@ -14,7 +14,7 @@ export class VehicleTypeComponent implements OnInit {
 
   constructor(private vehicleTypeService: VehicleTypeService, private chRef: ChangeDetectorRef) {}
 
-  private readonly tableConfig: DataTables.Settings = {
+  private readonly tableConfig: any = {
     responsive: true,
     columns: [{ title: 'Тип транспорту', data: 'name', defaultContent: '' }, { title: 'Дії', orderable: false }],
     processing: true,
@@ -31,7 +31,7 @@ export class VehicleTypeComponent implements OnInit {
     paging: true,
     scrollX: true,
     language: {
-      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json'
+      url: 'assets/language.json'
     }
   };
 
@@ -42,7 +42,18 @@ export class VehicleTypeComponent implements OnInit {
   }
 
   private ajaxCallback(dataTablesParameters: any, callback): void {
-    this.vehicleTypeService.getFilteredEntities(dataTablesParameters).subscribe(callback);
+    this.vehicleTypeService.getFilteredEntities(dataTablesParameters).subscribe(x => {
+      if (x.recordsTotal < 11) {
+        $('#vehicleTypes_wrapper')
+          .find('.dataTables_paginate')
+          .hide();
+
+        $('#vehicleTypes_wrapper')
+          .find('.dataTables_length')
+          .hide();
+      }
+      callback(x);
+    });
   }
 
   selectEditItem(component: any) {

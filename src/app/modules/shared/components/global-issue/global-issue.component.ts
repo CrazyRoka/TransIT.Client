@@ -46,13 +46,13 @@ export class GlobalIssueComponent implements OnInit {
       style: 'single'
     },
     columns: this.columns,
-    order: [[ this.columns.indexOf(this.columns.filter(x => x.data === 'modDate')[0]), "desc" ]],
+    order: [[this.columns.indexOf(this.columns.filter(x => x.data === 'modDate')[0]), 'desc']],
     processing: true,
     serverSide: true,
     ajax: this.ajaxCallback.bind(this),
     paging: true,
     language: {
-      url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json',
+      url: 'assets/language.json',
       buttons: {
         pageLength: {
           _: 'Показати %d записів',

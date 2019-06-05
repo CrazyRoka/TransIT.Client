@@ -31,7 +31,7 @@ export class EmployeesComponent implements AfterViewInit, OnDestroy {
       { data: 'post.name' },
       { data: null, orderable: false }
     ],
-    language: { url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Ukrainian.json' },
+    language: { url: 'assets/language.json' },
     scrollX: true
   };
 
