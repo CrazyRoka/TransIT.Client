@@ -59,7 +59,7 @@ export class CreateDocumentComponent implements OnInit {
       name: form.name as string,
       description: form.description as string,
       issueLog: this.issueLog,
-      path: form.path as string,
+      path: '',
       file: fileToUpload
     };
 
