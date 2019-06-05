@@ -77,13 +77,12 @@ export class CreateVehicleComponent implements OnInit {
     this.serviceVehicle
       .addEntity(vehicle)
       .subscribe(
-        newVehicle => 
-        {
+        newVehicle => {
           this.createVehicle.next(newVehicle);
           this.toast.success('Транспорт створено');
         },
         _ => this.toast.error('Не вдалось створити транспорт', 'Помилка створення нового транспорту'),
-        
+
       );
     this.closeDiv.nativeElement.click();
   }

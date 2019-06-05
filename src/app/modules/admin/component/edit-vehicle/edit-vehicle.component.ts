@@ -81,7 +81,7 @@ export class EditVehicleComponent implements OnInit {
       brand: form.brand as string,
       model: form.model as string,
       commissioningDate: form.commissioningDate as Date,
-      warrantyEndDate: form.warrantyEndDate as Date, 
+      warrantyEndDate: form.warrantyEndDate as Date,
       location: this.locationList.find(t => t.name === form.location)
     });
     this.serviceVehicle
