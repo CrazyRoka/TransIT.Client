@@ -6,7 +6,6 @@ import { MalfunctionsComponent } from './component/malfunctions/malfunctions.com
 import { MalfuncGroupComponent } from './component/malfunctions/malfunc-group/malfunc-group.component';
 import { MalfunSubgroupComponent } from './component/malfunctions/malfun-subgroup/malfun-subgroup.component';
 import { MalfuncComponent } from './component/malfunctions/malfunc/malfunc.component';
-import { ActionComponent } from './component/action/action.component';
 import { AdminComponent } from './component/admin/admin.component';
 import { VehicleTypeComponent } from './component/vehicle-type/vehicle-type.component';
 import { DictionaryComponent } from '../shared/components/dictionaries/dictionary.component';
@@ -16,6 +15,7 @@ import { ActionStateDictionaryComponent } from './component/action-state-diction
 import { GlobalDocumentComponent } from '../shared/components/global-document/global-document.component';
 import { IssueLogComponent } from '../shared/components/issue-log/issue-log.component';
 import { SupplierComponent } from '../shared/components/supplier/supplier.component';
+import { LocationsComponent } from './component/locations/locations.component';
 
 const routes: Routes = [
   {
@@ -41,6 +41,7 @@ const routes: Routes = [
       { path: 'dictionary', component: DictionaryComponent },
       { path: 'posts', component: PostsComponent },
       { path: 'employees', component: EmployeesComponent },
+      { path: 'locations', component: LocationsComponent},
       { path: '**', redirectTo: 'users' }
     ]
   }

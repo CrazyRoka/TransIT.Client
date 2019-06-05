@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { VehicleType } from 'src/app/modules/shared/models/vehicleType';
 import { VehicleTypeService } from 'src/app/modules/shared/services/vehicle-type.service';
+import { DatatableSettings } from 'src/app/modules/shared/helpers/datatable-settings';
 
 @Component({
   selector: 'app-vehicle-type',
@@ -17,8 +18,6 @@ export class VehicleTypeComponent implements OnInit {
   private readonly tableConfig: any = {
     responsive: true,
     columns: [{ title: 'Тип транспорту', data: 'name', defaultContent: '' }, { title: 'Дії', orderable: false }],
-    processing: true,
-    serverSide: true,
     ajax: this.ajaxCallback.bind(this),
     columnDefs: [
       {

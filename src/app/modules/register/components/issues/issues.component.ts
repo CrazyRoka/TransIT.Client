@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Issue } from 'src/app/modules/shared/models/issue';
 import { IssueService } from 'src/app/modules/shared/services/issue.service';
 import { Priority } from '../../models/priority/priority';
+import { DatatableSettings } from 'src/app/modules/shared/helpers/datatable-settings';
 
 @Component({
   selector: 'app-issues',
@@ -11,11 +12,7 @@ import { Priority } from '../../models/priority/priority';
   styleUrls: ['./issues.component.scss']
 })
 export class IssuesComponent implements OnDestroy, AfterViewInit {
-  options: DataTables.Settings = {
-    pagingType: 'full_numbers',
-    pageLength: 10,
-    serverSide: true,
-    processing: true,
+  readonly options: DatatableSettings = new DatatableSettings({
     ajax: (dataTablesParameters: any, callback) => {
       this.issueService.getFilteredEntities(dataTablesParameters).subscribe(response => {
         this.issues = response.data;

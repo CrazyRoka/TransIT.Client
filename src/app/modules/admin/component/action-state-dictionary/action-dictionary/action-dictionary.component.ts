@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ActionType } from 'src/app/modules/shared/models/action-type';
 import { ActionTypeService } from 'src/app/modules/shared/services/action-type.service';
+import { DatatableSettings } from 'src/app/modules/shared/helpers/datatable-settings';
 
 declare const $;
 
@@ -21,14 +22,11 @@ export class ActionDictionaryComponent implements OnInit {
 
   private readonly tableConfig: any = {
     responsive: true,
-
     columns: [
       { title: 'Назва', data: 'name', defaultContent: '' },
       { data: 'id', visible: false },
       { title: 'Дії⠀', orderable: false }
     ],
-    processing: true,
-    serverSide: true,
     ajax: this.ajaxCallback.bind(this),
     columnDefs: [
       {
