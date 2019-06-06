@@ -67,12 +67,7 @@ export class DocumentComponent implements OnInit {
     $('#document-table tbody').on('click', '.fourth', this.copyMessage(this));
     $('#document-table tbody').on('click', '.five', event => {
       const data = this.tableDocument.row($(event.currentTarget).parents('tr')).data() as Document;
-      this.documentService.downloadFile(data).subscribe(
-        newGroup => {
-          this.toast.success('Документ збережено');
-        },
-        error => this.toast.error('Документ вже існує', 'Помилка')
-      );
+      this.documentService.downloadFile(data);
     });
   }
 
