@@ -5,7 +5,6 @@ import { Document } from 'src/app/modules/shared/models/document';
 import { IssueLog } from 'src/app/modules/shared/models/issuelog';
 import { IssuelogService } from 'src/app/modules/shared/services/issuelog.service';
 import { DocumentService } from 'src/app/modules/shared/services/document.service';
-import { updateLocale } from 'moment';
 
 @Component({
   selector: 'app-create-document',
@@ -36,7 +35,8 @@ export class CreateDocumentComponent implements OnInit {
     });
     this.documentForm = this.formBuilder.group({
       name: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
+      file: ['', Validators.required]
     });
     this.serviceIssueLog.getEntities().subscribe(issuelog => {
       this.issueLogList = issuelog;

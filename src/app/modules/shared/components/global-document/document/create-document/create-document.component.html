@@ -44,9 +44,14 @@
             ></textarea>
           </div>
           <button hidden type="submit" #submit></button>
-          <input #fileInput type="file" class="btn border" />
         </form>
-
+        <form [formGroup]="documentForm">
+          <div class="form-group">
+            <label>Документ</label>
+            <input #fileInput type="file" formControlName="file" class="btn border" accept="application/pdf" />
+          </div>
+          <button hidden type="submit" #submit></button>
+        </form>
         <!-- <form [formGroup]="documentForm">
         <div class="form-group">
           <label>Історія</label>
