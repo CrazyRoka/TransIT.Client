@@ -67,7 +67,7 @@ export class CreateDocumentComponent implements OnInit {
         this.createDocument.next(newGroup);
         this.toast.success('Документ збеорежено');
       },
-      error => this.toast.error('Документ вже існує', 'Помилка')
+        error => this.toast.error('Помилка створення', 'Помилка')
     );
     this.closeDiv.nativeElement.click();
   }
