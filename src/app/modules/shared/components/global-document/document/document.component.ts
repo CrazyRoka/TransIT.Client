@@ -51,9 +51,9 @@ export class DocumentComponent implements OnInit {
           defaultContent: `<button class="first btn" data-toggle="modal" data-target="#editDocument"><i class="fas fa-edit"></i></button>
            <button class="second btn" data-toggle="modal" data-target="#deleteDocument"><i class="fas fas fa-trash-alt"></i></button>
            <button class="third btn" data-toggle="modal"><i class="fas fa-info-circle"></i></button>
-           <button class="fourth btn btn-info">Шлях</button>
            <button class="five btn"><i class="fas fa-file-download"></i></button>`
         }
+        // <button class="fourth btn btn-info">Шлях</button>
       ],
       paging: true,
       scrollX: true,

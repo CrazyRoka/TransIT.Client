@@ -35,13 +35,13 @@
         <form [formGroup]="documentForm">
           <div class="form-group">
             <label>Опис</label>
-            <input
+            <textarea
               type="text"
               class="form-control"
               formControlName="description"
               autocomplete="off"
               placeholder="Введіть опис документа"
-            />
+            ></textarea>
           </div>
           <button hidden type="submit" #submit></button>
           <input #fileInput type="file" class="btn border" />
