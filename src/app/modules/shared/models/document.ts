@@ -8,11 +8,10 @@ export class Document extends TEntity<Document> {
   issueLog?: IssueLog;
   mod?: User;
   modDate?: Date;
-  path?:string;
+  path?: string;
 
   constructor(document: Partial<Document>) {
     super(document);
-    this.issueLog = new IssueLog(this.issueLog);
     this.mod = new User(this.mod);
   }
 }

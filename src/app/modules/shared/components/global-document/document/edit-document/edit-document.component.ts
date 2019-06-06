@@ -62,6 +62,8 @@ export class EditDocumentComponent implements OnInit {
       issueLog: this.selectedDoc.issueLog,
       path: form.path as string
     });
+    
     this.serviceDocument.updateEntity(document).subscribe(_ => this.editDocument.next(document));
+    console.dir(document);
   }
 }
