@@ -47,13 +47,12 @@ export class CreateDocumentComponent implements OnInit {
     if (this.documentForm.invalid) {
       return;
     }
-    //uloadFileAdd
     let fi = this.fileInput.nativeElement;
     if (!fi.files && !fi.files[0]) return;
     let fileToUpload = fi.files[0];
 
     const form = this.documentForm.value;
-    const document: Document = {
+    const document = {
       id: 0,
       name: form.name as string,
       description: form.description as string,
@@ -61,9 +60,7 @@ export class CreateDocumentComponent implements OnInit {
       path: '',
       file: fileToUpload
     };
-
-    console.log(document);
-    this.serviceDocument.addDocument(document).subscribe(
+    this.serviceDocument.addDocument(document as Document).subscribe(
       newGroup => {
         this.createDocument.next(newGroup);
         this.toast.success('Документ збеорежено');
